@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/risk-return/:path*",
+      "destination": "https://risk-return-simulator.vercel.app/:path*"
+    }
+  ]
+}

@@ -17,8 +17,8 @@ const courses = [
     lessons: 0,
     category: 'Financial Literacy',
     status: 'available',
-    external: true,
-    externalUrl: 'https://risk.ctlx.holdings',
+    external: false,
+    staticPath: '/risk-return/',
   },
 ];
 
@@ -46,8 +46,8 @@ export default function Home() {
           {courses.map((course) => {
             const href = course.status !== 'available'
               ? '#'
-              : course.external && course.externalUrl
-                ? course.externalUrl
+              : course.staticPath
+                ? course.staticPath
                 : `/${course.id}`;
 
             const linkProps = course.external
