@@ -1,36 +1,119 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Stochastic Course App
 
-## Getting Started
+Main learning platform for CTLX Holdings educational content.
 
-First, run the development server:
+## Live
+
+https://learn.ctlx.holdings
+
+## Tech Stack
+
+| Tool | Purpose |
+|------|---------|
+| Next.js 15 | Framework |
+| React | UI |
+| Tailwind CSS v4 | Styling |
+| Recharts | Charts |
+| localStorage | Progress tracking |
+| Vercel | Deployment |
+
+## Local Development
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# Open http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Project Structure
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+src/
+├── app/
+│   ├── page.tsx              # Course catalog (home)
+│   ├── globals.css           # Design system (colors, components)
+│   ├── layout.tsx            # Root layout
+│   └── stochastic/
+│       ├── page.tsx          # Course home (all lessons)
+│       ├── lesson/[id]/      # Individual lesson pages
+│       └── progress/         # Progress dashboard
+├── components/
+│   ├── simulations/          # SimulationPanel, Histogram, StatsDisplay
+│   ├── quiz/                 # QuizContainer
+│   └── lessons/              # InsightCard, RCQuestions
+├── lib/
+│   ├── lessons/              # Lesson content and data
+│   ├── simulations/          # Monte Carlo simulation logic
+│   └── storage/              # localStorage helpers for progress
+└── types/                    # TypeScript interfaces
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## URL Structure
 
-## Learn More
+| URL | Content |
+|-----|---------|
+| `/` | Course catalog |
+| `/stochastic` | Stochastic Math course home |
+| `/stochastic/lesson/1` | Lesson 1 (Learn/Simulate/Quiz tabs) |
+| `/stochastic/lesson/2` | Lesson 2 |
+| `/stochastic/progress` | Progress dashboard |
+| `/risk-return/` | Risk simulator (rewrite → separate app) |
 
-To learn more about Next.js, take a look at the following resources:
+## Vercel Rewrites
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+This app handles URL rewrites to other apps via `vercel.json`:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```json
+{
+  "rewrites": [
+    {
+      "source": "/risk-return/:path*",
+      "destination": "https://risk-return-simulator.vercel.app/:path*"
+    }
+  ]
+}
+```
 
-## Deploy on Vercel
+## Design System
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Colors
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```css
+--coral: #FF6B4A          /* Primary accent */
+--coral-dark: #E55A3A     /* Hover states */
+--coral-light: #FFF0ED    /* Light backgrounds */
+--bg-primary: #FFFFFF
+--bg-secondary: #F8F9FA
+--text-primary: #1F2937
+--text-secondary: #6B7280
+```
+
+### Key Components
+
+- **Top navigation** with breadcrumbs
+- **Three-tab layout** (Learn / Simulate / Quiz) per lesson
+- **Progress tracking** via localStorage
+- **Coral-accented cards** for content blocks
+
+## Adding a New Lesson
+
+1. Add lesson object in `src/lib/lessons/lessonData.ts`
+2. Include: `id`, `title`, `concept`, `context`, `keyInsight`, `rcQuestions`, `simulation`, `quiz`
+3. Add to appropriate phase in `phases` array
+4. Deploy (auto on push to main)
+
+## Deployment
+
+Automatic on push to `main` branch via Vercel.
+
+```bash
+git add -A && git commit -m "Your message" && git push
+```
+
+## Related
+
+| Resource | Link |
+|----------|------|
+| Risk-Return Simulator | [GitHub](https://github.com/ctlxholdings/risk-return-simulator) |
+| Platform Specs | `../LEARN_PLATFORM_SPECS.md` |
+| Live Site | https://learn.ctlx.holdings |
