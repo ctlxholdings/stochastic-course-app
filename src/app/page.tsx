@@ -8,16 +8,18 @@ const courses = [
     lessons: 15,
     category: 'Quantitative Finance',
     status: 'available',
+    external: false,
   },
-  // Add more courses here as they're developed
-  // {
-  //   id: 'financial-modeling',
-  //   title: 'Financial Modeling for Infrastructure',
-  //   description: 'Coming soon...',
-  //   lessons: 0,
-  //   category: 'Finance',
-  //   status: 'coming-soon',
-  // },
+  {
+    id: 'risk-return',
+    title: 'Risque & Rendement — Investissements Afrique',
+    description: 'Simulateur Monte Carlo pour comprendre le compromis risque-rendement à travers 3 investissements: Immobilier, Bétail, Embouche.',
+    lessons: 0,
+    category: 'Financial Literacy',
+    status: 'available',
+    external: true,
+    externalUrl: 'https://risk.ctlx.holdings',
+  },
 ];
 
 export default function Home() {
@@ -41,43 +43,67 @@ export default function Home() {
         <h2 className="text-xl font-semibold text-white mb-6">Available Courses</h2>
 
         <div className="grid gap-6">
-          {courses.map((course) => (
-            <Link
-              key={course.id}
-              href={course.status === 'available' ? `/${course.id}` : '#'}
-              className={`block bg-zinc-900 rounded-lg p-6 border border-zinc-800 transition-all ${
-                course.status === 'available'
-                  ? 'hover:border-zinc-700 hover:bg-zinc-800/50'
-                  : 'opacity-50 cursor-not-allowed'
-              }`}
-            >
-              <div className="flex justify-between items-start mb-3">
-                <span className="text-xs font-medium text-blue-400 uppercase tracking-wider">
-                  {course.category}
-                </span>
-                {course.status === 'coming-soon' && (
-                  <span className="text-xs bg-zinc-800 text-zinc-500 px-2 py-1 rounded">
-                    Coming Soon
+          {courses.map((course) => {
+            const href = course.status !== 'available'
+              ? '#'
+              : course.external && course.externalUrl
+                ? course.externalUrl
+                : `/${course.id}`;
+
+            const linkProps = course.external
+              ? { target: '_blank', rel: 'noopener noreferrer' }
+              : {};
+
+            return (
+              <Link
+                key={course.id}
+                href={href}
+                {...linkProps}
+                className={`block bg-zinc-900 rounded-lg p-6 border border-zinc-800 transition-all ${
+                  course.status === 'available'
+                    ? 'hover:border-zinc-700 hover:bg-zinc-800/50'
+                    : 'opacity-50 cursor-not-allowed'
+                }`}
+              >
+                <div className="flex justify-between items-start mb-3">
+                  <span className="text-xs font-medium text-blue-400 uppercase tracking-wider">
+                    {course.category}
                   </span>
-                )}
-              </div>
-              <h3 className="text-xl font-semibold text-white mb-2">
-                {course.title}
-              </h3>
-              <p className="text-zinc-400 mb-4">
-                {course.description}
-              </p>
-              {course.lessons > 0 && (
-                <div className="flex items-center gap-4 text-sm text-zinc-500">
-                  <span>{course.lessons} lessons</span>
-                  <span>•</span>
-                  <span>Interactive simulations</span>
-                  <span>•</span>
-                  <span>Quizzes</span>
+                  {course.status === 'coming-soon' && (
+                    <span className="text-xs bg-zinc-800 text-zinc-500 px-2 py-1 rounded">
+                      Coming Soon
+                    </span>
+                  )}
+                  {course.external && (
+                    <span className="text-xs text-zinc-500">
+                      ↗
+                    </span>
+                  )}
                 </div>
-              )}
-            </Link>
-          ))}
+                <h3 className="text-xl font-semibold text-white mb-2">
+                  {course.title}
+                </h3>
+                <p className="text-zinc-400 mb-4">
+                  {course.description}
+                </p>
+                {course.lessons > 0 ? (
+                  <div className="flex items-center gap-4 text-sm text-zinc-500">
+                    <span>{course.lessons} lessons</span>
+                    <span>•</span>
+                    <span>Interactive simulations</span>
+                    <span>•</span>
+                    <span>Quizzes</span>
+                  </div>
+                ) : (
+                  <div className="flex items-center gap-4 text-sm text-zinc-500">
+                    <span>Interactive simulator</span>
+                    <span>•</span>
+                    <span>Monte Carlo</span>
+                  </div>
+                )}
+              </Link>
+            );
+          })}
         </div>
       </div>
 
