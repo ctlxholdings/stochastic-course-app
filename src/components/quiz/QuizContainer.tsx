@@ -1,0 +1,262 @@
+'use client';
+
+import { useState } from 'react';
+import { Quiz, QuizQuestion } from '@/types';
+
+interface QuizContainerProps {
+  quiz: Quiz;
+  onComplete: (score: number) => void;
+}
+
+export default function QuizContainer({ quiz, onComplete }: QuizContainerProps) {
+  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [answers, setAnswers] = useState<Record<string, string | number | boolean>>({});
+  const [showResults, setShowResults] = useState(false);
+  const [showExplanation, setShowExplanation] = useState(false);
+  const [selectedAnswer, setSelectedAnswer] = useState<string | number | boolean | null>(null);
+  const [numericalInput, setNumericalInput] = useState('');
+
+  const question = quiz.questions[currentQuestion];
+  const totalQuestions = quiz.questions.length;
+  const isLastQuestion = currentQuestion === totalQuestions - 1;
+
+  const handleSelectAnswer = (answer: string | boolean) => {
+    setSelectedAnswer(answer);
+    setShowExplanation(false);
+  };
+
+  const handleNumericalSubmit = () => {
+    const value = parseFloat(numericalInput);
+    if (!isNaN(value)) {
+      setSelectedAnswer(value);
+      setShowExplanation(false);
+    }
+  };
+
+  const checkAnswer = (): boolean => {
+    if (selectedAnswer === null) return false;
+
+    if (question.type === 'numerical' && question.tolerance !== undefined) {
+      const numAnswer = selectedAnswer as number;
+      const correct = question.correctAnswer as number;
+      return Math.abs(numAnswer - correct) <= question.tolerance;
+    }
+
+    return selectedAnswer === question.correctAnswer;
+  };
+
+  const handleSubmitAnswer = () => {
+    if (selectedAnswer === null) return;
+
+    setAnswers(prev => ({ ...prev, [question.id]: selectedAnswer }));
+    setShowExplanation(true);
+  };
+
+  const handleNext = () => {
+    if (isLastQuestion) {
+      // Calculate final score
+      const correctCount = quiz.questions.reduce((count, q) => {
+        const answer = answers[q.id];
+        if (answer === undefined && selectedAnswer !== null && q.id === question.id) {
+          // Include current answer
+          if (q.type === 'numerical' && q.tolerance !== undefined) {
+            return count + (Math.abs((selectedAnswer as number) - (q.correctAnswer as number)) <= q.tolerance ? 1 : 0);
+          }
+          return count + (selectedAnswer === q.correctAnswer ? 1 : 0);
+        }
+        if (answer === undefined) return count;
+        if (q.type === 'numerical' && q.tolerance !== undefined) {
+          return count + (Math.abs((answer as number) - (q.correctAnswer as number)) <= q.tolerance ? 1 : 0);
+        }
+        return count + (answer === q.correctAnswer ? 1 : 0);
+      }, 0);
+
+      const score = Math.round((correctCount / totalQuestions) * 100);
+      setShowResults(true);
+      onComplete(score);
+    } else {
+      setCurrentQuestion(prev => prev + 1);
+      setSelectedAnswer(null);
+      setShowExplanation(false);
+      setNumericalInput('');
+    }
+  };
+
+  if (showResults) {
+    const correctCount = quiz.questions.reduce((count, q) => {
+      const answer = answers[q.id];
+      if (answer === undefined) return count;
+      if (q.type === 'numerical' && q.tolerance !== undefined) {
+        return count + (Math.abs((answer as number) - (q.correctAnswer as number)) <= q.tolerance ? 1 : 0);
+      }
+      return count + (answer === q.correctAnswer ? 1 : 0);
+    }, 0);
+    const score = Math.round((correctCount / totalQuestions) * 100);
+    const passed = score >= quiz.passingScore;
+
+    return (
+      <div className="bg-zinc-800 rounded-lg p-6 text-center">
+        <div className={`text-6xl mb-4 ${passed ? 'text-green-400' : 'text-red-400'}`}>
+          {passed ? '🎉' : '📚'}
+        </div>
+        <h3 className="text-2xl font-bold text-white mb-2">
+          {passed ? 'Quiz Passed!' : 'Keep Learning'}
+        </h3>
+        <p className="text-zinc-300 text-lg mb-4">
+          You scored <span className={passed ? 'text-green-400' : 'text-red-400'}>{score}%</span>
+          {' '}({correctCount}/{totalQuestions} correct)
+        </p>
+        <p className="text-zinc-400 text-sm">
+          {passed
+            ? 'Great job! You\'ve mastered this lesson.'
+            : `You need ${quiz.passingScore}% to pass. Review the material and try again.`}
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="bg-zinc-800 rounded-lg p-6">
+      {/* Progress */}
+      <div className="flex justify-between items-center mb-4">
+        <span className="text-zinc-400 text-sm">
+          Question {currentQuestion + 1} of {totalQuestions}
+        </span>
+        <div className="flex gap-1">
+          {quiz.questions.map((_, idx) => (
+            <div
+              key={idx}
+              className={`w-2 h-2 rounded-full ${
+                idx < currentQuestion
+                  ? 'bg-blue-500'
+                  : idx === currentQuestion
+                  ? 'bg-blue-400'
+                  : 'bg-zinc-600'
+              }`}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* Question */}
+      <h4 className="text-lg font-medium text-white mb-4">{question.question}</h4>
+
+      {/* Answer Options */}
+      <div className="space-y-2 mb-4">
+        {question.type === 'multiple-choice' && question.options && (
+          question.options.map((option, idx) => (
+            <button
+              key={idx}
+              onClick={() => handleSelectAnswer(option)}
+              disabled={showExplanation}
+              className={`w-full text-left p-3 rounded-lg transition-colors ${
+                showExplanation
+                  ? option === question.correctAnswer
+                    ? 'bg-green-900 border-green-500 border'
+                    : selectedAnswer === option
+                    ? 'bg-red-900 border-red-500 border'
+                    : 'bg-zinc-700'
+                  : selectedAnswer === option
+                  ? 'bg-blue-700 border-blue-500 border'
+                  : 'bg-zinc-700 hover:bg-zinc-600'
+              }`}
+            >
+              <span className="text-white">{option}</span>
+            </button>
+          ))
+        )}
+
+        {question.type === 'true-false' && (
+          <>
+            <button
+              onClick={() => handleSelectAnswer(true)}
+              disabled={showExplanation}
+              className={`w-full text-left p-3 rounded-lg transition-colors ${
+                showExplanation
+                  ? question.correctAnswer === true
+                    ? 'bg-green-900 border-green-500 border'
+                    : selectedAnswer === true
+                    ? 'bg-red-900 border-red-500 border'
+                    : 'bg-zinc-700'
+                  : selectedAnswer === true
+                  ? 'bg-blue-700 border-blue-500 border'
+                  : 'bg-zinc-700 hover:bg-zinc-600'
+              }`}
+            >
+              <span className="text-white">True</span>
+            </button>
+            <button
+              onClick={() => handleSelectAnswer(false)}
+              disabled={showExplanation}
+              className={`w-full text-left p-3 rounded-lg transition-colors ${
+                showExplanation
+                  ? question.correctAnswer === false
+                    ? 'bg-green-900 border-green-500 border'
+                    : selectedAnswer === false
+                    ? 'bg-red-900 border-red-500 border'
+                    : 'bg-zinc-700'
+                  : selectedAnswer === false
+                  ? 'bg-blue-700 border-blue-500 border'
+                  : 'bg-zinc-700 hover:bg-zinc-600'
+              }`}
+            >
+              <span className="text-white">False</span>
+            </button>
+          </>
+        )}
+
+        {question.type === 'numerical' && (
+          <div className="flex gap-2">
+            <input
+              type="number"
+              step="any"
+              value={numericalInput}
+              onChange={(e) => setNumericalInput(e.target.value)}
+              disabled={showExplanation}
+              placeholder="Enter your answer"
+              className="flex-1 bg-zinc-700 text-white px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            {!showExplanation && (
+              <button
+                onClick={handleNumericalSubmit}
+                className="bg-zinc-600 hover:bg-zinc-500 text-white px-4 py-3 rounded-lg"
+              >
+                Set
+              </button>
+            )}
+          </div>
+        )}
+      </div>
+
+      {/* Explanation */}
+      {showExplanation && (
+        <div className={`p-4 rounded-lg mb-4 ${checkAnswer() ? 'bg-green-900/50' : 'bg-red-900/50'}`}>
+          <p className={`font-medium mb-1 ${checkAnswer() ? 'text-green-400' : 'text-red-400'}`}>
+            {checkAnswer() ? '✓ Correct!' : '✗ Incorrect'}
+          </p>
+          <p className="text-zinc-300 text-sm">{question.explanation}</p>
+        </div>
+      )}
+
+      {/* Actions */}
+      <div className="flex gap-2">
+        {!showExplanation ? (
+          <button
+            onClick={handleSubmitAnswer}
+            disabled={selectedAnswer === null}
+            className="flex-1 bg-blue-600 hover:bg-blue-700 disabled:bg-zinc-700 disabled:cursor-not-allowed text-white font-medium py-3 px-4 rounded-lg transition-colors"
+          >
+            Check Answer
+          </button>
+        ) : (
+          <button
+            onClick={handleNext}
+            className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-lg transition-colors"
+          >
+            {isLastQuestion ? 'See Results' : 'Next Question'}
+          </button>
+        )}
+      </div>
+    </div>
+  );
+}
