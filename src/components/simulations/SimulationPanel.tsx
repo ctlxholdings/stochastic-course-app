@@ -99,22 +99,22 @@ export default function SimulationPanel({ lesson, onComplete }: SimulationPanelP
   };
 
   return (
-    <div className="bg-zinc-800 rounded-lg p-6">
-      <h3 className="text-lg font-semibold text-white mb-2">Interactive Simulation</h3>
-      <p className="text-zinc-400 text-sm mb-4">{lesson.simulation.description}</p>
+    <div className="bg-white border border-gray-200 rounded-xl p-4 sm:p-6 shadow-sm">
+      <h3 className="text-lg font-semibold text-gray-900 mb-2">Interactive Simulation</h3>
+      <p className="text-gray-600 text-sm mb-4">{lesson.simulation.description}</p>
 
       {/* Parameter Controls */}
       <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-4">
         {Object.entries(params).map(([key, value]) => (
           <div key={key}>
-            <label className="block text-xs text-zinc-400 mb-1 capitalize">
+            <label className="block text-xs text-gray-500 mb-1 capitalize">
               {key.replace(/([A-Z])/g, ' $1').trim()}
             </label>
             <input
               type="number"
               value={value}
               onChange={(e) => updateParam(key, parseFloat(e.target.value) || 0)}
-              className="w-full bg-zinc-700 text-white px-3 py-2 rounded text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full bg-gray-50 text-gray-900 border border-gray-200 px-3 py-2 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-coral/50 focus:border-coral"
             />
           </div>
         ))}
@@ -124,7 +124,7 @@ export default function SimulationPanel({ lesson, onComplete }: SimulationPanelP
       <button
         onClick={runSimulation}
         disabled={isRunning}
-        className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-800 disabled:cursor-not-allowed text-white font-medium py-3 px-4 rounded-lg transition-colors mb-6"
+        className="w-full bg-coral hover:bg-coral-dark disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-medium py-3 px-4 rounded-lg transition-colors mb-6"
       >
         {isRunning ? 'Running Simulation...' : hasRun ? 'Run Again' : 'Run Simulation'}
       </button>

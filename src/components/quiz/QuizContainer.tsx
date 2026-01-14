@@ -95,18 +95,18 @@ export default function QuizContainer({ quiz, onComplete }: QuizContainerProps) 
     const passed = score >= quiz.passingScore;
 
     return (
-      <div className="bg-zinc-800 rounded-lg p-6 text-center">
-        <div className={`text-6xl mb-4 ${passed ? 'text-green-400' : 'text-red-400'}`}>
+      <div className="bg-white border border-gray-200 rounded-xl p-6 text-center shadow-sm">
+        <div className={`text-6xl mb-4`}>
           {passed ? '🎉' : '📚'}
         </div>
-        <h3 className="text-2xl font-bold text-white mb-2">
+        <h3 className="text-2xl font-bold text-gray-900 mb-2">
           {passed ? 'Quiz Passed!' : 'Keep Learning'}
         </h3>
-        <p className="text-zinc-300 text-lg mb-4">
-          You scored <span className={passed ? 'text-green-400' : 'text-red-400'}>{score}%</span>
+        <p className="text-gray-700 text-lg mb-4">
+          You scored <span className={passed ? 'text-green-600 font-semibold' : 'text-red-600 font-semibold'}>{score}%</span>
           {' '}({correctCount}/{totalQuestions} correct)
         </p>
-        <p className="text-zinc-400 text-sm">
+        <p className="text-gray-500 text-sm">
           {passed
             ? 'Great job! You\'ve mastered this lesson.'
             : `You need ${quiz.passingScore}% to pass. Review the material and try again.`}
@@ -116,10 +116,10 @@ export default function QuizContainer({ quiz, onComplete }: QuizContainerProps) 
   }
 
   return (
-    <div className="bg-zinc-800 rounded-lg p-6">
+    <div className="bg-white border border-gray-200 rounded-xl p-4 sm:p-6 shadow-sm">
       {/* Progress */}
       <div className="flex justify-between items-center mb-4">
-        <span className="text-zinc-400 text-sm">
+        <span className="text-gray-500 text-sm">
           Question {currentQuestion + 1} of {totalQuestions}
         </span>
         <div className="flex gap-1">
@@ -128,10 +128,10 @@ export default function QuizContainer({ quiz, onComplete }: QuizContainerProps) 
               key={idx}
               className={`w-2 h-2 rounded-full ${
                 idx < currentQuestion
-                  ? 'bg-blue-500'
+                  ? 'bg-coral'
                   : idx === currentQuestion
-                  ? 'bg-blue-400'
-                  : 'bg-zinc-600'
+                  ? 'bg-coral/60'
+                  : 'bg-gray-200'
               }`}
             />
           ))}
@@ -139,7 +139,7 @@ export default function QuizContainer({ quiz, onComplete }: QuizContainerProps) 
       </div>
 
       {/* Question */}
-      <h4 className="text-lg font-medium text-white mb-4">{question.question}</h4>
+      <h4 className="text-lg font-medium text-gray-900 mb-4">{question.question}</h4>
 
       {/* Answer Options */}
       <div className="space-y-2 mb-4">
@@ -149,19 +149,19 @@ export default function QuizContainer({ quiz, onComplete }: QuizContainerProps) 
               key={idx}
               onClick={() => handleSelectAnswer(option)}
               disabled={showExplanation}
-              className={`w-full text-left p-3 rounded-lg transition-colors ${
+              className={`w-full text-left p-3 rounded-lg transition-colors border ${
                 showExplanation
                   ? option === question.correctAnswer
-                    ? 'bg-green-900 border-green-500 border'
+                    ? 'bg-green-50 border-green-500 text-green-800'
                     : selectedAnswer === option
-                    ? 'bg-red-900 border-red-500 border'
-                    : 'bg-zinc-700'
+                    ? 'bg-red-50 border-red-500 text-red-800'
+                    : 'bg-gray-50 border-gray-200 text-gray-700'
                   : selectedAnswer === option
-                  ? 'bg-blue-700 border-blue-500 border'
-                  : 'bg-zinc-700 hover:bg-zinc-600'
+                  ? 'bg-coral/10 border-coral text-gray-900'
+                  : 'bg-gray-50 border-gray-200 hover:bg-gray-100 text-gray-700'
               }`}
             >
-              <span className="text-white">{option}</span>
+              <span>{option}</span>
             </button>
           ))
         )}
@@ -171,36 +171,36 @@ export default function QuizContainer({ quiz, onComplete }: QuizContainerProps) 
             <button
               onClick={() => handleSelectAnswer(true)}
               disabled={showExplanation}
-              className={`w-full text-left p-3 rounded-lg transition-colors ${
+              className={`w-full text-left p-3 rounded-lg transition-colors border ${
                 showExplanation
                   ? question.correctAnswer === true
-                    ? 'bg-green-900 border-green-500 border'
+                    ? 'bg-green-50 border-green-500 text-green-800'
                     : selectedAnswer === true
-                    ? 'bg-red-900 border-red-500 border'
-                    : 'bg-zinc-700'
+                    ? 'bg-red-50 border-red-500 text-red-800'
+                    : 'bg-gray-50 border-gray-200 text-gray-700'
                   : selectedAnswer === true
-                  ? 'bg-blue-700 border-blue-500 border'
-                  : 'bg-zinc-700 hover:bg-zinc-600'
+                  ? 'bg-coral/10 border-coral text-gray-900'
+                  : 'bg-gray-50 border-gray-200 hover:bg-gray-100 text-gray-700'
               }`}
             >
-              <span className="text-white">True</span>
+              <span>True</span>
             </button>
             <button
               onClick={() => handleSelectAnswer(false)}
               disabled={showExplanation}
-              className={`w-full text-left p-3 rounded-lg transition-colors ${
+              className={`w-full text-left p-3 rounded-lg transition-colors border ${
                 showExplanation
                   ? question.correctAnswer === false
-                    ? 'bg-green-900 border-green-500 border'
+                    ? 'bg-green-50 border-green-500 text-green-800'
                     : selectedAnswer === false
-                    ? 'bg-red-900 border-red-500 border'
-                    : 'bg-zinc-700'
+                    ? 'bg-red-50 border-red-500 text-red-800'
+                    : 'bg-gray-50 border-gray-200 text-gray-700'
                   : selectedAnswer === false
-                  ? 'bg-blue-700 border-blue-500 border'
-                  : 'bg-zinc-700 hover:bg-zinc-600'
+                  ? 'bg-coral/10 border-coral text-gray-900'
+                  : 'bg-gray-50 border-gray-200 hover:bg-gray-100 text-gray-700'
               }`}
             >
-              <span className="text-white">False</span>
+              <span>False</span>
             </button>
           </>
         )}
@@ -214,12 +214,12 @@ export default function QuizContainer({ quiz, onComplete }: QuizContainerProps) 
               onChange={(e) => setNumericalInput(e.target.value)}
               disabled={showExplanation}
               placeholder="Enter your answer"
-              className="flex-1 bg-zinc-700 text-white px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="flex-1 bg-gray-50 text-gray-900 border border-gray-200 px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-coral/50 focus:border-coral"
             />
             {!showExplanation && (
               <button
                 onClick={handleNumericalSubmit}
-                className="bg-zinc-600 hover:bg-zinc-500 text-white px-4 py-3 rounded-lg"
+                className="bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-3 rounded-lg border border-gray-200"
               >
                 Set
               </button>
@@ -230,11 +230,11 @@ export default function QuizContainer({ quiz, onComplete }: QuizContainerProps) 
 
       {/* Explanation */}
       {showExplanation && (
-        <div className={`p-4 rounded-lg mb-4 ${checkAnswer() ? 'bg-green-900/50' : 'bg-red-900/50'}`}>
-          <p className={`font-medium mb-1 ${checkAnswer() ? 'text-green-400' : 'text-red-400'}`}>
-            {checkAnswer() ? '✓ Correct!' : '✗ Incorrect'}
+        <div className={`p-4 rounded-lg mb-4 ${checkAnswer() ? 'bg-green-50 border border-green-200' : 'bg-red-50 border border-red-200'}`}>
+          <p className={`font-medium mb-1 ${checkAnswer() ? 'text-green-700' : 'text-red-700'}`}>
+            {checkAnswer() ? 'Correct!' : 'Incorrect'}
           </p>
-          <p className="text-zinc-300 text-sm">{question.explanation}</p>
+          <p className="text-gray-600 text-sm">{question.explanation}</p>
         </div>
       )}
 
@@ -244,14 +244,14 @@ export default function QuizContainer({ quiz, onComplete }: QuizContainerProps) 
           <button
             onClick={handleSubmitAnswer}
             disabled={selectedAnswer === null}
-            className="flex-1 bg-blue-600 hover:bg-blue-700 disabled:bg-zinc-700 disabled:cursor-not-allowed text-white font-medium py-3 px-4 rounded-lg transition-colors"
+            className="flex-1 bg-coral hover:bg-coral-dark disabled:bg-gray-200 disabled:text-gray-400 disabled:cursor-not-allowed text-white font-medium py-3 px-4 rounded-lg transition-colors"
           >
             Check Answer
           </button>
         ) : (
           <button
             onClick={handleNext}
-            className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-lg transition-colors"
+            className="flex-1 bg-coral hover:bg-coral-dark text-white font-medium py-3 px-4 rounded-lg transition-colors"
           >
             {isLastQuestion ? 'See Results' : 'Next Question'}
           </button>

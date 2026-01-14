@@ -8,7 +8,7 @@ const courses = [
     lessons: 15,
     category: 'Quantitative Finance',
     status: 'available',
-    external: false,
+    color: 'blue',
   },
   {
     id: 'risk-return',
@@ -17,21 +17,21 @@ const courses = [
     lessons: 0,
     category: 'Financial Literacy',
     status: 'available',
-    external: false,
     staticPath: '/risk-return/',
+    color: 'coral',
   },
 ];
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-zinc-950">
+    <div className="min-h-screen" style={{ background: 'var(--bg-primary)' }}>
       {/* Hero */}
-      <div className="bg-zinc-900 border-b border-zinc-800">
-        <div className="max-w-4xl mx-auto px-8 py-16">
-          <h1 className="text-4xl font-bold text-white mb-4">
+      <div style={{ background: 'var(--bg-secondary)', borderBottom: '1px solid var(--border)' }}>
+        <div className="max-w-4xl mx-auto px-6 md:px-8 py-12 md:py-16">
+          <h1 className="text-3xl md:text-4xl font-bold mb-4" style={{ color: 'var(--text-primary)' }}>
             CTLX Learning
           </h1>
-          <p className="text-zinc-400 text-lg max-w-2xl">
+          <p className="text-base md:text-lg max-w-2xl" style={{ color: 'var(--text-secondary)' }}>
             Interactive courses on quantitative finance, risk management, and infrastructure investing.
             Built for professionals in energy, commodities, and real assets.
           </p>
@@ -39,10 +39,12 @@ export default function Home() {
       </div>
 
       {/* Courses */}
-      <div className="max-w-4xl mx-auto px-8 py-12">
-        <h2 className="text-xl font-semibold text-white mb-6">Available Courses</h2>
+      <div className="max-w-4xl mx-auto px-6 md:px-8 py-8 md:py-12">
+        <h2 className="text-lg md:text-xl font-semibold mb-6" style={{ color: 'var(--text-primary)' }}>
+          Available Courses
+        </h2>
 
-        <div className="grid gap-6">
+        <div className="grid gap-4 md:gap-6">
           {courses.map((course) => {
             const href = course.status !== 'available'
               ? '#'
@@ -50,57 +52,53 @@ export default function Home() {
                 ? course.staticPath
                 : `/${course.id}`;
 
-            const linkProps = course.external
-              ? { target: '_blank', rel: 'noopener noreferrer' }
-              : {};
+            const borderColor = course.color === 'coral' ? 'var(--coral)' : 'var(--blue)';
 
             return (
               <Link
                 key={course.id}
                 href={href}
-                {...linkProps}
-                className={`block bg-zinc-900 rounded-lg p-6 border border-zinc-800 transition-all ${
-                  course.status === 'available'
-                    ? 'hover:border-zinc-700 hover:bg-zinc-800/50'
-                    : 'opacity-50 cursor-not-allowed'
-                }`}
+                className="block rounded-xl p-5 md:p-6 transition-all hover:shadow-lg"
+                style={{
+                  background: 'var(--bg-secondary)',
+                  border: '1px solid var(--border)',
+                  borderLeft: `4px solid ${borderColor}`,
+                }}
               >
                 <div className="flex justify-between items-start mb-3">
-                  <span className="text-xs font-medium text-blue-400 uppercase tracking-wider">
+                  <span
+                    className="text-xs font-semibold uppercase tracking-wider"
+                    style={{ color: borderColor }}
+                  >
                     {course.category}
                   </span>
-                  {course.status === 'coming-soon' && (
-                    <span className="text-xs bg-zinc-800 text-zinc-500 px-2 py-1 rounded">
-                      Coming Soon
-                    </span>
-                  )}
-                  {course.external && (
-                    <span className="text-xs text-zinc-500">
-                      ↗
-                    </span>
-                  )}
                 </div>
-                <h3 className="text-xl font-semibold text-white mb-2">
+                <h3
+                  className="text-lg md:text-xl font-semibold mb-2"
+                  style={{ color: 'var(--text-primary)' }}
+                >
                   {course.title}
                 </h3>
-                <p className="text-zinc-400 mb-4">
+                <p className="mb-4 text-sm md:text-base" style={{ color: 'var(--text-secondary)' }}>
                   {course.description}
                 </p>
-                {course.lessons > 0 ? (
-                  <div className="flex items-center gap-4 text-sm text-zinc-500">
-                    <span>{course.lessons} lessons</span>
-                    <span>•</span>
-                    <span>Interactive simulations</span>
-                    <span>•</span>
-                    <span>Quizzes</span>
-                  </div>
-                ) : (
-                  <div className="flex items-center gap-4 text-sm text-zinc-500">
-                    <span>Interactive simulator</span>
-                    <span>•</span>
-                    <span>Monte Carlo</span>
-                  </div>
-                )}
+                <div className="flex flex-wrap items-center gap-2 md:gap-4 text-xs md:text-sm" style={{ color: 'var(--text-muted)' }}>
+                  {course.lessons > 0 ? (
+                    <>
+                      <span>{course.lessons} lessons</span>
+                      <span className="hide-mobile">•</span>
+                      <span>Interactive simulations</span>
+                      <span className="hide-mobile">•</span>
+                      <span>Quizzes</span>
+                    </>
+                  ) : (
+                    <>
+                      <span>Interactive simulator</span>
+                      <span>•</span>
+                      <span>Monte Carlo</span>
+                    </>
+                  )}
+                </div>
               </Link>
             );
           })}
@@ -108,9 +106,9 @@ export default function Home() {
       </div>
 
       {/* Footer */}
-      <div className="border-t border-zinc-800 mt-12">
-        <div className="max-w-4xl mx-auto px-8 py-8">
-          <p className="text-zinc-600 text-sm">
+      <div style={{ borderTop: '1px solid var(--border)' }} className="mt-8 md:mt-12">
+        <div className="max-w-4xl mx-auto px-6 md:px-8 py-6 md:py-8">
+          <p className="text-sm" style={{ color: 'var(--text-muted)' }}>
             © {new Date().getFullYear()} CTLX Holdings. All rights reserved.
           </p>
         </div>
