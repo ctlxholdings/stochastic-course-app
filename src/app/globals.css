@@ -25,6 +25,9 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --color-coral: #FF6B4A;
+  --color-coral-dark: #E55A3A;
+  --color-coral-light: #FFF0ED;
 }
 
 * {
