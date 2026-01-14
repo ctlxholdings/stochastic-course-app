@@ -11,9 +11,16 @@ export default function Sidebar() {
   const pathname = usePathname();
   const [progress, setProgress] = useState<UserProgress | null>(null);
 
+  // Only show sidebar on stochastic course pages
+  const isStochasticPage = pathname.startsWith('/stochastic');
+
   useEffect(() => {
     setProgress(getProgress());
   }, [pathname]);
+
+  if (!isStochasticPage) {
+    return null;
+  }
 
   const isLessonComplete = (lessonId: number) => {
     return progress?.lessonProgress[lessonId]?.completed ?? false;
@@ -25,7 +32,10 @@ export default function Sidebar() {
 
   return (
     <aside className="w-64 bg-zinc-900 text-white h-screen overflow-y-auto fixed left-0 top-0 p-4">
-      <Link href="/" className="block mb-6">
+      <Link href="/" className="block mb-2 text-zinc-500 text-xs hover:text-zinc-300">
+        ← All Courses
+      </Link>
+      <Link href="/stochastic" className="block mb-6">
         <h1 className="text-xl font-bold">Stochastic Math</h1>
         <p className="text-zinc-400 text-sm">Solar Project Finance</p>
       </Link>
@@ -41,14 +51,14 @@ export default function Sidebar() {
                 const lesson = lessons.find((l) => l.id === lessonId);
                 if (!lesson) return null;
 
-                const isActive = pathname === `/lesson/${lessonId}`;
+                const isActive = pathname === `/stochastic/lesson/${lessonId}`;
                 const completed = isLessonComplete(lessonId);
                 const started = isLessonStarted(lessonId);
 
                 return (
                   <li key={lessonId}>
                     <Link
-                      href={`/lesson/${lessonId}`}
+                      href={`/stochastic/lesson/${lessonId}`}
                       className={`flex items-center gap-2 px-3 py-2 rounded text-sm transition-colors ${
                         isActive
                           ? 'bg-blue-600 text-white'
@@ -76,9 +86,9 @@ export default function Sidebar() {
 
       <div className="mt-6 pt-4 border-t border-zinc-800">
         <Link
-          href="/progress"
+          href="/stochastic/progress"
           className={`flex items-center gap-2 px-3 py-2 rounded text-sm transition-colors ${
-            pathname === '/progress'
+            pathname === '/stochastic/progress'
               ? 'bg-blue-600 text-white'
               : 'hover:bg-zinc-800 text-zinc-300'
           }`}

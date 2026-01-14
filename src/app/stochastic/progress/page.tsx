@@ -85,7 +85,7 @@ export default function ProgressPage() {
                   return (
                     <Link
                       key={lessonId}
-                      href={`/lesson/${lessonId}`}
+                      href={`/stochastic/lesson/${lessonId}`}
                       className="flex items-center justify-between p-3 bg-zinc-800 hover:bg-zinc-700 rounded transition-colors"
                     >
                       <div className="flex items-center gap-2">
@@ -132,7 +132,7 @@ export default function ProgressPage() {
           </p>
           {progress.currentLesson && (
             <Link
-              href={`/lesson/${progress.currentLesson}`}
+              href={`/stochastic/lesson/${progress.currentLesson}`}
               className="inline-block mt-4 text-blue-400 hover:text-blue-300"
             >
               Continue Lesson {progress.currentLesson} →

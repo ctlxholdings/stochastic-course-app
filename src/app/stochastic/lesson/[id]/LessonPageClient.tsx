@@ -67,7 +67,7 @@ export default function LessonPageClient() {
       <div className="bg-zinc-900 border-b border-zinc-800 px-8 py-6">
         <div className="max-w-4xl mx-auto">
           <div className="flex items-center gap-2 text-zinc-500 text-sm mb-2">
-            <Link href="/" className="hover:text-zinc-300">Home</Link>
+            <Link href="/stochastic" className="hover:text-zinc-300">Course</Link>
             <span>/</span>
             <span>{phase?.title}</span>
             <span>/</span>
@@ -182,7 +182,7 @@ export default function LessonPageClient() {
           <div className="flex justify-between items-center mt-12 pt-8 border-t border-zinc-800">
             {prevLesson ? (
               <Link
-                href={`/lesson/${prevLesson}`}
+                href={`/stochastic/lesson/${prevLesson}`}
                 className="flex items-center gap-2 text-zinc-400 hover:text-white transition-colors"
               >
                 <span>←</span>
@@ -194,7 +194,7 @@ export default function LessonPageClient() {
 
             {nextLesson ? (
               <Link
-                href={`/lesson/${nextLesson}`}
+                href={`/stochastic/lesson/${nextLesson}`}
                 className={`flex items-center gap-2 transition-colors ${
                   progress?.completed
                     ? 'text-blue-400 hover:text-blue-300'
@@ -206,7 +206,7 @@ export default function LessonPageClient() {
               </Link>
             ) : (
               <Link
-                href="/"
+                href="/stochastic"
                 className="flex items-center gap-2 text-green-400 hover:text-green-300 transition-colors"
               >
                 <span>Complete Course</span>

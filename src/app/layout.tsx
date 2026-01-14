@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Sidebar from "@/components/layout/Sidebar";
+import MainContent from "@/components/layout/MainContent";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Stochastic Math Course | Solar Project Finance",
-  description: "Learn quantitative risk frameworks for solar portfolio finance through interactive simulations",
+  title: "CTLX Learning | Courses for Real Asset Professionals",
+  description: "Interactive courses on quantitative finance, risk management, and infrastructure investing.",
 };
 
 export default function RootLayout({
@@ -29,9 +30,9 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-zinc-950`}
       >
         <Sidebar />
-        <main className="ml-64 min-h-screen">
+        <MainContent>
           {children}
-        </main>
+        </MainContent>
       </body>
     </html>
   );
