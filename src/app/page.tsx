@@ -20,6 +20,16 @@ const courses = [
     staticPath: '/risk-return/',
     color: 'coral',
   },
+  {
+    id: 'chad-2030',
+    title: 'Chad 2030 Pipeline Simulator',
+    description: 'Decision support tool for Vision 2030 fiscal planning. Model project delivery scenarios within IMF ECF constraints.',
+    lessons: 0,
+    category: 'Infrastructure Planning',
+    status: 'available',
+    staticPath: '/chad-2030/',
+    color: 'burgundy',
+  },
 ];
 
 export default function Home() {
@@ -52,7 +62,7 @@ export default function Home() {
                 ? course.staticPath
                 : `/${course.id}`;
 
-            const borderColor = course.color === 'coral' ? 'var(--coral)' : 'var(--blue)';
+            const borderColor = course.color === 'coral' ? 'var(--coral)' : course.color === 'burgundy' ? '#C1272D' : 'var(--blue)';
 
             return (
               <Link
