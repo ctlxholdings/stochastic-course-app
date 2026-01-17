@@ -11,6 +11,10 @@ const nextConfig: NextConfig = {
         source: '/risk-return/:path*',
         destination: 'https://risk-return-simulator.vercel.app/:path*',
       },
+      {
+        source: '/chad-2030/:path*',
+        destination: 'https://chad-2030-simulator.vercel.app/:path*',
+      },
     ];
   },
 };
