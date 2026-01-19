@@ -7,7 +7,7 @@
     <title>SEMICA 2026 - Session 3: L'Orpaillage Artisanal</title>
     <style>
         /* ========================================
-           PALETTE - COULEURS SATURÉES
+           PALETTE
            ======================================== */
         :root {
             --bg-primary: #FFFFFF;
@@ -18,9 +18,7 @@
             --text-primary: #1A1A1A;
             --text-secondary: #555555;
             --text-muted: #777777;
-            --card-radius: 8px;
-            --card-padding: 16px;
-            --spacing: 8px;
+            --card-radius: 12px;
         }
 
         /* ========================================
@@ -32,70 +30,161 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
             background: var(--bg-primary);
             color: var(--text-primary);
-            min-height: 100vh;
+            line-height: 1.5;
+            padding-bottom: 80px;
         }
 
         /* ========================================
-           SLIDE CONTAINER - MOBILE FIRST
+           STICKY HEADER
            ======================================== */
-        .slides-wrapper {
-            position: relative;
-            width: 100%;
-        }
-
-        .slide {
-            position: absolute;
+        .header {
+            position: sticky;
             top: 0;
-            left: 0;
-            width: 100%;
-            min-height: calc(100vh - 56px);
-            padding: 16px;
-            padding-top: 72px; /* 56px header + 16px spacing */
+            background: var(--bg-primary);
+            padding: 12px 16px;
             display: flex;
-            flex-direction: column;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
-            overflow-y: auto;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            border-bottom: 1px solid var(--bg-tertiary);
         }
 
-        .slide.active {
-            opacity: 1;
-            visibility: visible;
-            position: relative;
+        .header-logo img {
+            height: 28px;
+            width: auto;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .version-toggle {
+            font-size: 12px;
+            padding: 8px 12px;
+            border-radius: 20px;
+            border: 1px solid var(--bg-tertiary);
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 4px;
         }
 
         /* ========================================
-           SECTION LABEL
+           SECTION STYLES
            ======================================== */
-        .section-label {
+        .section {
+            padding: 24px 16px;
+            border-bottom: 1px solid var(--bg-tertiary);
+        }
+
+        .section:last-child {
+            border-bottom: none;
+        }
+
+        .section-number {
+            display: inline-block;
             font-size: 10px;
+            font-weight: 700;
+            color: white;
+            background: var(--accent-primary);
+            padding: 2px 8px;
+            border-radius: 10px;
+            margin-bottom: 12px;
+        }
+
+        .section-label {
+            font-size: 11px;
             font-weight: 600;
-            letter-spacing: 2px;
+            letter-spacing: 1.5px;
             color: var(--accent-primary);
             text-transform: uppercase;
             margin-bottom: 8px;
         }
 
-        /* ========================================
-           HEADLINES
-           ======================================== */
-        .headline {
-            font-size: 22px;
+        .section-title {
+            font-size: 24px;
             font-weight: 700;
-            line-height: 1.25;
+            line-height: 1.2;
             color: var(--text-primary);
             margin-bottom: 8px;
         }
 
-        .subtitle {
+        .section-subtitle {
+            font-size: 15px;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+
+        .section-source {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 20px;
+            padding-top: 12px;
+            border-top: 1px solid var(--bg-tertiary);
+        }
+
+        /* ========================================
+           TITLE SECTION (HERO)
+           ======================================== */
+        .hero {
+            padding: 40px 16px;
+            min-height: 70vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .hero .accent-bar {
+            width: 50px;
+            height: 4px;
+            background: var(--accent-primary);
+            margin-bottom: 20px;
+        }
+
+        .hero-title {
+            font-size: 28px;
+            font-weight: 700;
+            line-height: 1.15;
+            margin-bottom: 12px;
+        }
+
+        .hero-subtitle {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+        }
+
+        .hero-presenter {
+            margin-bottom: 8px;
+        }
+
+        .hero-name {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .hero-role {
             font-size: 14px;
             color: var(--text-secondary);
-            margin-bottom: 16px;
+        }
+
+        .hero-event {
+            margin-top: auto;
+            padding-top: 32px;
+            font-size: 13px;
+            color: var(--text-muted);
         }
 
         /* ========================================
@@ -104,13 +193,16 @@
         .card {
             background: var(--bg-secondary);
             border-radius: var(--card-radius);
-            padding: 12px;
-            border-top: 3px solid var(--accent-primary);
+            padding: 16px;
+            margin-bottom: 12px;
+        }
+
+        .card.accent-top {
+            border-top: 4px solid var(--accent-primary);
         }
 
         .card.accent-left {
-            border-top: none;
-            border-left: 3px solid var(--accent-primary);
+            border-left: 4px solid var(--accent-primary);
         }
 
         .card.accent-secondary {
@@ -122,37 +214,29 @@
             gap: 12px;
         }
 
-        .card-grid.cols-2,
-        .card-grid.cols-3,
-        .card-grid.cols-4 {
-            grid-template-columns: 1fr;
+        .card-grid.cols-2 {
+            grid-template-columns: repeat(2, 1fr);
         }
 
         /* ========================================
            STAT CARDS
            ======================================== */
-        .stat-card {
+        .stat {
             background: var(--bg-secondary);
             border-radius: var(--card-radius);
-            padding: 12px;
+            padding: 16px;
             border-left: 4px solid var(--accent-primary);
         }
 
-        .stat-card.accent-secondary {
+        .stat.secondary {
             border-color: var(--accent-secondary);
         }
 
-        .stat-card.no-border {
-            border-left: none;
-            border-top: 3px solid var(--accent-primary);
-        }
-
         .stat-number {
-            font-size: 28px;
+            font-size: 32px;
             font-weight: 800;
             color: var(--accent-primary);
             line-height: 1;
-            margin-bottom: 4px;
         }
 
         .stat-number.secondary {
@@ -164,41 +248,435 @@
         }
 
         .stat-label {
-            font-size: 12px;
+            font-size: 13px;
             color: var(--text-secondary);
+            margin-top: 4px;
         }
 
         /* ========================================
            TAKEAWAY BOX
            ======================================== */
         .takeaway {
-            background: linear-gradient(90deg, rgba(196, 30, 58, 0.1) 0%, rgba(196, 30, 58, 0) 100%);
+            background: linear-gradient(90deg, rgba(196, 30, 58, 0.08) 0%, rgba(196, 30, 58, 0) 100%);
             border-left: 4px solid var(--accent-primary);
-            padding: 12px;
-            font-size: 13px;
-            color: var(--text-primary);
-            margin-top: 16px;
+            padding: 16px;
+            margin-top: 20px;
+            border-radius: 0 var(--card-radius) var(--card-radius) 0;
         }
 
-        .takeaway .arrow {
+        .takeaway-arrow {
             color: var(--accent-primary);
+            font-weight: 700;
             margin-right: 8px;
-            font-weight: 600;
         }
 
         /* ========================================
-           TIMELINE
+           VOID DIAGRAM (Slide 2)
            ======================================== */
-        .timeline {
+        .void-flow {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin: 16px 0;
+        }
+
+        .void-box {
+            background: var(--bg-secondary);
+            border-radius: var(--card-radius);
+            padding: 20px;
+            text-align: center;
+        }
+
+        .void-box.highlight {
+            background: var(--accent-primary);
+            color: white;
+        }
+
+        .void-number {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--accent-primary);
+        }
+
+        .void-box.highlight .void-number {
+            color: white;
+            font-size: 20px;
+        }
+
+        .void-label {
+            font-size: 15px;
+            font-weight: 600;
+            margin-top: 4px;
+        }
+
+        .void-sublabel {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        .void-box.highlight .void-sublabel {
+            color: rgba(255,255,255,0.8);
+        }
+
+        .void-arrow {
+            text-align: center;
+            font-size: 24px;
+            color: var(--text-muted);
+            transform: rotate(90deg);
+            padding: 4px 0;
+        }
+
+        /* ========================================
+           COMPARISON TABLE (Slide 5)
+           ======================================== */
+        .comparison {
+            background: var(--bg-secondary);
+            border-radius: var(--card-radius);
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+
+        .comparison.highlight {
+            border: 2px solid var(--accent-primary);
+        }
+
+        .comparison-header {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--bg-tertiary);
+        }
+
+        .comparison.highlight .comparison-header {
+            color: var(--accent-primary);
+        }
+
+        .comparison-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            font-size: 14px;
+            border-bottom: 1px solid var(--bg-tertiary);
+        }
+
+        .comparison-row:last-of-type {
+            border-bottom: none;
+        }
+
+        .comparison-value {
+            font-weight: 600;
+        }
+
+        .comparison.highlight .comparison-value {
+            color: var(--accent-primary);
+        }
+
+        .comparison-result {
+            text-align: center;
+            padding: 16px;
+            margin-top: 12px;
+            border-radius: 8px;
+        }
+
+        .comparison-result.negative {
+            background: var(--bg-tertiary);
+        }
+
+        .comparison-result.positive {
+            background: var(--accent-primary);
+            color: white;
+        }
+
+        .result-number {
+            font-size: 28px;
+            font-weight: 800;
+        }
+
+        .result-number.negative {
+            color: var(--accent-secondary);
+        }
+
+        /* ========================================
+           CTA BOX
+           ======================================== */
+        .cta {
+            background: linear-gradient(135deg, var(--accent-primary) 0%, #9a1830 100%);
+            border-radius: var(--card-radius);
+            padding: 24px;
+            color: white;
+            text-align: center;
+        }
+
+        .cta-title {
+            font-size: 15px;
+            margin-bottom: 16px;
+        }
+
+        .cta-tags {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .cta-tag {
+            background: white;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .cta-tag.primary { color: var(--accent-primary); }
+        .cta-tag.secondary { color: var(--accent-secondary); }
+        .cta-tag.dark { color: #1e3a5f; }
+        .cta-tag.muted { color: #666; }
+
+        .cta-message {
+            font-size: 15px;
+            font-style: italic;
+            margin-bottom: 8px;
+        }
+
+        .cta-author {
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .cta-qr {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .cta-qr img {
+            width: 80px;
+            height: 80px;
+            background: white;
+            padding: 6px;
+            border-radius: 8px;
+        }
+
+        .cta-qr-text {
+            font-size: 12px;
+            text-align: left;
+            opacity: 0.9;
+        }
+
+        /* ========================================
+           TABLE OF CONTENTS (floating)
+           ======================================== */
+        .toc-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: var(--accent-primary);
+            color: white;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            z-index: 90;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .toc-menu {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            border-radius: 20px 20px 0 0;
+            padding: 20px;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.15);
+            z-index: 95;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+
+        .toc-menu.open {
+            transform: translateY(0);
+        }
+
+        .toc-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--bg-tertiary);
+        }
+
+        .toc-title {
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .toc-close {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: none;
+            background: var(--bg-secondary);
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .toc-item {
+            display: block;
+            padding: 12px;
+            margin-bottom: 4px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-size: 14px;
+            transition: background 0.2s;
+        }
+
+        .toc-item:active {
+            background: var(--bg-secondary);
+        }
+
+        .toc-item-number {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            background: var(--accent-primary);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 24px;
+            font-size: 11px;
+            font-weight: 700;
+            margin-right: 12px;
+        }
+
+        .toc-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.4);
+            z-index: 91;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+
+        .toc-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* ========================================
+           SPECIAL LAYOUTS
+           ======================================== */
+        .highlight-box {
+            background: var(--accent-primary);
+            color: white;
+            border-radius: var(--card-radius);
+            padding: 20px;
+            text-align: center;
+            margin: 16px 0;
+        }
+
+        .highlight-number {
+            font-size: 48px;
+            font-weight: 800;
+            line-height: 1;
+        }
+
+        .highlight-label {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .highlight-sublabel {
+            font-size: 13px;
+            opacity: 0.9;
+            margin-top: 8px;
+        }
+
+        .mechanism {
+            background: var(--bg-tertiary);
+            border-radius: var(--card-radius);
+            padding: 16px;
+            text-align: center;
+            margin-top: 16px;
+        }
+
+        .mechanism-label {
+            font-size: 10px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .mechanism-formula {
+            font-size: 14px;
+            color: var(--text-primary);
+        }
+
+        .mechanism-formula .hl {
+            color: var(--accent-primary);
+            font-weight: 600;
+        }
+
+        /* Icons row */
+        .icons-row {
             display: grid;
-            grid-template-columns: 1fr;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin: 16px 0;
+        }
+
+        .icon-item {
+            text-align: center;
+        }
+
+        .icon-emoji {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .icon-title {
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .icon-subtitle {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        /* Timeline */
+        .timeline {
+            display: flex;
+            flex-direction: column;
             gap: 12px;
         }
 
         .timeline-item {
             background: var(--bg-secondary);
             border-radius: var(--card-radius);
-            padding: 12px;
+            padding: 16px;
             border-top: 4px solid var(--accent-primary);
         }
 
@@ -212,8 +690,9 @@
 
         .timeline-period {
             font-size: 10px;
-            font-weight: 600;
+            font-weight: 700;
             color: var(--accent-primary);
+            text-transform: uppercase;
             margin-bottom: 4px;
         }
 
@@ -226,1380 +705,655 @@
         }
 
         .timeline-title {
-            font-size: 14px;
-            font-weight: 700;
-            color: var(--text-primary);
+            font-size: 18px;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+
+        .timeline-minerals {
+            font-size: 13px;
+            color: var(--text-secondary);
             margin-bottom: 8px;
         }
 
-        .timeline-list {
-            list-style: none;
+        .timeline-desc {
             font-size: 12px;
-            color: var(--text-secondary);
+            color: var(--text-muted);
         }
 
-        .timeline-list li {
-            margin-bottom: 4px;
-            padding-left: 12px;
-            position: relative;
-        }
-
-        .timeline-list li::before {
-            content: "•";
-            position: absolute;
-            left: 0;
-            color: var(--accent-primary);
-        }
-
-        .timeline-item.phase-2 .timeline-list li::before {
-            color: var(--accent-secondary);
-        }
-
-        .timeline-item.phase-3 .timeline-list li::before {
-            color: var(--text-secondary);
-        }
-
-        /* ========================================
-           MECHANISM BOX
-           ======================================== */
-        .mechanism-box {
-            background: var(--bg-tertiary);
-            border-radius: var(--card-radius);
-            padding: 12px;
-            text-align: center;
-        }
-
-        .mechanism-label {
+        .timeline-badge {
+            display: inline-block;
+            margin-top: 8px;
+            padding: 4px 10px;
+            background: rgba(196, 30, 58, 0.1);
+            border-radius: 12px;
             font-size: 10px;
             font-weight: 600;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 4px;
-        }
-
-        .mechanism-formula {
-            font-size: 13px;
-            color: var(--text-primary);
-        }
-
-        .mechanism-formula .highlight {
             color: var(--accent-primary);
-            font-weight: 600;
         }
 
-        /* ========================================
-           TITLE SLIDE
-           ======================================== */
-        .title-slide {
-            justify-content: center;
-            align-items: flex-start;
-            min-height: calc(100vh - 56px);
-        }
-
-        .title-slide .accent-bar {
-            width: 60px;
-            height: 4px;
-            background: var(--accent-primary);
-            margin-bottom: 16px;
-        }
-
-        .title-slide .main-title {
-            font-size: 26px;
-            font-weight: 700;
-            color: var(--text-primary);
-            line-height: 1.2;
-            margin-bottom: 12px;
-        }
-
-        .title-slide .presenter-subtitle {
-            font-size: 14px;
-            color: var(--text-secondary);
-            margin-bottom: 24px;
-        }
-
-        .title-slide .presenter-name {
-            font-size: 16px;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 4px;
-        }
-
-        .title-slide .presenter-role {
-            font-size: 13px;
+        .timeline-item.phase-3 .timeline-badge {
+            background: rgba(100, 100, 100, 0.1);
             color: var(--text-secondary);
         }
 
-        .title-slide .event-info {
-            margin-top: auto;
-            padding-top: 24px;
-            font-size: 12px;
-            color: var(--text-muted);
-        }
-
-        /* ========================================
-           CONTENT AREA
-           ======================================== */
-        .content-area {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .content-split {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 12px;
-            flex: 1;
-        }
-
-        .content-column {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        /* ========================================
-           CHECKLIST
-           ======================================== */
-        .checklist {
-            list-style: none;
-        }
-
-        .checklist li {
-            display: flex;
-            align-items: flex-start;
-            gap: 8px;
-            padding: 6px 0;
-            font-size: 13px;
-            color: var(--text-primary);
-        }
-
-        .checklist .check {
-            color: var(--accent-primary);
-            font-weight: 700;
-        }
-
-        /* ========================================
-           FOOTER
-           ======================================== */
-        .slide-footer {
+        /* Infrastructure bar */
+        .infra-bar {
+            background: var(--bg-secondary);
+            border-radius: var(--card-radius);
+            padding: 16px;
+            border-left: 4px solid var(--accent-secondary);
+            margin-top: 12px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding-top: 12px;
-            margin-top: auto;
-            font-size: 10px;
         }
 
-        .source-text {
+        .infra-label {
             font-size: 10px;
-            color: var(--text-muted);
-            flex: 1;
+            font-weight: 700;
+            color: var(--accent-secondary);
+            text-transform: uppercase;
         }
 
-        .slide-number {
-            font-size: 12px;
-            color: var(--text-muted);
+        .infra-items {
+            font-size: 13px;
+            color: var(--text-primary);
+        }
+
+        .infra-cost {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--accent-secondary);
         }
 
         /* ========================================
-           PROGRESS BAR
+           SCROLL PROGRESS
            ======================================== */
         .progress-bar {
             position: fixed;
-            bottom: 0;
+            top: 0;
             left: 0;
             height: 3px;
             background: var(--accent-primary);
             width: 0%;
-            transition: width 0.4s ease;
-            z-index: 100;
-        }
-
-        /* ========================================
-           HEADER BAR
-           ======================================== */
-        .header-bar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 56px;
-            background: var(--bg-primary);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 12px;
-            z-index: 100;
-            border-bottom: 1px solid var(--bg-tertiary);
-        }
-
-        .header-logo img {
-            height: 32px;
-            width: auto;
-        }
-
-        /* ========================================
-           NAVIGATION CONTROLS
-           ======================================== */
-        .nav-controls {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .nav-btn {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            border: 2px solid var(--bg-tertiary);
-            background: var(--bg-primary);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-            color: var(--text-secondary);
-            transition: all 0.2s ease;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        .nav-btn:active {
-            background: var(--bg-secondary);
-        }
-
-        .nav-btn.active {
-            background: var(--accent-primary);
-            border-color: var(--accent-primary);
-            color: white;
-        }
-
-        .slide-indicator {
-            font-size: 12px;
-            color: var(--text-muted);
-            min-width: 40px;
-            text-align: center;
-        }
-
-        /* Hide print button on mobile */
-        #printBtn {
-            display: none;
-        }
-
-        /* Version toggle button */
-        .version-toggle {
-            font-size: 11px;
-            padding: 6px 10px;
-            border-radius: 16px;
-            border: 1px solid var(--bg-tertiary);
-            background: var(--bg-secondary);
-            color: var(--text-secondary);
-            cursor: pointer;
-            text-decoration: none;
-            white-space: nowrap;
-        }
-
-        .version-toggle:hover {
-            background: var(--bg-tertiary);
-        }
-
-        /* ========================================
-           VOID SLIDE (SLIDE 2)
-           ======================================== */
-        .void-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 12px;
-            margin: 8px 0;
-        }
-
-        .void-box {
-            background: var(--bg-secondary);
-            border-radius: var(--card-radius);
-            padding: 16px;
-            text-align: center;
-            width: 100%;
-        }
-
-        .void-box.center {
-            background: var(--accent-primary);
-            color: white;
-        }
-
-        .void-number {
-            font-size: 32px;
-            font-weight: 800;
-            color: var(--accent-primary);
-            line-height: 1;
-        }
-
-        .void-box.center .void-number {
-            color: white;
-            font-size: 18px;
-            font-weight: 700;
-        }
-
-        .void-number.muted {
-            color: var(--text-muted);
-        }
-
-        .void-label {
-            font-size: 14px;
-            font-weight: 600;
-            margin-top: 6px;
-            color: var(--text-primary);
-        }
-
-        .void-box.center .void-label {
-            color: white;
-            font-size: 12px;
-        }
-
-        .void-sublabel {
-            font-size: 12px;
-            color: var(--text-secondary);
-            margin-top: 4px;
-        }
-
-        .void-box.center .void-sublabel {
-            color: rgba(255,255,255,0.8);
-        }
-
-        .void-category {
-            font-size: 10px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--text-muted);
-            margin-top: 8px;
-        }
-
-        .void-box.center .void-category {
-            color: rgba(255,255,255,0.7);
-        }
-
-        .void-arrow {
-            font-size: 20px;
-            color: var(--text-muted);
-            transform: rotate(90deg);
-        }
-
-        .void-spectrum {
-            text-align: center;
-            font-size: 12px;
-            color: var(--text-secondary);
-            margin-top: 8px;
-        }
-
-        /* ========================================
-           COMPARISON CARDS (SLIDE 5)
-           ======================================== */
-        .comparison-container {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 16px;
-        }
-
-        .comparison-card {
-            background: var(--bg-secondary);
-            border-radius: var(--card-radius);
-            padding: 16px;
-        }
-
-        .comparison-card.highlight {
-            border: 2px solid var(--accent-primary);
-        }
-
-        .comparison-header {
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--text-muted);
-            margin-bottom: 12px;
-            padding-bottom: 8px;
-            border-bottom: 1px solid var(--bg-tertiary);
-        }
-
-        .comparison-card.highlight .comparison-header {
-            color: var(--accent-primary);
-        }
-
-        .comparison-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 4px 0;
-            font-size: 13px;
-            border-bottom: 1px solid var(--bg-tertiary);
-        }
-
-        .comparison-row:last-of-type {
-            border-bottom: none;
-        }
-
-        .comparison-label {
-            color: var(--text-secondary);
-        }
-
-        .comparison-value {
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-
-        .comparison-card.highlight .comparison-value {
-            color: var(--accent-primary);
-        }
-
-        /* ========================================
-           CONCLUSION SLIDE
-           ======================================== */
-        .conclusion-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 12px;
-        }
-
-        .conclusion-card {
-            background: var(--bg-secondary);
-            border-radius: var(--card-radius);
-            padding: 12px;
-            border-top: 4px solid var(--accent-primary);
-        }
-
-        .conclusion-card.secondary {
-            border-color: var(--accent-secondary);
-        }
-
-        .cta-box {
-            background: linear-gradient(135deg, var(--accent-primary) 0%, #9a1830 100%);
-            border-radius: var(--card-radius);
-            padding: 16px;
-            color: white;
-            text-align: center;
-        }
-
-        /* ========================================
-           RESPONSIVE - TABLET (768px+)
-           ======================================== */
-        @media (min-width: 768px) {
-            .slide {
-                padding: 24px 40px;
-            }
-
-            .headline {
-                font-size: 30px;
-            }
-
-            .stat-number {
-                font-size: 36px;
-            }
-
-            .title-slide .main-title {
-                font-size: 36px;
-            }
-
-            .card-grid.cols-2 {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .card-grid.cols-4 {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .void-container {
-                flex-direction: row;
-            }
-
-            .void-arrow {
-                transform: rotate(0deg);
-            }
-
-            .comparison-container {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .conclusion-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            #printBtn {
-                display: flex;
-            }
-        }
-
-        /* ========================================
-           RESPONSIVE - DESKTOP (1024px+)
-           ======================================== */
-        @media (min-width: 1024px) {
-            body {
-                overflow: hidden;
-            }
-
-            .slides-wrapper {
-                height: 100vh;
-            }
-
-            .slide {
-                position: absolute;
-                top: 60px;
-                height: calc(100vh - 60px);
-                min-height: auto;
-                padding: 30px 70px 50px;
-                overflow: hidden;
-            }
-
-            .slide.active {
-                position: absolute;
-                top: 60px;
-            }
-
-            .header-bar {
-                height: 60px;
-                padding: 0 30px;
-            }
-
-            .header-logo img {
-                height: 40px;
-            }
-
-            .headline {
-                font-size: 38px;
-            }
-
-            .subtitle {
-                font-size: 18px;
-            }
-
-            .stat-number {
-                font-size: 44px;
-            }
-
-            .title-slide .main-title {
-                font-size: 46px;
-            }
-
-            .title-slide .presenter-subtitle {
-                font-size: 20px;
-            }
-
-            .title-slide .event-info {
-                position: absolute;
-                bottom: 50px;
-                left: 70px;
-            }
-
-            .card-grid.cols-3 {
-                grid-template-columns: 1fr 1fr 1fr;
-            }
-
-            .card-grid.cols-4 {
-                grid-template-columns: 1fr 1fr 1fr 1fr;
-            }
-
-            .content-split {
-                grid-template-columns: 1fr 1fr;
-                gap: 24px;
-            }
-
-            .timeline {
-                grid-template-columns: repeat(3, 1fr);
-            }
-
-            .takeaway {
-                margin-top: auto;
-            }
-
-            .nav-btn:hover {
-                border-color: var(--accent-primary);
-                color: var(--accent-primary);
-            }
-        }
-
-        /* ========================================
-           PRINT STYLES
-           ======================================== */
-        @page {
-            size: landscape;
-            margin: 0;
-        }
-
-        @media print {
-            .header-bar, .nav-controls, .progress-bar {
-                display: none !important;
-            }
-
-            .slides-wrapper {
-                position: static;
-            }
-
-            .slide {
-                position: static !important;
-                opacity: 1 !important;
-                visibility: visible !important;
-                page-break-after: always;
-                height: 100vh;
-                top: 0;
-                padding: 40px 50px;
-            }
-
-            .slide:last-child {
-                page-break-after: avoid;
-            }
+            z-index: 101;
+            transition: width 0.1s;
         }
     </style>
 </head>
 <body>
-    <div class="header-bar">
+    <div class="progress-bar" id="progress"></div>
+
+    <header class="header">
         <div class="header-logo">
             <img src="catalyx-logo.png" alt="Catalyx">
         </div>
-        <div class="nav-controls">
-            <a href="desktop.html" class="version-toggle" title="Version bureau">🖥 Bureau</a>
-            <button class="nav-btn" id="prevBtn" title="Précédent">←</button>
-            <span class="slide-indicator"><span id="currentNum">1</span> / <span id="totalNum">11</span></span>
-            <button class="nav-btn" id="nextBtn" title="Suivant">→</button>
-            <button class="nav-btn" id="playBtn" title="Lecture auto (20s)">▶</button>
-            <button class="nav-btn" id="printBtn" title="Imprimer / PDF" onclick="window.print()">🖨</button>
+        <div class="header-actions">
+            <a href="desktop.html" class="version-toggle">🖥 Bureau</a>
         </div>
+    </header>
+
+    <!-- ==========================================
+         SECTION 1: TITRE
+         ========================================== -->
+    <section class="hero" id="s1">
+        <div class="accent-bar"></div>
+        <h1 class="hero-title">L'Orpaillage Artisanal comme Moteur du Secteur Minier Structuré</h1>
+        <p class="hero-subtitle">Observations d'un praticien des ressources extractives</p>
+        <div class="hero-presenter">
+            <div class="hero-name">Ali Adoudou</div>
+            <div class="hero-role">Portfolio Manager — CTLX</div>
+        </div>
+        <div class="hero-event">SEMICA Tchad 2026 — Session 3<br>N'Djamena, 27 Janvier 2026</div>
+    </section>
+
+    <!-- ==========================================
+         SECTION 2: LE VIDE
+         ========================================== -->
+    <section class="section" id="s2">
+        <span class="section-number">02</span>
+        <div class="section-label">L'OPPORTUNITÉ</div>
+        <h2 class="section-title">De l'or sans mines industrielles</h2>
+        <p class="section-subtitle">Le chaînon manquant: convertir les sites artisanaux en projets investissables</p>
+
+        <div class="void-flow">
+            <div class="void-box">
+                <div class="void-number">300 000</div>
+                <div class="void-label">Orpailleurs</div>
+                <div class="void-sublabel">Prouvant l'existence des minerais</div>
+            </div>
+            <div class="void-arrow">↓</div>
+            <div class="void-box highlight">
+                <div class="void-number">LE VIDE</div>
+                <div class="void-label">travail en cours par SONEMIC</div>
+                <div class="void-sublabel">Dé-risquage géologique</div>
+            </div>
+            <div class="void-arrow">↓</div>
+            <div class="void-box">
+                <div class="void-number muted">0</div>
+                <div class="void-label">Mines Industrielles</div>
+                <div class="void-sublabel">Malgré la minéralisation constatée</div>
+            </div>
+        </div>
+
+        <div class="takeaway">
+            <span class="takeaway-arrow">→</span>
+            SONEMIC comblera ce vide — convertissant l'intelligence artisanale en estimations de ressources formelles et bancables.
+        </div>
+    </section>
+
+    <!-- ==========================================
+         SECTION 3: BÉNÉFICES SOCIO-ÉCONOMIQUES
+         ========================================== -->
+    <section class="section" id="s3">
+        <span class="section-number">03</span>
+        <div class="section-label">IMPACT SOCIO-ÉCONOMIQUE</div>
+        <h2 class="section-title">L'ASM: moteur économique rural</h2>
+        <p class="section-subtitle">Un écosystème qui touche près de 2 millions de Tchadiens</p>
+
+        <div class="card-grid cols-2">
+            <div class="stat">
+                <div class="stat-number">300K</div>
+                <div class="stat-label">emplois directs</div>
+            </div>
+            <div class="stat secondary">
+                <div class="stat-number secondary">#2</div>
+                <div class="stat-label">employeur rural (après agri)</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">+15%</div>
+                <div class="stat-label">effet multiplicateur local</div>
+            </div>
+            <div class="stat secondary">
+                <div class="stat-number secondary">1:6</div>
+                <div class="stat-label">ratio emploi/dépendants</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">60-70%</div>
+                <div class="stat-label">de la valeur retenue localement</div>
+            </div>
+            <div class="stat secondary">
+                <div class="stat-number secondary">1.8M</div>
+                <div class="stat-label">dépendants indirects</div>
+            </div>
+        </div>
+
+        <div class="takeaway">
+            <span class="takeaway-arrow">→</span>
+            L'ASM n'est pas une fuite économique — c'est un moteur de développement rural qui touche près de 2 millions de Tchadiens.
+        </div>
+
+        <div class="section-source">Source: Bazillier & Girard 2020, MEMO Orpaillage 2025, Banque Mondiale</div>
+    </section>
+
+    <!-- ==========================================
+         SECTION 4: VALEUR EXPLORATION
+         ========================================== -->
+    <section class="section" id="s4">
+        <span class="section-number">04</span>
+        <div class="section-label">CRÉATION DE VALEUR</div>
+        <h2 class="section-title">300,000 prospecteurs décentralisés</h2>
+        <p class="section-subtitle">Le plus grand saut de valeur se produit à la découverte</p>
+
+        <div class="card accent-left">
+            <div style="font-size: 15px; font-weight: 700; margin-bottom: 12px;">La valeur bondit de 3-5× à la découverte</div>
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+                <div style="display: flex; justify-content: space-between;">
+                    <span style="color: var(--text-secondary);">Avant découverte:</span>
+                    <span style="font-weight: 600;">0 $/oz</span>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                    <span style="color: var(--text-secondary);">Après découverte:</span>
+                    <span style="font-weight: 700; color: var(--accent-primary);">15-30 $/oz</span>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                    <span style="color: var(--text-secondary);">Après ÉFD:</span>
+                    <span style="font-weight: 600;">80-150 $/oz</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="highlight-box">
+            <div style="font-size: 15px; font-weight: 600; line-height: 1.5;">
+                SONEMIC génère les découvertes.<br>Les développeurs construisent les mines.
+            </div>
+        </div>
+
+        <div style="font-size: 12px; color: var(--text-muted); line-height: 1.6;">
+            ÉÉP: Évaluation Économique Préliminaire<br>
+            ÉPF: Étude de Préfaisabilité<br>
+            ÉFD: Étude de Faisabilité Définitive
+        </div>
+
+        <div class="takeaway">
+            <span class="takeaway-arrow">→</span>
+            Le gain en pourcentage le plus important se produit à la découverte.
+        </div>
+
+        <div class="section-source">Source: MinEx Consulting 2024</div>
+    </section>
+
+    <!-- ==========================================
+         SECTION 5: AVANTAGE CONCURRENTIEL
+         ========================================== -->
+    <section class="section" id="s5">
+        <span class="section-number">05</span>
+        <div class="section-label">AVANTAGE CONCURRENTIEL</div>
+        <h2 class="section-title">L'intelligence artisanale triple le taux de succès</h2>
+
+        <div class="comparison">
+            <div class="comparison-header">EXPLORATION GREENFIELD STANDARD</div>
+            <div class="comparison-row">
+                <span>Cibles testées</span>
+                <span class="comparison-value">10</span>
+            </div>
+            <div class="comparison-row">
+                <span>Coût par cible</span>
+                <span class="comparison-value">15 M$</span>
+            </div>
+            <div class="comparison-row">
+                <span>Total investi</span>
+                <span class="comparison-value">150 M$</span>
+            </div>
+            <div class="comparison-row">
+                <span>Taux de succès</span>
+                <span class="comparison-value" style="color: var(--text-muted);">10% = 1 découverte</span>
+            </div>
+            <div class="comparison-result negative">
+                <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase;">Résultat</div>
+                <div class="result-number negative">-110 M$</div>
+            </div>
+        </div>
+
+        <div class="comparison highlight">
+            <div class="comparison-header">SONEMIC (GUIDÉ PAR L'ARTISANAT)</div>
+            <div class="comparison-row">
+                <span>Cibles testées</span>
+                <span class="comparison-value">10</span>
+            </div>
+            <div class="comparison-row">
+                <span>Coût par cible</span>
+                <span class="comparison-value">10 M$</span>
+            </div>
+            <div class="comparison-row">
+                <span>Total investi</span>
+                <span class="comparison-value">100 M$</span>
+            </div>
+            <div class="comparison-row">
+                <span>Taux de succès</span>
+                <span class="comparison-value">30% = 3 découvertes</span>
+            </div>
+            <div class="comparison-result positive">
+                <div style="font-size: 11px; opacity: 0.8; text-transform: uppercase;">Résultat</div>
+                <div class="result-number">+20 M$</div>
+            </div>
+        </div>
+
+        <div class="takeaway">
+            <span class="takeaway-arrow">→</span>
+            Les sites artisanaux confirment déjà l'existence de la minéralisation.
+        </div>
+    </section>
+
+    <!-- ==========================================
+         SECTION 6: SONEMIC
+         ========================================== -->
+    <section class="section" id="s6">
+        <span class="section-number">06</span>
+        <div class="section-label">INFRASTRUCTURE</div>
+        <h2 class="section-title">SONEMIC pose les fondations institutionnelles</h2>
+        <p class="section-subtitle">Opérationnel vs. planifié</p>
+
+        <div class="card accent-top">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+                <div style="width: 24px; height: 24px; background: var(--accent-primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 12px;">✓</div>
+                <div style="font-size: 12px; font-weight: 700; color: var(--accent-primary); text-transform: uppercase;">OPÉRATIONNEL</div>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+                <div style="padding: 10px; background: white; border-radius: 6px; font-size: 13px;">Brigade Minière Spéciale</div>
+                <div style="padding: 10px; background: white; border-radius: 6px; font-size: 13px;">Cadre juridique clarifié</div>
+                <div style="padding: 10px; background: white; border-radius: 6px; font-size: 13px;">Cartographie géologique</div>
+                <div style="padding: 10px; background: white; border-radius: 6px; font-size: 13px;">Conseil d'Administration actif</div>
+            </div>
+        </div>
+
+        <div class="card accent-top" style="border-color: var(--accent-secondary);">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+                <div style="width: 24px; height: 24px; background: var(--accent-secondary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 12px;">○</div>
+                <div style="font-size: 12px; font-weight: 700; color: var(--accent-secondary); text-transform: uppercase;">PLANIFIÉ</div>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+                <div style="padding: 10px; background: white; border-radius: 6px; font-size: 13px; border-left: 3px solid var(--accent-secondary);">Comptoirs d'achat provinciaux</div>
+                <div style="padding: 10px; background: white; border-radius: 6px; font-size: 13px; border-left: 3px solid var(--accent-secondary);">Raffinerie nationale</div>
+                <div style="padding: 10px; background: white; border-radius: 6px; font-size: 13px; border-left: 3px solid var(--accent-secondary);">Campagnes d'exploration ciblées</div>
+            </div>
+            <div style="margin-top: 12px; padding: 10px; background: rgba(232, 93, 4, 0.1); border-radius: 6px; text-align: center; font-size: 12px; color: var(--accent-secondary); font-weight: 600;">Opportunités de partenariat</div>
+        </div>
+
+        <div class="takeaway">
+            <span class="takeaway-arrow">→</span>
+            Soutenir ce qui existe, participer à ce qui vient
+        </div>
+
+        <div class="section-source">Source: SONEMIC, Alwihda Info 2025</div>
+    </section>
+
+    <!-- ==========================================
+         SECTION 7: ALLOCATION DU CAPITAL
+         ========================================== -->
+    <section class="section" id="s7">
+        <span class="section-number">07</span>
+        <div class="section-label">ALLOCATION DU CAPITAL</div>
+        <h2 class="section-title">Le Tchad a besoin de partenaires à chaque niveau</h2>
+        <p class="section-subtitle">Chaque minéral a sa logique. Chaque acteur a sa place.</p>
+
+        <div class="card-grid cols-2">
+            <div class="card accent-left">
+                <div style="font-size: 11px; font-weight: 700; color: var(--accent-primary); margin-bottom: 4px;">ARTISANAL</div>
+                <div style="font-size: 14px; font-weight: 600;">Or alluvial • Antimoine</div>
+                <div style="font-size: 12px; color: var(--text-muted);">$50 - $1,500 / unité</div>
+            </div>
+            <div class="card accent-left">
+                <div style="font-size: 11px; font-weight: 700; color: var(--accent-primary); margin-bottom: 4px;">ÉMERGENT</div>
+                <div style="font-size: 14px; font-weight: 600;">Or primaire • Antimoine</div>
+                <div style="font-size: 12px; color: var(--text-muted);">$5-20M / cible</div>
+            </div>
+            <div class="card accent-left" style="border-color: var(--accent-secondary);">
+                <div style="font-size: 11px; font-weight: 700; color: var(--accent-secondary); margin-bottom: 4px;">INFRASTRUCTURE</div>
+                <div style="font-size: 14px; font-weight: 600;">Comptoirs • Raffinerie</div>
+                <div style="font-size: 12px; color: var(--text-muted);">$100K - $50M</div>
+            </div>
+            <div class="card accent-left" style="border-color: var(--text-secondary);">
+                <div style="font-size: 11px; font-weight: 700; color: var(--text-secondary); margin-bottom: 4px;">INDUSTRIEL</div>
+                <div style="font-size: 14px; font-weight: 600;">Uranium • Bauxite • Cuivre</div>
+                <div style="font-size: 12px; color: var(--text-muted);">$500M - $2B+</div>
+            </div>
+        </div>
+
+        <div class="card-grid" style="grid-template-columns: repeat(3, 1fr); margin-top: 16px;">
+            <div class="stat">
+                <div style="font-size: 10px; font-weight: 700; color: var(--accent-primary); margin-bottom: 4px;">ORPAILLEURS</div>
+                <div class="stat-number" style="font-size: 24px;">300K</div>
+                <div class="stat-label">actifs</div>
+            </div>
+            <div class="stat secondary">
+                <div style="font-size: 10px; font-weight: 700; color: var(--accent-secondary); margin-bottom: 4px;">ENTREPRENEURS</div>
+                <div class="stat-number secondary" style="font-size: 20px;">$1K-5M</div>
+                <div class="stat-label">équipement</div>
+            </div>
+            <div class="stat" style="border-color: var(--text-secondary);">
+                <div style="font-size: 10px; font-weight: 700; color: var(--text-secondary); margin-bottom: 4px;">PARTENAIRES</div>
+                <div class="stat-number muted" style="font-size: 20px;">$5M-2B+</div>
+                <div class="stat-label">capital</div>
+            </div>
+        </div>
+
+        <div class="takeaway">
+            <span class="takeaway-arrow">→</span>
+            La question n'est pas SI vous pouvez participer — mais OÙ votre capital crée le plus de valeur.
+        </div>
+
+        <div class="section-source">Source: MinEx Consulting, GoldBod Ghana</div>
+    </section>
+
+    <!-- ==========================================
+         SECTION 8: BENCHMARK GHANA
+         ========================================== -->
+    <section class="section" id="s8">
+        <span class="section-number">08</span>
+        <div class="section-label">BENCHMARK</div>
+        <h2 class="section-title">Ghana GoldBod: transformation en 12 mois</h2>
+        <p class="section-subtitle">Preuve qu'une formalisation rapide est possible</p>
+
+        <div class="card-grid cols-2">
+            <div class="stat">
+                <div class="stat-number">103t</div>
+                <div class="stat-label">Production ASM formalisée</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number" style="font-size: 24px;">$10.8B</div>
+                <div class="stat-label">Revenus export ASM</div>
+            </div>
+            <div class="stat secondary">
+                <div class="stat-number secondary">18:1</div>
+                <div class="stat-label">Ratio bénéfice/coût</div>
+            </div>
+            <div class="stat secondary">
+                <div class="stat-number secondary" style="font-size: 24px;">80-90%</div>
+                <div class="stat-label">Prix aux orpailleurs</div>
+            </div>
+        </div>
+
+        <div class="highlight-box">
+            <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; opacity: 0.8;">Récupéré des contrebandiers</div>
+            <div class="highlight-number">39t</div>
+            <div class="highlight-label">~$3.8B</div>
+            <div class="highlight-sublabel">en 12 mois grâce à la formalisation</div>
+        </div>
+
+        <div class="mechanism">
+            <div class="mechanism-label">Mécanisme clé</div>
+            <div class="mechanism-formula"><span class="hl">Comptoir unique</span> + <span class="hl">Prix compétitif</span> + <span class="hl">Traçabilité</span></div>
+        </div>
+
+        <div class="takeaway">
+            <span class="takeaway-arrow">→</span>
+            Sans prix attractif, les orpailleurs continueront vers les circuits informels
+        </div>
+
+        <div class="section-source">Source: GBC Ghana, Ecofin Agency 2025</div>
+    </section>
+
+    <!-- ==========================================
+         SECTION 9: FORMALISATION
+         ========================================== -->
+    <section class="section" id="s9">
+        <span class="section-number">09</span>
+        <div class="section-label">ENJEU</div>
+        <h2 class="section-title">La formalisation est la meilleure alternative à la contrebande</h2>
+
+        <div class="card-grid" style="grid-template-columns: repeat(3, 1fr);">
+            <div class="stat">
+                <div style="font-size: 10px; font-weight: 700; color: var(--accent-primary); margin-bottom: 4px;">GHANA (avant)</div>
+                <div class="stat-number" style="font-size: 22px;">$2.2B</div>
+                <div class="stat-label">perte/an</div>
+            </div>
+            <div class="stat secondary">
+                <div style="font-size: 10px; font-weight: 700; color: var(--accent-secondary); margin-bottom: 4px;">ZIMBABWE</div>
+                <div class="stat-number secondary" style="font-size: 22px;">$1.5B</div>
+                <div class="stat-label">perte/an</div>
+            </div>
+            <div class="stat">
+                <div style="font-size: 10px; font-weight: 700; color: var(--accent-primary); margin-bottom: 4px;">TANZANIE</div>
+                <div class="stat-number" style="font-size: 22px;">~$1B</div>
+                <div class="stat-label">perte/an</div>
+            </div>
+        </div>
+
+        <div class="card accent-top" style="margin-top: 16px;">
+            <div style="font-size: 12px; font-weight: 700; color: var(--accent-primary); text-transform: uppercase; margin-bottom: 16px;">LA SOLUTION: FORMALISATION</div>
+            <div class="icons-row">
+                <div class="icon-item">
+                    <div class="icon-emoji">🏛️</div>
+                    <div class="icon-title">Canal officiel</div>
+                    <div class="icon-subtitle">Comptoirs accessibles</div>
+                </div>
+                <div class="icon-item">
+                    <div class="icon-emoji">💰</div>
+                    <div class="icon-title">Prix compétitif</div>
+                    <div class="icon-subtitle">70-80% du mondial</div>
+                </div>
+                <div class="icon-item">
+                    <div class="icon-emoji">📊</div>
+                    <div class="icon-title">Traçabilité</div>
+                    <div class="icon-subtitle">Confiance marchés</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="takeaway">
+            <span class="takeaway-arrow">→</span>
+            La formalisation n'est pas une contrainte — c'est le meilleur outil pour capturer la valeur.
+        </div>
+
+        <div class="section-source">Source: SWISSAID 2022, Global Initiative 2025</div>
+    </section>
+
+    <!-- ==========================================
+         SECTION 10: PANIER MINÉRAL
+         ========================================== -->
+    <section class="section" id="s10">
+        <span class="section-number">10</span>
+        <div class="section-label">VISION</div>
+        <h2 class="section-title">L'or alluvial: porte d'entrée vers un portefeuille diversifié</h2>
+        <p class="section-subtitle">Séquencer selon la maturité</p>
+
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-period">ARTISANAL</div>
+                <div class="timeline-title">0-2 ANS</div>
+                <div class="timeline-minerals">Or alluvial • Antimoine</div>
+                <div class="timeline-desc">Formalisation ASM • Comptoirs • Traçabilité</div>
+                <span class="timeline-badge">Impact immédiat</span>
+            </div>
+            <div class="timeline-item phase-2">
+                <div class="timeline-period">ÉMERGENT</div>
+                <div class="timeline-title">2-5 ANS</div>
+                <div class="timeline-minerals">Or primaire • Antimoine</div>
+                <div class="timeline-desc">Exploration • Faisabilité • JV</div>
+                <span class="timeline-badge" style="background: rgba(232, 93, 4, 0.1); color: var(--accent-secondary);">Minéral critique</span>
+            </div>
+            <div class="timeline-item phase-3">
+                <div class="timeline-period">INDUSTRIEL</div>
+                <div class="timeline-title">5+ ANS</div>
+                <div class="timeline-minerals">Uranium • Bauxite • Cuivre</div>
+                <div class="timeline-desc">Exploration • Infrastructure • Mines</div>
+                <span class="timeline-badge">Diversification</span>
+            </div>
+        </div>
+
+        <div class="infra-bar">
+            <div>
+                <div class="infra-label">INFRASTRUCTURE</div>
+                <div class="infra-items">Comptoirs • Raffinerie • Routes • Exploration</div>
+            </div>
+            <div class="infra-cost">$100K - $50M</div>
+        </div>
+
+        <div class="takeaway">
+            <span class="takeaway-arrow">→</span>
+            Commencer par ce qui marche (ASM), construire vers la complexité
+        </div>
+    </section>
+
+    <!-- ==========================================
+         SECTION 11: CONCLUSION
+         ========================================== -->
+    <section class="section" id="s11">
+        <span class="section-number">11</span>
+        <div class="section-label">CONCLUSION</div>
+        <h2 class="section-title">Chacun trouve sa place dans la chaîne de valeur minérale du Tchad</h2>
+        <p class="section-subtitle">De 1% à 3% du PIB = $540M de revenus fiscaux</p>
+
+        <div class="card accent-left" style="margin-bottom: 12px;">
+            <div style="font-size: 11px; font-weight: 700; color: var(--accent-primary); margin-bottom: 12px; text-transform: uppercase;">CE QUE VOUS AVEZ VU</div>
+            <div style="font-size: 14px; color: var(--text-secondary); line-height: 1.8;">
+                → <strong>300K prospecteurs</strong> = découverte décentralisée<br>
+                → <strong>SONEMIC</strong> : fondations en place<br>
+                → <strong>Ghana</strong> : transformation rapide possible
+            </div>
+        </div>
+
+        <div class="card accent-left" style="border-color: var(--accent-secondary); margin-bottom: 20px;">
+            <div style="font-size: 11px; font-weight: 700; color: var(--accent-secondary); margin-bottom: 12px; text-transform: uppercase;">CE QUE VOUS POUVEZ FAIRE</div>
+            <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                <span style="font-size: 12px; padding: 6px 10px; background: #f0f0f0; border-radius: 6px;">①Prospection</span>
+                <span style="font-size: 12px; padding: 6px 10px; background: #f0f0f0; border-radius: 6px;">②Extraction</span>
+                <span style="font-size: 12px; padding: 6px 10px; background: #f0f0f0; border-radius: 6px;">③Services</span>
+                <span style="font-size: 12px; padding: 6px 10px; background: #f0f0f0; border-radius: 6px;">④Infrastructure</span>
+                <span style="font-size: 12px; padding: 6px 10px; background: #f0f0f0; border-radius: 6px;">⑤Exploration</span>
+                <span style="font-size: 12px; padding: 6px 10px; background: #f0f0f0; border-radius: 6px;">⑥Capital</span>
+            </div>
+        </div>
+
+        <div class="cta">
+            <div class="cta-title">Quatre segments. Trois types d'acteurs. Une chaîne de valeur complète.</div>
+            <div class="cta-tags">
+                <span class="cta-tag primary">ARTISANAL</span>
+                <span class="cta-tag secondary">ÉMERGENT</span>
+                <span class="cta-tag dark">INDUSTRIEL</span>
+                <span class="cta-tag muted">INFRASTRUCTURE</span>
+            </div>
+            <div class="cta-message">Trouvez votre place. Les conversations commencent ici, à SEMICA.</div>
+            <div class="cta-author">— Ali Adoudou</div>
+
+            <div class="cta-qr">
+                <img src="qrcode.png" alt="QR Code">
+                <div class="cta-qr-text">Télécharger<br>la présentation</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         TABLE OF CONTENTS (floating)
+         ========================================== -->
+    <div class="toc-overlay" id="tocOverlay"></div>
+    <button class="toc-btn" id="tocBtn">☰</button>
+    <div class="toc-menu" id="tocMenu">
+        <div class="toc-header">
+            <span class="toc-title">Sommaire</span>
+            <button class="toc-close" id="tocClose">×</button>
+        </div>
+        <a href="#s1" class="toc-item"><span class="toc-item-number">01</span>Titre</a>
+        <a href="#s2" class="toc-item"><span class="toc-item-number">02</span>L'opportunité</a>
+        <a href="#s3" class="toc-item"><span class="toc-item-number">03</span>Impact socio-économique</a>
+        <a href="#s4" class="toc-item"><span class="toc-item-number">04</span>Création de valeur</a>
+        <a href="#s5" class="toc-item"><span class="toc-item-number">05</span>Avantage concurrentiel</a>
+        <a href="#s6" class="toc-item"><span class="toc-item-number">06</span>SONEMIC</a>
+        <a href="#s7" class="toc-item"><span class="toc-item-number">07</span>Allocation du capital</a>
+        <a href="#s8" class="toc-item"><span class="toc-item-number">08</span>Benchmark Ghana</a>
+        <a href="#s9" class="toc-item"><span class="toc-item-number">09</span>Formalisation</a>
+        <a href="#s10" class="toc-item"><span class="toc-item-number">10</span>Panier minéral</a>
+        <a href="#s11" class="toc-item"><span class="toc-item-number">11</span>Conclusion</a>
     </div>
-
-    <div class="slides-wrapper">
-
-        <!-- ==========================================
-             SLIDE 1: TITRE
-             ========================================== -->
-        <div class="slide title-slide active" data-slide="1">
-            <div class="accent-bar"></div>
-            <h1 class="main-title">L'Orpaillage Artisanal comme<br>Moteur du Secteur Minier Structuré</h1>
-            <p class="presenter-subtitle">Observations d'un praticien des ressources extractives</p>
-            <div class="presenter-info">
-                <div class="presenter-name">Ali Adoudou</div>
-                <div class="presenter-role">Portfolio Manager — CTLX</div>
-            </div>
-            <div class="event-info">SEMICA Tchad 2026 — Session 3 | N'Djamena, 27 Janvier 2026</div>
-            <div class="slide-footer">
-                <span class="source-text"></span>
-                <span class="slide-number">01</span>
-            </div>
-        </div>
-
-        <!-- ==========================================
-             SLIDE 2: LE VIDE
-             ========================================== -->
-        <div class="slide" data-slide="2">
-            <span class="section-label">L'OPPORTUNITÉ</span>
-            <h1 class="headline">De l'or sans mines industrielles</h1>
-            <p class="subtitle">Le chaînon manquant: convertir les sites artisanaux en projets investissables</p>
-
-            <div class="content-area">
-                <div class="void-container">
-                    <div class="void-box">
-                        <div class="void-number">300 000</div>
-                        <div class="void-label">Orpailleurs</div>
-                        <div class="void-sublabel">Prouvant l'existence des minerais</div>
-                        <div class="void-category">INCERTITUDE</div>
-                    </div>
-                    <div class="void-arrow">→</div>
-                    <div class="void-box center">
-                        <div class="void-number">LE VIDE</div>
-                        <div class="void-label">travail en cours par SONEMIC</div>
-                        <div class="void-sublabel">Dé-risquage géologique</div>
-                    </div>
-                    <div class="void-arrow">→</div>
-                    <div class="void-box">
-                        <div class="void-number muted">0</div>
-                        <div class="void-label">Mines Industrielles</div>
-                        <div class="void-sublabel">Malgré la minéralisation constatée</div>
-                        <div class="void-category">RISQUE (INVESTISSABLE)</div>
-                    </div>
-                </div>
-
-                <div class="void-spectrum">
-                    Dé-risquage géologique → Estimation des Ressources
-                </div>
-
-                <div class="takeaway">
-                    <span class="arrow">→</span> SONEMIC comblera ce vide — convertissant l'intelligence artisanale en estimations de ressources formelles et bancables.
-                </div>
-            </div>
-
-            <div class="slide-footer">
-                <span class="source-text"></span>
-                <span class="slide-number">02</span>
-            </div>
-        </div>
-
-        <!-- ==========================================
-             SLIDE 3: BÉNÉFICES SOCIO-ÉCONOMIQUES
-             ========================================== -->
-        <div class="slide" data-slide="3">
-            <span class="section-label">IMPACT SOCIO-ÉCONOMIQUE</span>
-            <h1 class="headline">L'ASM: moteur économique rural</h1>
-            <p class="subtitle">Un écosystème qui touche près de 2 millions de Tchadiens</p>
-
-            <div class="content-area">
-                <div class="card-grid cols-4">
-                    <div class="stat-card">
-                        <div class="stat-number">300K</div>
-                        <div class="stat-label">emplois directs</div>
-                    </div>
-                    <div class="stat-card accent-secondary">
-                        <div class="stat-number secondary">#2</div>
-                        <div class="stat-label">employeur rural (après agri)</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">+15%</div>
-                        <div class="stat-label">effet multiplicateur local</div>
-                    </div>
-                    <div class="stat-card accent-secondary">
-                        <div class="stat-number secondary">1:6</div>
-                        <div class="stat-label">ratio emploi/dépendants</div>
-                    </div>
-                </div>
-
-                <div class="card-grid cols-2">
-                    <div class="stat-card">
-                        <div class="stat-number">60-70%</div>
-                        <div class="stat-label">de la valeur retenue localement</div>
-                    </div>
-                    <div class="stat-card accent-secondary">
-                        <div class="stat-number secondary">1.8M</div>
-                        <div class="stat-label">dépendants indirects</div>
-                    </div>
-                </div>
-
-                <div class="takeaway">
-                    <span class="arrow">→</span> L'ASM n'est pas une fuite économique — c'est un moteur de développement rural qui touche près de 2 millions de Tchadiens.
-                </div>
-            </div>
-
-            <div class="slide-footer">
-                <span class="source-text">Source: Bazillier & Girard 2020, MEMO Orpaillage 2025, Banque Mondiale (ratio 1:6)</span>
-                <span class="slide-number">03</span>
-            </div>
-        </div>
-
-        <!-- ==========================================
-             SLIDE 4: VALEUR EXPLORATION
-             ========================================== -->
-        <div class="slide" data-slide="4">
-            <span class="section-label">CRÉATION DE VALEUR</span>
-            <h1 class="headline">300,000 prospecteurs décentralisés</h1>
-            <p class="subtitle">Le plus grand saut de valeur se produit à la découverte</p>
-
-            <div class="content-area">
-                <div class="card" style="border-left: 4px solid var(--accent-primary); border-top: none;">
-                    <div style="font-size: 14px; font-weight: 700; color: var(--text-primary); margin-bottom: 8px;">La valeur bondit de 3-5× à la découverte</div>
-                    <div style="font-size: 13px; color: var(--text-secondary); margin-bottom: 4px;">
-                        Avant découverte: <span style="font-weight: 600;">0 $/oz</span>
-                    </div>
-                    <div style="font-size: 13px; color: var(--text-secondary); margin-bottom: 4px;">
-                        Après découverte: <span style="font-weight: 700; color: var(--accent-primary);">15-30 $/oz</span>
-                    </div>
-                    <div style="font-size: 13px; color: var(--text-secondary);">
-                        Après ÉFD: <span style="font-weight: 600;">80-150 $/oz</span>
-                    </div>
-                </div>
-
-                <div style="background: var(--accent-primary); border-radius: var(--card-radius); padding: 14px; color: white;">
-                    <div style="font-size: 14px; font-weight: 600; line-height: 1.5;">
-                        SONEMIC génère les découvertes.<br>
-                        Les développeurs construisent les mines.
-                    </div>
-                </div>
-
-                <div style="font-size: 11px; color: var(--text-muted); line-height: 1.4;">
-                    ÉÉP: Évaluation Économique Préliminaire<br>
-                    ÉPF: Étude de Préfaisabilité<br>
-                    ÉFD: Étude de Faisabilité Définitive
-                </div>
-
-                <div class="takeaway">
-                    <span class="arrow">→</span> Le gain en pourcentage le plus important se produit à la découverte.
-                </div>
-            </div>
-
-            <div class="slide-footer">
-                <span class="source-text">Source: MinEx Consulting 2024</span>
-                <span class="slide-number">04</span>
-            </div>
-        </div>
-
-        <!-- ==========================================
-             SLIDE 5: AVANTAGE CONCURRENTIEL
-             ========================================== -->
-        <div class="slide" data-slide="5">
-            <span class="section-label">AVANTAGE CONCURRENTIEL</span>
-            <h1 class="headline">L'intelligence artisanale triple le taux de succès</h1>
-
-            <div class="content-area">
-                <div class="comparison-container">
-                    <!-- GREENFIELD STANDARD -->
-                    <div class="comparison-card">
-                        <div class="comparison-header">EXPLORATION GREENFIELD STANDARD</div>
-                        <div class="comparison-row">
-                            <span class="comparison-label">Cibles testées</span>
-                            <span class="comparison-value">10</span>
-                        </div>
-                        <div class="comparison-row">
-                            <span class="comparison-label">Coût par cible</span>
-                            <span class="comparison-value">15 M$</span>
-                        </div>
-                        <div class="comparison-row">
-                            <span class="comparison-label">Total investi</span>
-                            <span class="comparison-value">150 M$</span>
-                        </div>
-
-                        <div style="background: var(--bg-tertiary); border-radius: 6px; padding: 12px; margin: 12px 0; text-align: center;">
-                            <div style="font-size: 10px; color: var(--text-muted); text-transform: uppercase;">Taux de succès</div>
-                            <div style="font-size: 32px; font-weight: 800; color: var(--text-muted);">10 %</div>
-                            <div style="font-size: 12px; color: var(--text-secondary);">= 1 découverte</div>
-                        </div>
-
-                        <div style="text-align: center; padding-top: 8px; border-top: 2px solid var(--bg-tertiary);">
-                            <div style="font-size: 10px; color: var(--text-muted); text-transform: uppercase;">Résultat</div>
-                            <div style="font-size: 28px; font-weight: 800; color: var(--accent-secondary);">-110 M$</div>
-                        </div>
-                    </div>
-
-                    <!-- SONEMIC -->
-                    <div class="comparison-card highlight">
-                        <div class="comparison-header">SONEMIC (GUIDÉ PAR L'ARTISANAT)</div>
-                        <div class="comparison-row">
-                            <span class="comparison-label">Cibles testées</span>
-                            <span class="comparison-value">10</span>
-                        </div>
-                        <div class="comparison-row">
-                            <span class="comparison-label">Coût par cible</span>
-                            <span class="comparison-value">10 M$</span>
-                        </div>
-                        <div class="comparison-row">
-                            <span class="comparison-label">Total investi</span>
-                            <span class="comparison-value">100 M$</span>
-                        </div>
-
-                        <div style="background: rgba(196, 30, 58, 0.1); border: 2px solid var(--accent-primary); border-radius: 6px; padding: 12px; margin: 12px 0; text-align: center;">
-                            <div style="font-size: 10px; color: var(--accent-primary); text-transform: uppercase;">Taux de succès</div>
-                            <div style="font-size: 32px; font-weight: 800; color: var(--accent-primary);">30 %</div>
-                            <div style="font-size: 12px; color: var(--text-primary);">= 3 découvertes</div>
-                        </div>
-
-                        <div style="background: var(--accent-primary); border-radius: 6px; padding: 12px; text-align: center;">
-                            <div style="font-size: 10px; color: rgba(255,255,255,0.8); text-transform: uppercase;">Résultat</div>
-                            <div style="font-size: 28px; font-weight: 800; color: white;">+20 M$</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="takeaway">
-                    <span class="arrow">→</span> Les sites artisanaux confirment déjà l'existence de la minéralisation.
-                </div>
-            </div>
-
-            <div class="slide-footer">
-                <span class="source-text"></span>
-                <span class="slide-number">05</span>
-            </div>
-        </div>
-
-        <!-- ==========================================
-             SLIDE 6: SONEMIC
-             ========================================== -->
-        <div class="slide" data-slide="6">
-            <span class="section-label">INFRASTRUCTURE</span>
-            <h1 class="headline">SONEMIC pose les fondations institutionnelles</h1>
-            <p class="subtitle">Opérationnel vs. planifié</p>
-
-            <div class="content-area">
-                <div class="card-grid cols-2">
-                    <!-- OPÉRATIONNEL -->
-                    <div class="card" style="border-top: 4px solid var(--accent-primary);">
-                        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
-                            <div style="width: 24px; height: 24px; background: var(--accent-primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 12px;">✓</div>
-                            <div style="font-size: 12px; font-weight: 700; color: var(--accent-primary); text-transform: uppercase;">OPÉRATIONNEL</div>
-                        </div>
-                        <div style="display: flex; flex-direction: column; gap: 8px;">
-                            <div style="padding: 8px; background: white; border-radius: 4px; font-size: 12px;">Brigade Minière Spéciale</div>
-                            <div style="padding: 8px; background: white; border-radius: 4px; font-size: 12px;">Cadre juridique clarifié</div>
-                            <div style="padding: 8px; background: white; border-radius: 4px; font-size: 12px;">Cartographie géologique</div>
-                            <div style="padding: 8px; background: white; border-radius: 4px; font-size: 12px;">Conseil d'Administration actif</div>
-                        </div>
-                    </div>
-
-                    <!-- PLANIFIÉ -->
-                    <div class="card" style="border-top: 4px solid var(--accent-secondary);">
-                        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
-                            <div style="width: 24px; height: 24px; background: var(--accent-secondary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 12px;">○</div>
-                            <div style="font-size: 12px; font-weight: 700; color: var(--accent-secondary); text-transform: uppercase;">PLANIFIÉ</div>
-                        </div>
-                        <div style="display: flex; flex-direction: column; gap: 8px;">
-                            <div style="padding: 8px; background: white; border-radius: 4px; font-size: 12px; border-left: 3px solid var(--accent-secondary);">Comptoirs d'achat provinciaux</div>
-                            <div style="padding: 8px; background: white; border-radius: 4px; font-size: 12px; border-left: 3px solid var(--accent-secondary);">Raffinerie nationale</div>
-                            <div style="padding: 8px; background: white; border-radius: 4px; font-size: 12px; border-left: 3px solid var(--accent-secondary);">Campagnes d'exploration ciblées</div>
-                        </div>
-                        <div style="margin-top: 12px; padding: 8px; background: rgba(232, 93, 4, 0.1); border-radius: 4px; text-align: center; font-size: 11px; color: var(--accent-secondary); font-weight: 600;">Opportunités de partenariat</div>
-                    </div>
-                </div>
-
-                <div class="takeaway">
-                    <span class="arrow">→</span> Soutenir ce qui existe, participer à ce qui vient
-                </div>
-            </div>
-
-            <div class="slide-footer">
-                <span class="source-text">Source: SONEMIC, Alwihda Info 2025</span>
-                <span class="slide-number">06</span>
-            </div>
-        </div>
-
-        <!-- ==========================================
-             SLIDE 7: ALLOCATION DU CAPITAL
-             ========================================== -->
-        <div class="slide" data-slide="7">
-            <span class="section-label">ALLOCATION DU CAPITAL</span>
-            <h1 class="headline">Le Tchad a besoin de partenaires à chaque niveau</h1>
-            <p class="subtitle">Chaque minéral a sa logique. Chaque acteur a sa place.</p>
-
-            <div class="content-area">
-                <div class="card-grid cols-2">
-                    <!-- ARTISANAL -->
-                    <div class="card" style="border-left: 4px solid var(--accent-primary); border-top: none;">
-                        <div style="font-size: 11px; font-weight: 700; color: var(--accent-primary); margin-bottom: 4px; text-transform: uppercase;">ARTISANAL</div>
-                        <div style="font-size: 13px; font-weight: 600; color: var(--text-primary);">Or alluvial • Antimoine</div>
-                        <div style="font-size: 12px; color: var(--text-muted);">$50 - $1,500 / unité</div>
-                    </div>
-
-                    <!-- ÉMERGENT -->
-                    <div class="card" style="border-left: 4px solid var(--accent-primary); border-top: none;">
-                        <div style="font-size: 11px; font-weight: 700; color: var(--accent-primary); margin-bottom: 4px; text-transform: uppercase;">ÉMERGENT</div>
-                        <div style="font-size: 13px; font-weight: 600; color: var(--text-primary);">Or primaire • Antimoine</div>
-                        <div style="font-size: 12px; color: var(--text-muted);">$5-20M / cible</div>
-                    </div>
-
-                    <!-- INFRASTRUCTURE -->
-                    <div class="card" style="border-left: 4px solid var(--accent-secondary); border-top: none;">
-                        <div style="font-size: 11px; font-weight: 700; color: var(--accent-secondary); margin-bottom: 4px; text-transform: uppercase;">INFRASTRUCTURE</div>
-                        <div style="font-size: 13px; font-weight: 600; color: var(--text-primary);">Comptoirs • Raffinerie</div>
-                        <div style="font-size: 12px; color: var(--text-muted);">$100K - $50M</div>
-                    </div>
-
-                    <!-- INDUSTRIEL -->
-                    <div class="card" style="border-left: 4px solid var(--text-secondary); border-top: none;">
-                        <div style="font-size: 11px; font-weight: 700; color: var(--text-secondary); margin-bottom: 4px; text-transform: uppercase;">INDUSTRIEL</div>
-                        <div style="font-size: 13px; font-weight: 600; color: var(--text-primary);">Uranium • Bauxite • Cuivre</div>
-                        <div style="font-size: 12px; color: var(--text-muted);">$500M - $2B+</div>
-                    </div>
-                </div>
-
-                <div class="card-grid cols-3" style="margin-top: 12px;">
-                    <div class="stat-card">
-                        <div style="font-size: 11px; font-weight: 700; color: var(--accent-primary);">ORPAILLEURS</div>
-                        <div class="stat-number" style="font-size: 24px;">300K</div>
-                        <div class="stat-label">actifs au Tchad</div>
-                    </div>
-                    <div class="stat-card accent-secondary">
-                        <div style="font-size: 11px; font-weight: 700; color: var(--accent-secondary);">ENTREPRENEURS</div>
-                        <div class="stat-number secondary" style="font-size: 24px;">$1K-5M</div>
-                        <div class="stat-label">équipement</div>
-                    </div>
-                    <div class="stat-card" style="border-color: var(--text-secondary);">
-                        <div style="font-size: 11px; font-weight: 700; color: var(--text-secondary);">PARTENAIRES</div>
-                        <div class="stat-number muted" style="font-size: 24px;">$5M-2B+</div>
-                        <div class="stat-label">capital</div>
-                    </div>
-                </div>
-
-                <div class="takeaway">
-                    <span class="arrow">→</span> La question n'est pas SI vous pouvez participer — mais OÙ votre capital crée le plus de valeur.
-                </div>
-            </div>
-
-            <div class="slide-footer">
-                <span class="source-text">Source: MinEx Consulting, GoldBod Ghana</span>
-                <span class="slide-number">07</span>
-            </div>
-        </div>
-
-        <!-- ==========================================
-             SLIDE 8: BENCHMARK GHANA
-             ========================================== -->
-        <div class="slide" data-slide="8">
-            <span class="section-label">BENCHMARK</span>
-            <h1 class="headline">Ghana GoldBod: transformation en 12 mois</h1>
-            <p class="subtitle">Preuve qu'une formalisation rapide est possible</p>
-
-            <div class="content-area">
-                <div class="card-grid cols-2">
-                    <div class="stat-card">
-                        <div class="stat-number">103t</div>
-                        <div class="stat-label">Production ASM formalisée</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">$10.8B</div>
-                        <div class="stat-label">Revenus export ASM</div>
-                    </div>
-                    <div class="stat-card accent-secondary">
-                        <div class="stat-number secondary">18:1</div>
-                        <div class="stat-label">Ratio bénéfice/coût</div>
-                    </div>
-                    <div class="stat-card accent-secondary">
-                        <div class="stat-number secondary">80-90%</div>
-                        <div class="stat-label">Prix aux orpailleurs</div>
-                    </div>
-                </div>
-
-                <div style="background: var(--accent-primary); border-radius: var(--card-radius); padding: 16px; color: white; text-align: center;">
-                    <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; opacity: 0.8;">Récupéré des contrebandiers</div>
-                    <div style="font-size: 48px; font-weight: 800; line-height: 1;">39t</div>
-                    <div style="font-size: 20px; font-weight: 700;">~$3.8B</div>
-                    <div style="font-size: 12px; opacity: 0.9; margin-top: 8px;">en 12 mois grâce à la formalisation</div>
-                </div>
-
-                <div class="mechanism-box">
-                    <div class="mechanism-label">Mécanisme clé</div>
-                    <div class="mechanism-formula"><span class="highlight">Comptoir unique</span> + <span class="highlight">Prix compétitif</span> + <span class="highlight">Traçabilité</span></div>
-                </div>
-
-                <div class="takeaway">
-                    <span class="arrow">→</span> Sans prix attractif, les orpailleurs continueront vers les circuits informels
-                </div>
-            </div>
-
-            <div class="slide-footer">
-                <span class="source-text">Source: GBC Ghana, Ecofin Agency 2025</span>
-                <span class="slide-number">08</span>
-            </div>
-        </div>
-
-        <!-- ==========================================
-             SLIDE 9: FORMALISATION
-             ========================================== -->
-        <div class="slide" data-slide="9">
-            <span class="section-label">ENJEU</span>
-            <h1 class="headline">La formalisation est la meilleure alternative à la contrebande</h1>
-
-            <div class="content-area">
-                <div class="card-grid cols-3">
-                    <div class="stat-card">
-                        <div style="font-size: 11px; font-weight: 600; color: var(--accent-primary); margin-bottom: 4px;">GHANA (avant)</div>
-                        <div class="stat-number" style="font-size: 24px;">$2.2B</div>
-                        <div class="stat-label">perte annuelle</div>
-                    </div>
-                    <div class="stat-card accent-secondary">
-                        <div style="font-size: 11px; font-weight: 600; color: var(--accent-secondary); margin-bottom: 4px;">ZIMBABWE</div>
-                        <div class="stat-number secondary" style="font-size: 24px;">$1.5B</div>
-                        <div class="stat-label">perte annuelle</div>
-                    </div>
-                    <div class="stat-card">
-                        <div style="font-size: 11px; font-weight: 600; color: var(--accent-primary); margin-bottom: 4px;">TANZANIE</div>
-                        <div class="stat-number" style="font-size: 24px;">~$1B</div>
-                        <div class="stat-label">perte annuelle</div>
-                    </div>
-                </div>
-
-                <div class="card" style="border-top: 4px solid var(--accent-primary);">
-                    <div style="font-size: 11px; font-weight: 600; color: var(--accent-primary); text-transform: uppercase; margin-bottom: 12px;">LA SOLUTION: FORMALISATION</div>
-                    <div class="card-grid cols-3">
-                        <div style="text-align: center;">
-                            <div style="font-size: 28px; margin-bottom: 6px;">🏛️</div>
-                            <div style="font-size: 13px; font-weight: 600;">Canal officiel</div>
-                            <div style="font-size: 11px; color: var(--text-muted);">Comptoirs accessibles</div>
-                        </div>
-                        <div style="text-align: center;">
-                            <div style="font-size: 28px; margin-bottom: 6px;">💰</div>
-                            <div style="font-size: 13px; font-weight: 600;">Prix compétitif</div>
-                            <div style="font-size: 11px; color: var(--text-muted);">70-80% du mondial</div>
-                        </div>
-                        <div style="text-align: center;">
-                            <div style="font-size: 28px; margin-bottom: 6px;">📊</div>
-                            <div style="font-size: 13px; font-weight: 600;">Traçabilité</div>
-                            <div style="font-size: 11px; color: var(--text-muted);">Confiance marchés</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="takeaway">
-                    <span class="arrow">→</span> La formalisation n'est pas une contrainte — c'est le meilleur outil pour capturer la valeur.
-                </div>
-            </div>
-
-            <div class="slide-footer">
-                <span class="source-text">Source: SWISSAID 2022, Global Initiative 2025</span>
-                <span class="slide-number">09</span>
-            </div>
-        </div>
-
-        <!-- ==========================================
-             SLIDE 10: PANIER MINÉRAL
-             ========================================== -->
-        <div class="slide" data-slide="10">
-            <span class="section-label">VISION</span>
-            <h1 class="headline">L'or alluvial: porte d'entrée vers un portefeuille diversifié</h1>
-            <p class="subtitle">Séquencer selon la maturité</p>
-
-            <div class="content-area">
-                <div class="card-grid cols-3">
-                    <div class="card" style="border-top: 4px solid var(--accent-primary);">
-                        <div style="font-size: 10px; font-weight: 700; color: var(--accent-primary); text-transform: uppercase;">ARTISANAL</div>
-                        <div style="font-size: 18px; font-weight: 800;">0-2 ANS</div>
-                        <div style="font-size: 11px; color: var(--text-secondary);">Or alluvial • Antimoine</div>
-                        <div style="font-size: 10px; color: var(--text-muted); margin-top: 8px;">Formalisation ASM • Comptoirs • Traçabilité</div>
-                        <div style="margin-top: 8px; padding: 6px; background: rgba(196, 30, 58, 0.1); border-radius: 4px; text-align: center; font-size: 10px; font-weight: 600; color: var(--accent-primary);">Impact immédiat</div>
-                    </div>
-
-                    <div class="card" style="border-top: 4px solid var(--accent-primary);">
-                        <div style="font-size: 10px; font-weight: 700; color: var(--accent-primary); text-transform: uppercase;">ÉMERGENT</div>
-                        <div style="font-size: 18px; font-weight: 800;">2-5 ANS</div>
-                        <div style="font-size: 11px; color: var(--text-secondary);">Or primaire • Antimoine</div>
-                        <div style="font-size: 10px; color: var(--text-muted); margin-top: 8px;">Exploration • Faisabilité • JV</div>
-                        <div style="margin-top: 8px; padding: 6px; background: rgba(196, 30, 58, 0.1); border-radius: 4px; text-align: center; font-size: 10px; font-weight: 600; color: var(--accent-primary);">Minéral critique</div>
-                    </div>
-
-                    <div class="card" style="border-top: 4px solid var(--text-secondary);">
-                        <div style="font-size: 10px; font-weight: 700; color: var(--text-secondary); text-transform: uppercase;">INDUSTRIEL</div>
-                        <div style="font-size: 18px; font-weight: 800;">5+ ANS</div>
-                        <div style="font-size: 11px; color: var(--text-secondary);">Uranium • Bauxite • Cuivre</div>
-                        <div style="font-size: 10px; color: var(--text-muted); margin-top: 8px;">Exploration • Infrastructure • Mines</div>
-                        <div style="margin-top: 8px; padding: 6px; background: rgba(100, 100, 100, 0.1); border-radius: 4px; text-align: center; font-size: 10px; font-weight: 600; color: var(--text-secondary);">Diversification</div>
-                    </div>
-                </div>
-
-                <div class="card" style="border-left: 4px solid var(--accent-secondary); border-top: none;">
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <div>
-                            <div style="font-size: 10px; font-weight: 700; color: var(--accent-secondary); text-transform: uppercase;">INFRASTRUCTURE</div>
-                            <div style="font-size: 12px; color: var(--text-primary);">Comptoirs • Raffinerie • Routes • Exploration</div>
-                        </div>
-                        <div style="font-size: 12px; font-weight: 700; color: var(--accent-secondary);">$100K - $50M</div>
-                    </div>
-                </div>
-
-                <div class="takeaway">
-                    <span class="arrow">→</span> Commencer par ce qui marche (ASM), construire vers la complexité
-                </div>
-            </div>
-
-            <div class="slide-footer">
-                <span class="source-text"></span>
-                <span class="slide-number">10</span>
-            </div>
-        </div>
-
-        <!-- ==========================================
-             SLIDE 11: CONCLUSION
-             ========================================== -->
-        <div class="slide" data-slide="11">
-            <span class="section-label">CONCLUSION</span>
-            <h1 class="headline">Chacun trouve sa place dans la chaîne de valeur minérale du Tchad</h1>
-            <p class="subtitle">De 1% à 3% du PIB = $540M de revenus fiscaux</p>
-
-            <div class="content-area">
-                <div class="conclusion-grid">
-                    <div class="card" style="border-left: 4px solid var(--accent-primary); border-top: none;">
-                        <div style="font-size: 11px; font-weight: 700; color: var(--accent-primary); margin-bottom: 8px; text-transform: uppercase;">CE QUE VOUS AVEZ VU</div>
-                        <div style="font-size: 12px; color: var(--text-secondary); line-height: 1.6;">
-                            → <strong>300K prospecteurs</strong> = découverte décentralisée<br>
-                            → <strong>SONEMIC</strong> : fondations en place<br>
-                            → <strong>Ghana</strong> : transformation rapide possible
-                        </div>
-                    </div>
-
-                    <div class="card" style="border-left: 4px solid var(--accent-secondary); border-top: none;">
-                        <div style="font-size: 11px; font-weight: 700; color: var(--accent-secondary); margin-bottom: 8px; text-transform: uppercase;">CE QUE VOUS POUVEZ FAIRE</div>
-                        <div style="display: flex; flex-wrap: wrap; gap: 6px;">
-                            <span style="font-size: 11px; padding: 4px 8px; background: #f8f8f8; border-radius: 4px;">①Prospection</span>
-                            <span style="font-size: 11px; padding: 4px 8px; background: #f8f8f8; border-radius: 4px;">②Extraction</span>
-                            <span style="font-size: 11px; padding: 4px 8px; background: #f8f8f8; border-radius: 4px;">③Services</span>
-                            <span style="font-size: 11px; padding: 4px 8px; background: #f8f8f8; border-radius: 4px;">④Infrastructure</span>
-                            <span style="font-size: 11px; padding: 4px 8px; background: #f8f8f8; border-radius: 4px;">⑤Exploration</span>
-                            <span style="font-size: 11px; padding: 4px 8px; background: #f8f8f8; border-radius: 4px;">⑥Capital</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="cta-box">
-                    <div style="font-size: 13px; font-weight: 500; margin-bottom: 12px;">
-                        Quatre segments. Trois types d'acteurs. Une chaîne de valeur complète.
-                    </div>
-                    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-bottom: 12px;">
-                        <span style="background: white; color: var(--accent-primary); padding: 6px 10px; border-radius: 4px; font-size: 9px; font-weight: 700; text-transform: uppercase;">ARTISANAL</span>
-                        <span style="background: white; color: var(--accent-secondary); padding: 6px 10px; border-radius: 4px; font-size: 9px; font-weight: 700; text-transform: uppercase;">ÉMERGENT</span>
-                        <span style="background: white; color: #1e3a5f; padding: 6px 10px; border-radius: 4px; font-size: 9px; font-weight: 700; text-transform: uppercase;">INDUSTRIEL</span>
-                        <span style="background: white; color: #666; padding: 6px 10px; border-radius: 4px; font-size: 9px; font-weight: 700; text-transform: uppercase;">INFRASTRUCTURE</span>
-                    </div>
-                    <div style="font-size: 14px; font-style: italic; margin-bottom: 8px;">
-                        Trouvez votre place. Les conversations commencent ici, à SEMICA.
-                    </div>
-                    <div style="font-size: 11px; font-weight: 600;">— Ali Adoudou</div>
-
-                    <div style="margin-top: 16px; display: flex; justify-content: center; align-items: center; gap: 12px;">
-                        <div style="background: white; padding: 6px; border-radius: 6px;">
-                            <img src="qrcode.png" alt="QR Code" style="width: 70px; height: 70px; display: block;">
-                        </div>
-                        <div style="font-size: 10px; text-align: left; opacity: 0.9;">Télécharger<br>la présentation</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="slide-footer">
-                <span class="source-text"></span>
-                <span class="slide-number">11</span>
-            </div>
-        </div>
-
-    </div>
-
-    <div class="progress-bar" id="progress"></div>
 
     <script>
-        // ==========================================
-        // STATE
-        // ==========================================
-        let currentSlide = 1;
-        const totalSlides = 11;
-        let isPlaying = false;
-        let playInterval = null;
-        const SLIDE_DURATION = 20000;
-
-        // ==========================================
-        // ELEMENTS
-        // ==========================================
-        const slides = document.querySelectorAll('.slide');
+        // Progress bar on scroll
         const progressBar = document.getElementById('progress');
-        const prevBtn = document.getElementById('prevBtn');
-        const nextBtn = document.getElementById('nextBtn');
-        const playBtn = document.getElementById('playBtn');
-        const currentNum = document.getElementById('currentNum');
-        const totalNum = document.getElementById('totalNum');
-
-        totalNum.textContent = totalSlides;
-
-        // ==========================================
-        // HELPERS
-        // ==========================================
-        function getSlide(num) {
-            return document.querySelector(`[data-slide="${num}"]`);
-        }
-
-        function updateProgress() {
-            progressBar.style.width = ((currentSlide / totalSlides) * 100) + '%';
-        }
-
-        function updateIndicator() {
-            currentNum.textContent = currentSlide;
-        }
-
-        // ==========================================
-        // NAVIGATION
-        // ==========================================
-        function goToSlide(num) {
-            if (num < 1 || num > totalSlides) return;
-
-            slides.forEach(s => s.classList.remove('active'));
-            const targetSlide = getSlide(num);
-            if (targetSlide) {
-                targetSlide.classList.add('active');
-                currentSlide = num;
-                updateProgress();
-                updateIndicator();
-                // Scroll to top on mobile
-                window.scrollTo(0, 0);
-            }
-        }
-
-        function nextSlide() {
-            if (currentSlide < totalSlides) {
-                goToSlide(currentSlide + 1);
-            }
-        }
-
-        function prevSlide() {
-            if (currentSlide > 1) {
-                goToSlide(currentSlide - 1);
-            }
-        }
-
-        function toggleAutoplay() {
-            isPlaying = !isPlaying;
-            playBtn.textContent = isPlaying ? '⏸' : '▶';
-            playBtn.classList.toggle('active', isPlaying);
-
-            if (isPlaying) {
-                playInterval = setInterval(() => {
-                    if (currentSlide < totalSlides) {
-                        nextSlide();
-                    } else {
-                        toggleAutoplay();
-                    }
-                }, SLIDE_DURATION);
-            } else {
-                clearInterval(playInterval);
-            }
-        }
-
-        // ==========================================
-        // EVENT LISTENERS
-        // ==========================================
-        prevBtn.addEventListener('click', prevSlide);
-        nextBtn.addEventListener('click', nextSlide);
-        playBtn.addEventListener('click', toggleAutoplay);
-
-        // Keyboard navigation
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight' || e.key === ' ') {
-                e.preventDefault();
-                nextSlide();
-            } else if (e.key === 'ArrowLeft' || e.key === 'Backspace') {
-                e.preventDefault();
-                prevSlide();
-            } else if (e.key === 'Home') {
-                e.preventDefault();
-                goToSlide(1);
-            } else if (e.key === 'End') {
-                e.preventDefault();
-                goToSlide(totalSlides);
-            } else if (e.key === 'p' || e.key === 'P') {
-                e.preventDefault();
-                toggleAutoplay();
-            }
-            const num = parseInt(e.key);
-            if (num >= 1 && num <= 9 && num <= totalSlides) {
-                goToSlide(num);
-            }
-            if (e.key === '0' && totalSlides >= 10) {
-                goToSlide(10);
-            }
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = (scrollTop / docHeight) * 100;
+            progressBar.style.width = progress + '%';
         });
 
-        // Touch support - swipe navigation
-        let touchStartX = 0;
-        let touchStartY = 0;
+        // Table of contents toggle
+        const tocBtn = document.getElementById('tocBtn');
+        const tocMenu = document.getElementById('tocMenu');
+        const tocClose = document.getElementById('tocClose');
+        const tocOverlay = document.getElementById('tocOverlay');
+        const tocItems = document.querySelectorAll('.toc-item');
 
-        document.addEventListener('touchstart', (e) => {
-            touchStartX = e.touches[0].clientX;
-            touchStartY = e.touches[0].clientY;
-        }, { passive: true });
+        function openToc() {
+            tocMenu.classList.add('open');
+            tocOverlay.classList.add('open');
+        }
 
-        document.addEventListener('touchend', (e) => {
-            const touchEndX = e.changedTouches[0].clientX;
-            const touchEndY = e.changedTouches[0].clientY;
-            const diffX = touchEndX - touchStartX;
-            const diffY = touchEndY - touchStartY;
+        function closeToc() {
+            tocMenu.classList.remove('open');
+            tocOverlay.classList.remove('open');
+        }
 
-            // Only trigger if horizontal swipe is greater than vertical
-            if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 50) {
-                if (diffX > 0) {
-                    prevSlide();
-                } else {
-                    nextSlide();
-                }
-            }
-        }, { passive: true });
+        tocBtn.addEventListener('click', openToc);
+        tocClose.addEventListener('click', closeToc);
+        tocOverlay.addEventListener('click', closeToc);
 
-        // ==========================================
-        // INIT
-        // ==========================================
-        goToSlide(1);
+        tocItems.forEach(item => {
+            item.addEventListener('click', () => {
+                closeToc();
+            });
+        });
     </script>
 </body>
 </html>
