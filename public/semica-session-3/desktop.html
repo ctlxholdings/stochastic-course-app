@@ -477,6 +477,23 @@
             gap: 12px;
         }
 
+        .version-toggle {
+            font-size: 12px;
+            padding: 6px 12px;
+            border-radius: 16px;
+            border: 1px solid var(--bg-tertiary);
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            cursor: pointer;
+            text-decoration: none;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+        }
+
+        .version-toggle:hover {
+            background: var(--bg-tertiary);
+        }
+
         .nav-btn {
             width: 36px;
             height: 36px;
@@ -797,6 +814,7 @@
             <img src="catalyx-logo.png" alt="Catalyx">
         </div>
         <div class="nav-controls">
+            <a href="index.html" class="version-toggle" title="Version mobile">📱 Mobile</a>
             <button class="nav-btn" id="prevBtn" title="Précédent">←</button>
             <span class="slide-indicator"><span id="currentNum">1</span> / <span id="totalNum">11</span></span>
             <button class="nav-btn" id="nextBtn" title="Suivant">→</button>
