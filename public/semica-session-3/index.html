@@ -37,64 +37,65 @@
             background: var(--bg-primary);
             color: var(--text-primary);
             min-height: 100vh;
-            overflow: hidden;
         }
 
         /* ========================================
-           SLIDE CONTAINER
+           SLIDE CONTAINER - MOBILE FIRST
            ======================================== */
         .slides-wrapper {
             position: relative;
-            width: 100vw;
-            height: 100vh;
+            width: 100%;
         }
 
         .slide {
             position: absolute;
-            top: 60px;
+            top: 56px;
             left: 0;
             width: 100%;
-            height: calc(100% - 60px);
-            padding: 30px 70px 50px;
+            min-height: calc(100vh - 56px);
+            padding: 16px;
             display: flex;
             flex-direction: column;
             opacity: 0;
             visibility: hidden;
-            transition: opacity 0.5s ease, visibility 0.5s ease;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            overflow-y: auto;
         }
 
         .slide.active {
             opacity: 1;
             visibility: visible;
+            position: relative;
+            top: 0;
         }
 
         /* ========================================
            SECTION LABEL
            ======================================== */
         .section-label {
-            font-size: 11px;
+            font-size: 10px;
             font-weight: 600;
             letter-spacing: 2px;
             color: var(--accent-primary);
             text-transform: uppercase;
-            margin-bottom: calc(var(--spacing) * 1);
+            margin-bottom: 8px;
         }
 
         /* ========================================
            HEADLINES
            ======================================== */
         .headline {
-            font-size: 38px;
+            font-size: 22px;
             font-weight: 700;
-            line-height: 1.2;
+            line-height: 1.25;
             color: var(--text-primary);
-            margin-bottom: calc(var(--spacing) * 0.5);
+            margin-bottom: 8px;
         }
 
         .subtitle {
-            font-size: 18px;
+            font-size: 14px;
             color: var(--text-secondary);
-            margin-bottom: calc(var(--spacing) * 2);
+            margin-bottom: 16px;
         }
 
         /* ========================================
@@ -103,7 +104,7 @@
         .card {
             background: var(--bg-secondary);
             border-radius: var(--card-radius);
-            padding: var(--card-padding);
+            padding: 12px;
             border-top: 3px solid var(--accent-primary);
         }
 
@@ -118,19 +119,13 @@
 
         .card-grid {
             display: grid;
-            gap: calc(var(--spacing) * 2);
+            gap: 12px;
         }
 
-        .card-grid.cols-2 {
-            grid-template-columns: 1fr 1fr;
-        }
-
-        .card-grid.cols-3 {
-            grid-template-columns: 1fr 1fr 1fr;
-        }
-
+        .card-grid.cols-2,
+        .card-grid.cols-3,
         .card-grid.cols-4 {
-            grid-template-columns: 1fr 1fr 1fr 1fr;
+            grid-template-columns: 1fr;
         }
 
         /* ========================================
@@ -139,7 +134,7 @@
         .stat-card {
             background: var(--bg-secondary);
             border-radius: var(--card-radius);
-            padding: calc(var(--spacing) * 2.5);
+            padding: 12px;
             border-left: 4px solid var(--accent-primary);
         }
 
@@ -153,7 +148,7 @@
         }
 
         .stat-number {
-            font-size: 44px;
+            font-size: 28px;
             font-weight: 800;
             color: var(--accent-primary);
             line-height: 1;
@@ -169,7 +164,7 @@
         }
 
         .stat-label {
-            font-size: 13px;
+            font-size: 12px;
             color: var(--text-secondary);
         }
 
@@ -179,10 +174,10 @@
         .takeaway {
             background: linear-gradient(90deg, rgba(196, 30, 58, 0.1) 0%, rgba(196, 30, 58, 0) 100%);
             border-left: 4px solid var(--accent-primary);
-            padding: calc(var(--spacing) * 2) calc(var(--spacing) * 2);
-            font-size: 15px;
+            padding: 12px;
+            font-size: 13px;
             color: var(--text-primary);
-            margin-top: auto;
+            margin-top: 16px;
         }
 
         .takeaway .arrow {
@@ -196,14 +191,14 @@
            ======================================== */
         .timeline {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: calc(var(--spacing) * 2);
+            grid-template-columns: 1fr;
+            gap: 12px;
         }
 
         .timeline-item {
             background: var(--bg-secondary);
             border-radius: var(--card-radius);
-            padding: calc(var(--spacing) * 2);
+            padding: 12px;
             border-top: 4px solid var(--accent-primary);
         }
 
@@ -216,10 +211,10 @@
         }
 
         .timeline-period {
-            font-size: 11px;
+            font-size: 10px;
             font-weight: 600;
             color: var(--accent-primary);
-            margin-bottom: 6px;
+            margin-bottom: 4px;
         }
 
         .timeline-item.phase-2 .timeline-period {
@@ -231,21 +226,21 @@
         }
 
         .timeline-title {
-            font-size: 16px;
+            font-size: 14px;
             font-weight: 700;
             color: var(--text-primary);
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
         .timeline-list {
             list-style: none;
-            font-size: 13px;
+            font-size: 12px;
             color: var(--text-secondary);
         }
 
         .timeline-list li {
             margin-bottom: 4px;
-            padding-left: 14px;
+            padding-left: 12px;
             position: relative;
         }
 
@@ -264,36 +259,27 @@
             color: var(--text-secondary);
         }
 
-        .timeline-note {
-            margin-top: 10px;
-            padding-top: 10px;
-            border-top: 1px solid var(--bg-tertiary);
-            font-size: 12px;
-            color: var(--text-muted);
-            font-style: italic;
-        }
-
         /* ========================================
            MECHANISM BOX
            ======================================== */
         .mechanism-box {
             background: var(--bg-tertiary);
             border-radius: var(--card-radius);
-            padding: calc(var(--spacing) * 2);
+            padding: 12px;
             text-align: center;
         }
 
         .mechanism-label {
-            font-size: 11px;
+            font-size: 10px;
             font-weight: 600;
             color: var(--text-muted);
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
         }
 
         .mechanism-formula {
-            font-size: 15px;
+            font-size: 13px;
             color: var(--text-primary);
         }
 
@@ -308,46 +294,46 @@
         .title-slide {
             justify-content: center;
             align-items: flex-start;
+            min-height: calc(100vh - 56px);
         }
 
         .title-slide .accent-bar {
-            width: 80px;
-            height: 5px;
+            width: 60px;
+            height: 4px;
             background: var(--accent-primary);
-            margin-bottom: calc(var(--spacing) * 3);
+            margin-bottom: 16px;
         }
 
         .title-slide .main-title {
-            font-size: 46px;
+            font-size: 26px;
             font-weight: 700;
             color: var(--text-primary);
-            line-height: 1.15;
-            margin-bottom: calc(var(--spacing) * 2);
+            line-height: 1.2;
+            margin-bottom: 12px;
         }
 
         .title-slide .presenter-subtitle {
-            font-size: 20px;
+            font-size: 14px;
             color: var(--text-secondary);
-            margin-bottom: calc(var(--spacing) * 5);
+            margin-bottom: 24px;
         }
 
         .title-slide .presenter-name {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 600;
             color: var(--text-primary);
             margin-bottom: 4px;
         }
 
         .title-slide .presenter-role {
-            font-size: 14px;
+            font-size: 13px;
             color: var(--text-secondary);
         }
 
         .title-slide .event-info {
-            position: absolute;
-            bottom: 50px;
-            left: 70px;
-            font-size: 13px;
+            margin-top: auto;
+            padding-top: 24px;
+            font-size: 12px;
             color: var(--text-muted);
         }
 
@@ -358,20 +344,20 @@
             flex: 1;
             display: flex;
             flex-direction: column;
-            gap: calc(var(--spacing) * 2);
+            gap: 12px;
         }
 
         .content-split {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: calc(var(--spacing) * 3);
+            grid-template-columns: 1fr;
+            gap: 12px;
             flex: 1;
         }
 
         .content-column {
             display: flex;
             flex-direction: column;
-            gap: calc(var(--spacing) * 2);
+            gap: 12px;
         }
 
         /* ========================================
@@ -384,25 +370,15 @@
         .checklist li {
             display: flex;
             align-items: flex-start;
-            gap: 10px;
-            padding: 8px 0;
-            font-size: 14px;
+            gap: 8px;
+            padding: 6px 0;
+            font-size: 13px;
             color: var(--text-primary);
         }
 
         .checklist .check {
             color: var(--accent-primary);
             font-weight: 700;
-        }
-
-        .checklist .pending {
-            color: var(--text-muted);
-        }
-
-        .checklist .item-label {
-            font-size: 12px;
-            color: var(--text-muted);
-            margin-left: auto;
         }
 
         /* ========================================
@@ -412,22 +388,19 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding-top: calc(var(--spacing) * 1);
+            padding-top: 12px;
             margin-top: auto;
-        }
-
-        .logo-catalyx {
-            height: 28px;
-            width: auto;
+            font-size: 10px;
         }
 
         .source-text {
-            font-size: 11px;
+            font-size: 10px;
             color: var(--text-muted);
+            flex: 1;
         }
 
         .slide-number {
-            font-size: 13px;
+            font-size: 12px;
             color: var(--text-muted);
         }
 
@@ -453,18 +426,18 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 60px;
+            height: 56px;
             background: var(--bg-primary);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 30px;
+            padding: 0 12px;
             z-index: 100;
             border-bottom: 1px solid var(--bg-tertiary);
         }
 
         .header-logo img {
-            height: 40px;
+            height: 32px;
             width: auto;
         }
 
@@ -474,7 +447,7 @@
         .nav-controls {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 8px;
         }
 
         .nav-btn {
@@ -490,11 +463,11 @@
             font-size: 14px;
             color: var(--text-secondary);
             transition: all 0.2s ease;
+            -webkit-tap-highlight-color: transparent;
         }
 
-        .nav-btn:hover {
-            border-color: var(--accent-primary);
-            color: var(--accent-primary);
+        .nav-btn:active {
+            background: var(--bg-secondary);
         }
 
         .nav-btn.active {
@@ -504,91 +477,15 @@
         }
 
         .slide-indicator {
-            font-size: 13px;
-            color: var(--text-muted);
-            min-width: 50px;
-            text-align: center;
-        }
-
-        /* ========================================
-           CONCLUSION SLIDE
-           ======================================== */
-        .conclusion-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: calc(var(--spacing) * 3);
-        }
-
-        .conclusion-card {
-            background: var(--bg-secondary);
-            border-radius: var(--card-radius);
-            padding: calc(var(--spacing) * 2);
-            border-top: 4px solid var(--accent-primary);
-        }
-
-        .conclusion-card.secondary {
-            border-color: var(--accent-secondary);
-        }
-
-        .conclusion-title {
             font-size: 12px;
-            font-weight: 600;
-            color: var(--accent-primary);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 10px;
-        }
-
-        .conclusion-card.secondary .conclusion-title {
-            color: var(--accent-secondary);
-        }
-
-        .conclusion-list {
-            list-style: none;
-        }
-
-        .conclusion-list li {
-            padding: 5px 0;
-            font-size: 14px;
-            color: var(--text-primary);
-            padding-left: 14px;
-            position: relative;
-        }
-
-        .conclusion-list li::before {
-            content: "•";
-            position: absolute;
-            left: 0;
-            color: var(--accent-primary);
-        }
-
-        .conclusion-card.secondary .conclusion-list li::before {
-            color: var(--accent-secondary);
-        }
-
-        .cta-box {
-            background: linear-gradient(135deg, var(--accent-primary) 0%, #9a1830 100%);
-            border-radius: var(--card-radius);
-            padding: calc(var(--spacing) * 3);
-            color: white;
+            color: var(--text-muted);
+            min-width: 40px;
             text-align: center;
-            grid-column: 1 / -1;
         }
 
-        .cta-text {
-            font-size: 17px;
-            font-weight: 500;
-            line-height: 1.5;
-        }
-
-        .cta-highlight {
-            font-weight: 700;
-        }
-
-        .presenter-sign {
-            margin-top: 14px;
-            font-size: 15px;
-            opacity: 0.9;
+        /* Hide print button on mobile */
+        #printBtn {
+            display: none;
         }
 
         /* ========================================
@@ -596,28 +493,27 @@
            ======================================== */
         .void-container {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: space-between;
-            gap: 20px;
-            margin: 10px 0;
+            gap: 12px;
+            margin: 8px 0;
         }
 
         .void-box {
             background: var(--bg-secondary);
             border-radius: var(--card-radius);
-            padding: calc(var(--spacing) * 3);
+            padding: 16px;
             text-align: center;
-            flex: 1;
+            width: 100%;
         }
 
         .void-box.center {
             background: var(--accent-primary);
             color: white;
-            flex: 0.8;
         }
 
         .void-number {
-            font-size: 52px;
+            font-size: 32px;
             font-weight: 800;
             color: var(--accent-primary);
             line-height: 1;
@@ -625,7 +521,7 @@
 
         .void-box.center .void-number {
             color: white;
-            font-size: 24px;
+            font-size: 18px;
             font-weight: 700;
         }
 
@@ -634,20 +530,19 @@
         }
 
         .void-label {
-            font-size: 16px;
+            font-size: 14px;
             font-weight: 600;
-            margin-top: 8px;
+            margin-top: 6px;
             color: var(--text-primary);
         }
 
         .void-box.center .void-label {
             color: white;
-            font-size: 13px;
-            opacity: 0.9;
+            font-size: 12px;
         }
 
         .void-sublabel {
-            font-size: 13px;
+            font-size: 12px;
             color: var(--text-secondary);
             margin-top: 4px;
         }
@@ -657,11 +552,11 @@
         }
 
         .void-category {
-            font-size: 11px;
+            font-size: 10px;
             text-transform: uppercase;
             letter-spacing: 1px;
             color: var(--text-muted);
-            margin-top: 12px;
+            margin-top: 8px;
         }
 
         .void-box.center .void-category {
@@ -669,15 +564,16 @@
         }
 
         .void-arrow {
-            font-size: 24px;
+            font-size: 20px;
             color: var(--text-muted);
+            transform: rotate(90deg);
         }
 
         .void-spectrum {
             text-align: center;
-            font-size: 14px;
+            font-size: 12px;
             color: var(--text-secondary);
-            margin-top: 16px;
+            margin-top: 8px;
         }
 
         /* ========================================
@@ -685,14 +581,14 @@
            ======================================== */
         .comparison-container {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 24px;
+            grid-template-columns: 1fr;
+            gap: 16px;
         }
 
         .comparison-card {
             background: var(--bg-secondary);
             border-radius: var(--card-radius);
-            padding: calc(var(--spacing) * 2.5);
+            padding: 16px;
         }
 
         .comparison-card.highlight {
@@ -700,10 +596,10 @@
         }
 
         .comparison-header {
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 600;
             color: var(--text-muted);
-            margin-bottom: 16px;
+            margin-bottom: 12px;
             padding-bottom: 8px;
             border-bottom: 1px solid var(--bg-tertiary);
         }
@@ -715,8 +611,8 @@
         .comparison-row {
             display: flex;
             justify-content: space-between;
-            padding: 6px 0;
-            font-size: 14px;
+            padding: 4px 0;
+            font-size: 13px;
             border-bottom: 1px solid var(--bg-tertiary);
         }
 
@@ -738,23 +634,167 @@
         }
 
         /* ========================================
-           RESPONSIVE
+           CONCLUSION SLIDE
            ======================================== */
-        @media (max-width: 1200px) {
+        .conclusion-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+
+        .conclusion-card {
+            background: var(--bg-secondary);
+            border-radius: var(--card-radius);
+            padding: 12px;
+            border-top: 4px solid var(--accent-primary);
+        }
+
+        .conclusion-card.secondary {
+            border-color: var(--accent-secondary);
+        }
+
+        .cta-box {
+            background: linear-gradient(135deg, var(--accent-primary) 0%, #9a1830 100%);
+            border-radius: var(--card-radius);
+            padding: 16px;
+            color: white;
+            text-align: center;
+        }
+
+        /* ========================================
+           RESPONSIVE - TABLET (768px+)
+           ======================================== */
+        @media (min-width: 768px) {
             .slide {
-                padding: 35px 45px;
+                padding: 24px 40px;
             }
 
             .headline {
-                font-size: 32px;
+                font-size: 30px;
             }
 
             .stat-number {
-                font-size: 40px;
+                font-size: 36px;
             }
 
             .title-slide .main-title {
+                font-size: 36px;
+            }
+
+            .card-grid.cols-2 {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .card-grid.cols-4 {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .void-container {
+                flex-direction: row;
+            }
+
+            .void-arrow {
+                transform: rotate(0deg);
+            }
+
+            .comparison-container {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .conclusion-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            #printBtn {
+                display: flex;
+            }
+        }
+
+        /* ========================================
+           RESPONSIVE - DESKTOP (1024px+)
+           ======================================== */
+        @media (min-width: 1024px) {
+            body {
+                overflow: hidden;
+            }
+
+            .slides-wrapper {
+                height: 100vh;
+            }
+
+            .slide {
+                position: absolute;
+                top: 60px;
+                height: calc(100vh - 60px);
+                min-height: auto;
+                padding: 30px 70px 50px;
+                overflow: hidden;
+            }
+
+            .slide.active {
+                position: absolute;
+                top: 60px;
+            }
+
+            .header-bar {
+                height: 60px;
+                padding: 0 30px;
+            }
+
+            .header-logo img {
+                height: 40px;
+            }
+
+            .headline {
                 font-size: 38px;
+            }
+
+            .subtitle {
+                font-size: 18px;
+            }
+
+            .stat-number {
+                font-size: 44px;
+            }
+
+            .title-slide .main-title {
+                font-size: 46px;
+            }
+
+            .title-slide .presenter-subtitle {
+                font-size: 20px;
+            }
+
+            .title-slide .event-info {
+                position: absolute;
+                bottom: 50px;
+                left: 70px;
+            }
+
+            .card-grid.cols-3 {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+
+            .card-grid.cols-4 {
+                grid-template-columns: 1fr 1fr 1fr 1fr;
+            }
+
+            .content-split {
+                grid-template-columns: 1fr 1fr;
+                gap: 24px;
+            }
+
+            .timeline {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .takeaway {
+                margin-top: auto;
+            }
+
+            .nav-btn:hover {
+                border-color: var(--accent-primary);
+                color: var(--accent-primary);
             }
         }
 
@@ -833,7 +873,7 @@
             <h1 class="headline">De l'or sans mines industrielles</h1>
             <p class="subtitle">Le chaînon manquant: convertir les sites artisanaux en projets investissables</p>
 
-            <div class="content-area" style="padding-top: 16px;">
+            <div class="content-area">
                 <div class="void-container">
                     <div class="void-box">
                         <div class="void-number">300 000</div>
@@ -879,8 +919,7 @@
             <h1 class="headline">L'ASM: moteur économique rural</h1>
             <p class="subtitle">Un écosystème qui touche près de 2 millions de Tchadiens</p>
 
-            <div class="content-area" style="padding-top: 16px;">
-                <!-- Ligne 1: 300K, #2, +15%, 1:6 -->
+            <div class="content-area">
                 <div class="card-grid cols-4">
                     <div class="stat-card">
                         <div class="stat-number">300K</div>
@@ -900,8 +939,7 @@
                     </div>
                 </div>
 
-                <!-- Ligne 2: 60-70%, 1.8M -->
-                <div class="card-grid cols-2" style="margin-top: 16px;">
+                <div class="card-grid cols-2">
                     <div class="stat-card">
                         <div class="stat-number">60-70%</div>
                         <div class="stat-label">de la valeur retenue localement</div>
@@ -924,132 +962,42 @@
         </div>
 
         <!-- ==========================================
-             SLIDE 4: VALEUR EXPLORATION (2/3 chart + 1/3 content)
+             SLIDE 4: VALEUR EXPLORATION
              ========================================== -->
         <div class="slide" data-slide="4">
             <span class="section-label">CRÉATION DE VALEUR</span>
             <h1 class="headline">300,000 prospecteurs décentralisés</h1>
             <p class="subtitle">Le plus grand saut de valeur se produit à la découverte</p>
 
-            <div class="content-area" style="padding-top: 8px;">
-                <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 24px; flex: 1;">
-
-                    <!-- LEFT 2/3: CHART -->
-                    <div style="background: var(--bg-secondary); border-radius: var(--card-radius); padding: 20px 20px 16px; display: flex; flex-direction: column;">
-
-                        <!-- Chart area with fixed positioning -->
-                        <div style="position: relative; height: 260px; margin-bottom: 8px;">
-
-                            <!-- DÉCOUVERTE label - positioned above red bar -->
-                            <div style="position: absolute; left: calc(2 * (100% / 7) + (100% / 14) - 35px); top: 0;">
-                                <div style="font-size: 9px; font-weight: 700; color: var(--accent-primary); text-transform: uppercase; letter-spacing: 0.5px; text-align: center;">DÉCOUVERTE</div>
-                                <div style="width: 1px; height: 8px; background: var(--accent-primary); margin: 2px auto;"></div>
-                            </div>
-
-                            <!-- Bars container - aligned to bottom -->
-                            <div style="position: absolute; bottom: 0; left: 0; right: 0; display: flex; gap: 6px; align-items: flex-end;">
-                                <!-- Prospect -->
-                                <div style="flex: 1; display: flex; flex-direction: column; align-items: center;">
-                                    <div style="width: 44px; height: 28px; background: #D0D0D0; border-radius: 2px 2px 0 0;"></div>
-                                </div>
-                                <!-- Cible -->
-                                <div style="flex: 1; display: flex; flex-direction: column; align-items: center; position: relative;">
-                                    <div style="width: 44px; height: 42px; background: #D0D0D0; border-radius: 2px 2px 0 0;"></div>
-                                    <!-- Delta arrow: from top of Cible (42px) to top of Ressources (130px) = 88px span -->
-                                    <!-- Positioned between the two bars, showing the value gap -->
-                                    <div style="position: absolute; right: -10px; bottom: 42px; height: 88px; display: flex; flex-direction: column; align-items: center; z-index: 10;">
-                                        <!-- Top line -->
-                                        <div style="flex: 1; width: 1px; background: var(--accent-primary);"></div>
-                                        <!-- Delta symbol centered -->
-                                        <div style="font-size: 13px; color: var(--accent-primary); font-weight: 700; line-height: 1; padding: 2px 0;">Δ</div>
-                                        <!-- Bottom line -->
-                                        <div style="flex: 1; width: 1px; background: var(--accent-primary);"></div>
-                                    </div>
-                                </div>
-                                <!-- Ressources Inférées (RED) -->
-                                <div style="flex: 1; display: flex; flex-direction: column; align-items: center;">
-                                    <div style="width: 44px; height: 130px; background: var(--accent-primary); border-radius: 2px 2px 0 0;"></div>
-                                </div>
-                                <!-- ÉÉP -->
-                                <div style="flex: 1; display: flex; flex-direction: column; align-items: center;">
-                                    <div style="width: 44px; height: 155px; background: #A0A0A0; border-radius: 2px 2px 0 0;"></div>
-                                </div>
-                                <!-- ÉPF -->
-                                <div style="flex: 1; display: flex; flex-direction: column; align-items: center;">
-                                    <div style="width: 44px; height: 180px; background: #A0A0A0; border-radius: 2px 2px 0 0;"></div>
-                                </div>
-                                <!-- ÉFD -->
-                                <div style="flex: 1; display: flex; flex-direction: column; align-items: center;">
-                                    <div style="width: 44px; height: 210px; background: #A0A0A0; border-radius: 2px 2px 0 0;"></div>
-                                </div>
-                                <!-- Opérations -->
-                                <div style="flex: 1; display: flex; flex-direction: column; align-items: center;">
-                                    <div style="width: 44px; height: 240px; background: #1e3a5f; border-radius: 2px 2px 0 0;"></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Labels row -->
-                        <div style="display: flex; gap: 6px;">
-                            <div style="flex: 1; text-align: center; font-size: 10px; color: var(--text-muted);">Prospect</div>
-                            <div style="flex: 1; text-align: center; font-size: 10px; color: var(--text-muted);">Cible</div>
-                            <div style="flex: 1; text-align: center; font-size: 10px; color: var(--accent-primary); font-weight: 600;">Ressources<br>Inférées</div>
-                            <div style="flex: 1; text-align: center; font-size: 10px; color: var(--text-muted);">ÉÉP</div>
-                            <div style="flex: 1; text-align: center; font-size: 10px; color: var(--text-muted);">ÉPF</div>
-                            <div style="flex: 1; text-align: center; font-size: 10px; color: var(--text-muted);">ÉFD</div>
-                            <div style="flex: 1; text-align: center; font-size: 10px; color: var(--text-muted);">Opérations</div>
-                        </div>
-
-                        <!-- Zone lines and labels - aligned with bars above -->
-                        <div style="display: flex; gap: 6px; margin-top: 10px;">
-                            <!-- SONEMIC zone: 3 columns (Prospect, Cible, Ressources) -->
-                            <div style="flex: 3; display: flex; flex-direction: column; align-items: center;">
-                                <div style="width: 100%; height: 1px; background: var(--accent-primary);"></div>
-                                <span style="font-size: 11px; font-weight: 700; color: var(--accent-primary); margin-top: 6px;">ORPAILLEURS</span>
-                            </div>
-                            <!-- DÉVELOPPEURS zone: 4 columns (ÉÉP, ÉPF, ÉFD, Opérations) -->
-                            <div style="flex: 4; display: flex; flex-direction: column; align-items: center;">
-                                <div style="width: 100%; height: 1px; background: #888;"></div>
-                                <span style="font-size: 11px; font-weight: 600; color: var(--text-muted); margin-top: 6px;">DÉVELOPPEURS</span>
-                            </div>
-                        </div>
+            <div class="content-area">
+                <div class="card" style="border-left: 4px solid var(--accent-primary); border-top: none;">
+                    <div style="font-size: 14px; font-weight: 700; color: var(--text-primary); margin-bottom: 8px;">La valeur bondit de 3-5× à la découverte</div>
+                    <div style="font-size: 13px; color: var(--text-secondary); margin-bottom: 4px;">
+                        Avant découverte: <span style="font-weight: 600;">0 $/oz</span>
                     </div>
-
-                    <!-- RIGHT 1/3: CONTENT -->
-                    <div style="display: flex; flex-direction: column; gap: 12px;">
-
-                        <!-- Value Card -->
-                        <div style="background: var(--bg-secondary); border-radius: var(--card-radius); padding: 14px 16px; border-left: 4px solid var(--accent-primary);">
-                            <div style="font-size: 14px; font-weight: 700; color: var(--text-primary); margin-bottom: 8px;">La valeur bondit de 3-5× à la découverte</div>
-                            <div style="font-size: 13px; color: var(--text-secondary); margin-bottom: 4px;">
-                                Avant découverte: <span style="font-weight: 600;">0 $/oz</span>
-                            </div>
-                            <div style="font-size: 13px; color: var(--text-secondary); margin-bottom: 4px;">
-                                Après découverte: <span style="font-weight: 700; color: var(--accent-primary);">15-30 $/oz</span>
-                            </div>
-                            <div style="font-size: 13px; color: var(--text-secondary);">
-                                Après ÉFD: <span style="font-weight: 600;">80-150 $/oz</span>
-                            </div>
-                            <div style="font-size: 12px; color: var(--text-muted); margin-top: 8px; line-height: 1.4;">
-                                Le gain en pourcentage le plus important se produit à la découverte.
-                            </div>
-                        </div>
-
-                        <!-- SONEMIC Box -->
-                        <div style="background: var(--accent-primary); border-radius: var(--card-radius); padding: 14px 16px; color: white;">
-                            <div style="font-size: 14px; font-weight: 600; line-height: 1.5;">
-                                SONEMIC génère les découvertes.<br>
-                                Les développeurs construisent les mines.
-                            </div>
-                        </div>
-
-                        <!-- Legend -->
-                        <div style="font-size: 10px; color: var(--text-muted); line-height: 1.4;">
-                            ÉÉP: Évaluation Économique Préliminaire<br>
-                            ÉPF: Étude de Préfaisabilité<br>
-                            ÉFD: Étude de Faisabilité Définitive
-                        </div>
+                    <div style="font-size: 13px; color: var(--text-secondary); margin-bottom: 4px;">
+                        Après découverte: <span style="font-weight: 700; color: var(--accent-primary);">15-30 $/oz</span>
                     </div>
+                    <div style="font-size: 13px; color: var(--text-secondary);">
+                        Après ÉFD: <span style="font-weight: 600;">80-150 $/oz</span>
+                    </div>
+                </div>
+
+                <div style="background: var(--accent-primary); border-radius: var(--card-radius); padding: 14px; color: white;">
+                    <div style="font-size: 14px; font-weight: 600; line-height: 1.5;">
+                        SONEMIC génère les découvertes.<br>
+                        Les développeurs construisent les mines.
+                    </div>
+                </div>
+
+                <div style="font-size: 11px; color: var(--text-muted); line-height: 1.4;">
+                    ÉÉP: Évaluation Économique Préliminaire<br>
+                    ÉPF: Étude de Préfaisabilité<br>
+                    ÉFD: Étude de Faisabilité Définitive
+                </div>
+
+                <div class="takeaway">
+                    <span class="arrow">→</span> Le gain en pourcentage le plus important se produit à la découverte.
                 </div>
             </div>
 
@@ -1060,17 +1008,16 @@
         </div>
 
         <!-- ==========================================
-             SLIDE 5: AVANTAGE CONCURRENTIEL (relief taux de succès)
+             SLIDE 5: AVANTAGE CONCURRENTIEL
              ========================================== -->
         <div class="slide" data-slide="5">
             <span class="section-label">AVANTAGE CONCURRENTIEL</span>
             <h1 class="headline">L'intelligence artisanale triple le taux de succès</h1>
-            <p class="subtitle"></p>
 
-            <div class="content-area" style="padding-top: 8px;">
-                <div class="comparison-container" style="flex: 1;">
+            <div class="content-area">
+                <div class="comparison-container">
                     <!-- GREENFIELD STANDARD -->
-                    <div class="comparison-card" style="display: flex; flex-direction: column;">
+                    <div class="comparison-card">
                         <div class="comparison-header">EXPLORATION GREENFIELD STANDARD</div>
                         <div class="comparison-row">
                             <span class="comparison-label">Cibles testées</span>
@@ -1080,28 +1027,25 @@
                             <span class="comparison-label">Coût par cible</span>
                             <span class="comparison-value">15 M$</span>
                         </div>
-                        <div class="comparison-row" style="border-bottom: none;">
+                        <div class="comparison-row">
                             <span class="comparison-label">Total investi</span>
                             <span class="comparison-value">150 M$</span>
                         </div>
 
-                        <!-- TAUX DE SUCCÈS - HIGHLIGHTED -->
-                        <div style="background: var(--bg-tertiary); border-radius: 6px; padding: 16px; margin: 16px 0; text-align: center;">
-                            <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px;">Taux de succès</div>
-                            <div style="font-size: 48px; font-weight: 800; color: var(--text-muted); line-height: 1.1;">10 %</div>
-                            <div style="font-size: 13px; color: var(--text-secondary);">= 1 découverte</div>
+                        <div style="background: var(--bg-tertiary); border-radius: 6px; padding: 12px; margin: 12px 0; text-align: center;">
+                            <div style="font-size: 10px; color: var(--text-muted); text-transform: uppercase;">Taux de succès</div>
+                            <div style="font-size: 32px; font-weight: 800; color: var(--text-muted);">10 %</div>
+                            <div style="font-size: 12px; color: var(--text-secondary);">= 1 découverte</div>
                         </div>
 
-                        <!-- RÉSULTAT -->
-                        <div style="margin-top: auto; text-align: center; padding-top: 12px; border-top: 2px solid var(--bg-tertiary);">
-                            <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px;">Résultat</div>
-                            <div style="font-size: 36px; font-weight: 800; color: var(--accent-secondary);">-110 M$</div>
-                            <div style="font-size: 12px; color: var(--text-muted);">40 M$ de valeur - 150 M$ de coût</div>
+                        <div style="text-align: center; padding-top: 8px; border-top: 2px solid var(--bg-tertiary);">
+                            <div style="font-size: 10px; color: var(--text-muted); text-transform: uppercase;">Résultat</div>
+                            <div style="font-size: 28px; font-weight: 800; color: var(--accent-secondary);">-110 M$</div>
                         </div>
                     </div>
 
                     <!-- SONEMIC -->
-                    <div class="comparison-card highlight" style="display: flex; flex-direction: column;">
+                    <div class="comparison-card highlight">
                         <div class="comparison-header">SONEMIC (GUIDÉ PAR L'ARTISANAT)</div>
                         <div class="comparison-row">
                             <span class="comparison-label">Cibles testées</span>
@@ -1111,29 +1055,26 @@
                             <span class="comparison-label">Coût par cible</span>
                             <span class="comparison-value">10 M$</span>
                         </div>
-                        <div class="comparison-row" style="border-bottom: none;">
+                        <div class="comparison-row">
                             <span class="comparison-label">Total investi</span>
                             <span class="comparison-value">100 M$</span>
                         </div>
 
-                        <!-- TAUX DE SUCCÈS - HIGHLIGHTED -->
-                        <div style="background: rgba(196, 30, 58, 0.1); border: 2px solid var(--accent-primary); border-radius: 6px; padding: 16px; margin: 16px 0; text-align: center;">
-                            <div style="font-size: 11px; color: var(--accent-primary); text-transform: uppercase; letter-spacing: 1px;">Taux de succès</div>
-                            <div style="font-size: 48px; font-weight: 800; color: var(--accent-primary); line-height: 1.1;">30 %</div>
-                            <div style="font-size: 13px; color: var(--text-primary);">= 3 découvertes</div>
+                        <div style="background: rgba(196, 30, 58, 0.1); border: 2px solid var(--accent-primary); border-radius: 6px; padding: 12px; margin: 12px 0; text-align: center;">
+                            <div style="font-size: 10px; color: var(--accent-primary); text-transform: uppercase;">Taux de succès</div>
+                            <div style="font-size: 32px; font-weight: 800; color: var(--accent-primary);">30 %</div>
+                            <div style="font-size: 12px; color: var(--text-primary);">= 3 découvertes</div>
                         </div>
 
-                        <!-- RÉSULTAT -->
-                        <div style="background: var(--accent-primary); border-radius: 6px; padding: 16px; margin-top: auto; text-align: center;">
-                            <div style="font-size: 11px; color: rgba(255,255,255,0.8); text-transform: uppercase; letter-spacing: 1px;">Résultat</div>
-                            <div style="font-size: 36px; font-weight: 800; color: white;">+20 M$</div>
-                            <div style="font-size: 12px; color: rgba(255,255,255,0.9);">+ 3 participations</div>
+                        <div style="background: var(--accent-primary); border-radius: 6px; padding: 12px; text-align: center;">
+                            <div style="font-size: 10px; color: rgba(255,255,255,0.8); text-transform: uppercase;">Résultat</div>
+                            <div style="font-size: 28px; font-weight: 800; color: white;">+20 M$</div>
                         </div>
                     </div>
                 </div>
 
                 <div class="takeaway">
-                    <span class="arrow">→</span> Les sites artisanaux confirment déjà l'existence de la minéralisation. SONEMIC évite la question « y a-t-il de l'or ? » — ne testant que la taille et la teneur.
+                    <span class="arrow">→</span> Les sites artisanaux confirment déjà l'existence de la minéralisation.
                 </div>
             </div>
 
@@ -1144,68 +1085,41 @@
         </div>
 
         <!-- ==========================================
-             SLIDE 6: SONEMIC (meilleur visuel)
+             SLIDE 6: SONEMIC
              ========================================== -->
         <div class="slide" data-slide="6">
             <span class="section-label">INFRASTRUCTURE</span>
-            <h1 class="headline">SONEMIC pose les fondations institutionnelles du secteur</h1>
+            <h1 class="headline">SONEMIC pose les fondations institutionnelles</h1>
             <p class="subtitle">Opérationnel vs. planifié</p>
 
-            <div class="content-area" style="padding-top: 8px;">
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; flex: 1;">
-
+            <div class="content-area">
+                <div class="card-grid cols-2">
                     <!-- OPÉRATIONNEL -->
-                    <div style="background: var(--bg-secondary); border-radius: var(--card-radius); padding: 24px; border-top: 4px solid var(--accent-primary); display: flex; flex-direction: column;">
-                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px;">
-                            <div style="width: 32px; height: 32px; background: var(--accent-primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700;">✓</div>
-                            <div style="font-size: 14px; font-weight: 700; color: var(--accent-primary); text-transform: uppercase; letter-spacing: 1px;">OPÉRATIONNEL</div>
+                    <div class="card" style="border-top: 4px solid var(--accent-primary);">
+                        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+                            <div style="width: 24px; height: 24px; background: var(--accent-primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 12px;">✓</div>
+                            <div style="font-size: 12px; font-weight: 700; color: var(--accent-primary); text-transform: uppercase;">OPÉRATIONNEL</div>
                         </div>
-
-                        <div style="display: flex; flex-direction: column; gap: 16px; flex: 1;">
-                            <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; background: white; border-radius: 6px;">
-                                <span style="font-size: 14px; font-weight: 600; color: var(--text-primary);">Brigade Minière Spéciale</span>
-                                <span style="font-size: 12px; color: var(--text-muted); background: var(--bg-tertiary); padding: 4px 8px; border-radius: 4px;">avril 2024</span>
-                            </div>
-                            <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; background: white; border-radius: 6px;">
-                                <span style="font-size: 14px; font-weight: 600; color: var(--text-primary);">Cadre juridique clarifié</span>
-                                <span style="font-size: 12px; color: var(--text-muted); background: var(--bg-tertiary); padding: 4px 8px; border-radius: 4px;">ateliers actifs</span>
-                            </div>
-                            <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; background: white; border-radius: 6px;">
-                                <span style="font-size: 14px; font-weight: 600; color: var(--text-primary);">Cartographie géologique</span>
-                                <span style="font-size: 12px; color: var(--text-muted); background: var(--bg-tertiary); padding: 4px 8px; border-radius: 4px;">en cours</span>
-                            </div>
-                            <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; background: white; border-radius: 6px;">
-                                <span style="font-size: 14px; font-weight: 600; color: var(--text-primary);">Conseil d'Administration actif</span>
-                                <span style="font-size: 12px; color: var(--text-muted); background: var(--bg-tertiary); padding: 4px 8px; border-radius: 4px;">jan. 2025</span>
-                            </div>
+                        <div style="display: flex; flex-direction: column; gap: 8px;">
+                            <div style="padding: 8px; background: white; border-radius: 4px; font-size: 12px;">Brigade Minière Spéciale</div>
+                            <div style="padding: 8px; background: white; border-radius: 4px; font-size: 12px;">Cadre juridique clarifié</div>
+                            <div style="padding: 8px; background: white; border-radius: 4px; font-size: 12px;">Cartographie géologique</div>
+                            <div style="padding: 8px; background: white; border-radius: 4px; font-size: 12px;">Conseil d'Administration actif</div>
                         </div>
                     </div>
 
                     <!-- PLANIFIÉ -->
-                    <div style="background: var(--bg-secondary); border-radius: var(--card-radius); padding: 24px; border-top: 4px solid var(--accent-secondary); display: flex; flex-direction: column;">
-                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px;">
-                            <div style="width: 32px; height: 32px; background: var(--accent-secondary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700;">○</div>
-                            <div style="font-size: 14px; font-weight: 700; color: var(--accent-secondary); text-transform: uppercase; letter-spacing: 1px;">PLANIFIÉ — OPPORTUNITÉS</div>
+                    <div class="card" style="border-top: 4px solid var(--accent-secondary);">
+                        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+                            <div style="width: 24px; height: 24px; background: var(--accent-secondary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 12px;">○</div>
+                            <div style="font-size: 12px; font-weight: 700; color: var(--accent-secondary); text-transform: uppercase;">PLANIFIÉ</div>
                         </div>
-
-                        <div style="display: flex; flex-direction: column; gap: 16px; flex: 1;">
-                            <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; background: white; border-radius: 6px; border-left: 3px solid var(--accent-secondary);">
-                                <span style="font-size: 14px; font-weight: 600; color: var(--text-primary);">Comptoirs d'achat provinciaux</span>
-                                <span style="font-size: 12px; color: var(--accent-secondary); background: rgba(232, 93, 4, 0.1); padding: 4px 8px; border-radius: 4px;">infrastructure</span>
-                            </div>
-                            <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; background: white; border-radius: 6px; border-left: 3px solid var(--accent-secondary);">
-                                <span style="font-size: 14px; font-weight: 600; color: var(--text-primary);">Raffinerie nationale</span>
-                                <span style="font-size: 12px; color: var(--accent-secondary); background: rgba(232, 93, 4, 0.1); padding: 4px 8px; border-radius: 4px;">valeur ajoutée</span>
-                            </div>
-                            <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; background: white; border-radius: 6px; border-left: 3px solid var(--accent-secondary);">
-                                <span style="font-size: 14px; font-weight: 600; color: var(--text-primary);">Campagnes d'exploration ciblées</span>
-                                <span style="font-size: 12px; color: var(--accent-secondary); background: rgba(232, 93, 4, 0.1); padding: 4px 8px; border-radius: 4px;">découvertes</span>
-                            </div>
+                        <div style="display: flex; flex-direction: column; gap: 8px;">
+                            <div style="padding: 8px; background: white; border-radius: 4px; font-size: 12px; border-left: 3px solid var(--accent-secondary);">Comptoirs d'achat provinciaux</div>
+                            <div style="padding: 8px; background: white; border-radius: 4px; font-size: 12px; border-left: 3px solid var(--accent-secondary);">Raffinerie nationale</div>
+                            <div style="padding: 8px; background: white; border-radius: 4px; font-size: 12px; border-left: 3px solid var(--accent-secondary);">Campagnes d'exploration ciblées</div>
                         </div>
-
-                        <div style="margin-top: 16px; padding: 12px; background: rgba(232, 93, 4, 0.1); border-radius: 6px; text-align: center;">
-                            <span style="font-size: 13px; color: var(--accent-secondary); font-weight: 600;">Les prochaines étapes sont des opportunités de partenariat</span>
-                        </div>
+                        <div style="margin-top: 12px; padding: 8px; background: rgba(232, 93, 4, 0.1); border-radius: 4px; text-align: center; font-size: 11px; color: var(--accent-secondary); font-weight: 600;">Opportunités de partenariat</div>
                     </div>
                 </div>
 
@@ -1221,150 +1135,59 @@
         </div>
 
         <!-- ==========================================
-             SLIDE 7: ALLOCATION DU CAPITAL (refait)
+             SLIDE 7: ALLOCATION DU CAPITAL
              ========================================== -->
         <div class="slide" data-slide="7">
             <span class="section-label">ALLOCATION DU CAPITAL</span>
-            <h1 class="headline">Le Tchad a besoin de partenaires à chaque niveau — voici où</h1>
+            <h1 class="headline">Le Tchad a besoin de partenaires à chaque niveau</h1>
             <p class="subtitle">Chaque minéral a sa logique. Chaque acteur a sa place.</p>
 
-            <div class="content-area" style="padding-top: 8px;">
-                <div style="display: grid; grid-template-columns: 5fr 3fr; gap: 24px; flex: 1;">
-
-                    <!-- LEFT: MATRICE -->
-                    <div style="background: var(--bg-secondary); border-radius: var(--card-radius); padding: 16px; display: flex; flex-direction: column; position: relative;">
-
-                        <!-- Horizontal axis: CAPITAL title + FAIBLE | ÉLEVÉ -->
-                        <div style="display: grid; grid-template-columns: 44px 1fr 1fr; gap: 10px; margin-bottom: 6px;">
-                            <div></div>
-                            <div style="grid-column: span 2; text-align: center; font-size: 9px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px;">CAPITAL</div>
-                        </div>
-                        <div style="display: grid; grid-template-columns: 44px 1fr 1fr; gap: 10px; margin-bottom: 10px;">
-                            <div></div>
-                            <div style="text-align: center; font-size: 10px; font-weight: 600; color: var(--text-muted);">FAIBLE</div>
-                            <div style="text-align: center; font-size: 10px; font-weight: 600; color: var(--text-muted);">ÉLEVÉ</div>
-                        </div>
-
-                        <!-- Main matrix with vertical axis -->
-                        <div style="display: flex; flex: 1;">
-
-                            <!-- Vertical axis: TRANSFORMATION title + SIMPLE | COMPLEXE -->
-                            <div style="display: flex; margin-right: 10px;">
-                                <!-- TRANSFORMATION title -->
-                                <div style="width: 20px; display: flex; align-items: center; justify-content: center;">
-                                    <div style="writing-mode: vertical-rl; transform: rotate(180deg); font-size: 9px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px;">TRANSFORMATION</div>
-                                </div>
-                                <!-- SIMPLE | COMPLEXE labels -->
-                                <div style="width: 24px; display: grid; grid-template-rows: 1fr 1fr;">
-                                    <div style="display: flex; align-items: center; justify-content: center;">
-                                        <div style="writing-mode: vertical-rl; transform: rotate(180deg); font-size: 10px; font-weight: 600; color: var(--text-muted);">SIMPLE</div>
-                                    </div>
-                                    <div style="display: flex; align-items: center; justify-content: center;">
-                                        <div style="writing-mode: vertical-rl; transform: rotate(180deg); font-size: 10px; font-weight: 600; color: var(--text-muted);">COMPLEXE</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- 2x2 Matrix Grid -->
-                            <div style="display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 10px; flex: 1;">
-
-                                <!-- Cell: ARTISANAL -->
-                                <div style="background: var(--bg-primary); border-radius: 8px; padding: 14px; border-left: 4px solid var(--accent-primary);">
-                                    <div style="font-size: 12px; font-weight: 700; color: var(--accent-primary); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;">ARTISANAL</div>
-                                    <div style="font-size: 14px; font-weight: 600; color: var(--text-primary); margin-bottom: 3px;">OR ALLUVIAL • ANTIMOINE</div>
-                                    <div style="font-size: 13px; color: var(--text-muted); padding-bottom: 8px; margin-bottom: 8px; border-bottom: 1px solid #e5e5e5;">$50 - $1,500 / unité</div>
-                                    <div style="display: flex; flex-direction: column; gap: 4px; font-size: 12px;">
-                                        <span><span style="color: var(--accent-primary);">●●●</span> <span style="color: var(--text-secondary);">Orpailleurs</span></span>
-                                        <span><span style="color: var(--accent-primary);">●●</span><span style="color: var(--text-muted);">○</span> <span style="color: var(--text-secondary);">Entrepreneurs</span></span>
-                                        <span><span style="color: var(--text-muted);">○○○</span> <span style="color: var(--text-secondary);">Partenaires</span></span>
-                                    </div>
-                                </div>
-
-                                <!-- Cell: INFRASTRUCTURE -->
-                                <div style="background: var(--bg-primary); border-radius: 8px; padding: 14px; border-left: 4px solid var(--accent-secondary);">
-                                    <div style="font-size: 12px; font-weight: 700; color: var(--accent-secondary); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;">INFRASTRUCTURE</div>
-                                    <div style="font-size: 14px; font-weight: 600; color: var(--text-primary); margin-bottom: 3px;">Comptoirs • Raffinerie • Routes</div>
-                                    <div style="font-size: 13px; color: var(--text-muted); padding-bottom: 8px; margin-bottom: 8px; border-bottom: 1px solid #e5e5e5;">$100K - $50M</div>
-                                    <div style="display: flex; flex-direction: column; gap: 4px; font-size: 12px;">
-                                        <span><span style="color: var(--text-muted);">○○○</span> <span style="color: var(--text-secondary);">Orpailleurs</span></span>
-                                        <span><span style="color: var(--accent-primary);">●●</span><span style="color: var(--text-muted);">○</span> <span style="color: var(--text-secondary);">Entrepreneurs</span></span>
-                                        <span><span style="color: var(--accent-primary);">●●</span><span style="color: var(--text-muted);">○</span> <span style="color: var(--text-secondary);">Partenaires</span></span>
-                                    </div>
-                                </div>
-
-                                <!-- Cell: ÉMERGENT -->
-                                <div style="background: var(--bg-primary); border-radius: 8px; padding: 14px; border-left: 4px solid var(--accent-primary);">
-                                    <div style="font-size: 12px; font-weight: 700; color: var(--accent-primary); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;">ÉMERGENT</div>
-                                    <div style="font-size: 14px; font-weight: 600; color: var(--text-primary); margin-bottom: 3px;">OR PRIMAIRE • ANTIMOINE</div>
-                                    <div style="font-size: 13px; color: var(--text-muted); padding-bottom: 8px; margin-bottom: 8px; border-bottom: 1px solid #e5e5e5;">$5-20M / cible</div>
-                                    <div style="display: flex; flex-direction: column; gap: 4px; font-size: 12px;">
-                                        <span><span style="color: var(--accent-primary);">●●</span><span style="color: var(--text-muted);">○</span> <span style="color: var(--text-secondary);">Orpailleurs</span></span>
-                                        <span><span style="color: var(--accent-primary);">●●</span><span style="color: var(--text-muted);">○</span> <span style="color: var(--text-secondary);">Entrepreneurs</span></span>
-                                        <span><span style="color: var(--accent-primary);">●●</span><span style="color: var(--text-muted);">○</span> <span style="color: var(--text-secondary);">Partenaires</span></span>
-                                    </div>
-                                </div>
-
-                                <!-- Cell: INDUSTRIEL -->
-                                <div style="background: var(--bg-primary); border-radius: 8px; padding: 14px; border-left: 4px solid var(--text-secondary);">
-                                    <div style="font-size: 12px; font-weight: 700; color: var(--text-secondary); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;">INDUSTRIEL</div>
-                                    <div style="font-size: 14px; font-weight: 600; color: var(--text-primary); margin-bottom: 3px;">URANIUM • BAUXITE • CUIVRE</div>
-                                    <div style="font-size: 13px; color: var(--text-muted); padding-bottom: 8px; margin-bottom: 8px; border-bottom: 1px solid #e5e5e5;">$500M - $2B+</div>
-                                    <div style="display: flex; flex-direction: column; gap: 4px; font-size: 12px;">
-                                        <span><span style="color: var(--text-muted);">○○○</span> <span style="color: var(--text-secondary);">Orpailleurs</span></span>
-                                        <span><span style="color: var(--text-muted);">○○○</span> <span style="color: var(--text-secondary);">Entrepreneurs</span></span>
-                                        <span><span style="color: var(--accent-primary);">●●●</span> <span style="color: var(--text-secondary);">Partenaires</span></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Legend -->
-                        <div style="margin-top: 10px; font-size: 10px; color: var(--text-muted); display: flex; gap: 16px; justify-content: center; padding-top: 6px; border-top: 1px solid var(--bg-tertiary);">
-                            <span>●●● Critique</span>
-                            <span>●● Important</span>
-                            <span>○ Limité</span>
-                        </div>
+            <div class="content-area">
+                <div class="card-grid cols-2">
+                    <!-- ARTISANAL -->
+                    <div class="card" style="border-left: 4px solid var(--accent-primary); border-top: none;">
+                        <div style="font-size: 11px; font-weight: 700; color: var(--accent-primary); margin-bottom: 4px; text-transform: uppercase;">ARTISANAL</div>
+                        <div style="font-size: 13px; font-weight: 600; color: var(--text-primary);">Or alluvial • Antimoine</div>
+                        <div style="font-size: 12px; color: var(--text-muted);">$50 - $1,500 / unité</div>
                     </div>
 
-                    <!-- RIGHT: ACTEURS -->
-                    <div style="display: flex; flex-direction: column; gap: 10px;">
+                    <!-- ÉMERGENT -->
+                    <div class="card" style="border-left: 4px solid var(--accent-primary); border-top: none;">
+                        <div style="font-size: 11px; font-weight: 700; color: var(--accent-primary); margin-bottom: 4px; text-transform: uppercase;">ÉMERGENT</div>
+                        <div style="font-size: 13px; font-weight: 600; color: var(--text-primary);">Or primaire • Antimoine</div>
+                        <div style="font-size: 12px; color: var(--text-muted);">$5-20M / cible</div>
+                    </div>
 
-                        <!-- Card: Orpailleurs -->
-                        <div style="background: var(--bg-secondary); border-radius: var(--card-radius); padding: 14px; border-top: 4px solid var(--accent-primary); flex: 1;">
-                            <div style="font-size: 12px; font-weight: 700; color: var(--accent-primary); margin-bottom: 4px;">ORPAILLEURS</div>
-                            <div style="font-size: 18px; font-weight: 800; color: var(--text-primary);">300,000</div>
-                            <div style="font-size: 11px; color: var(--text-secondary); margin-bottom: 8px;">actifs au Tchad</div>
-                            <div style="display: flex; flex-direction: column; gap: 4px;">
-                                <div style="padding: 6px 8px; background: white; border-radius: 4px; font-size: 11px; color: var(--text-primary);">Prospection terrain</div>
-                                <div style="padding: 6px 8px; background: white; border-radius: 4px; font-size: 11px; color: var(--text-primary);">Validation présence minerai</div>
-                                <div style="padding: 6px 8px; background: white; border-radius: 4px; font-size: 11px; color: var(--text-primary);">Extraction alluviale</div>
-                            </div>
-                        </div>
+                    <!-- INFRASTRUCTURE -->
+                    <div class="card" style="border-left: 4px solid var(--accent-secondary); border-top: none;">
+                        <div style="font-size: 11px; font-weight: 700; color: var(--accent-secondary); margin-bottom: 4px; text-transform: uppercase;">INFRASTRUCTURE</div>
+                        <div style="font-size: 13px; font-weight: 600; color: var(--text-primary);">Comptoirs • Raffinerie</div>
+                        <div style="font-size: 12px; color: var(--text-muted);">$100K - $50M</div>
+                    </div>
 
-                        <!-- Card: Entrepreneurs -->
-                        <div style="background: var(--bg-secondary); border-radius: var(--card-radius); padding: 14px; border-top: 4px solid var(--accent-secondary); flex: 1;">
-                            <div style="font-size: 12px; font-weight: 700; color: var(--accent-secondary); margin-bottom: 4px;">ENTREPRENEURS</div>
-                            <div style="font-size: 18px; font-weight: 800; color: var(--text-primary);">$1K - $5M</div>
-                            <div style="font-size: 11px; color: var(--text-secondary); margin-bottom: 8px;">équipement</div>
-                            <div style="display: flex; flex-direction: column; gap: 4px;">
-                                <div style="padding: 6px 8px; background: white; border-radius: 4px; font-size: 11px; color: var(--text-primary);">Mécanisation</div>
-                                <div style="padding: 6px 8px; background: white; border-radius: 4px; font-size: 11px; color: var(--text-primary);">Services & logistique</div>
-                                <div style="padding: 6px 8px; background: white; border-radius: 4px; font-size: 11px; color: var(--text-primary);">Infrastructure légère</div>
-                            </div>
-                        </div>
+                    <!-- INDUSTRIEL -->
+                    <div class="card" style="border-left: 4px solid var(--text-secondary); border-top: none;">
+                        <div style="font-size: 11px; font-weight: 700; color: var(--text-secondary); margin-bottom: 4px; text-transform: uppercase;">INDUSTRIEL</div>
+                        <div style="font-size: 13px; font-weight: 600; color: var(--text-primary);">Uranium • Bauxite • Cuivre</div>
+                        <div style="font-size: 12px; color: var(--text-muted);">$500M - $2B+</div>
+                    </div>
+                </div>
 
-                        <!-- Card: Partenaires -->
-                        <div style="background: var(--bg-secondary); border-radius: var(--card-radius); padding: 14px; border-top: 4px solid var(--text-secondary); flex: 1;">
-                            <div style="font-size: 12px; font-weight: 700; color: var(--text-secondary); margin-bottom: 4px;">PARTENAIRES</div>
-                            <div style="font-size: 18px; font-weight: 800; color: var(--text-primary);">$5M - $2B+</div>
-                            <div style="font-size: 11px; color: var(--text-secondary); margin-bottom: 8px;">capital</div>
-                            <div style="display: flex; flex-direction: column; gap: 4px;">
-                                <div style="padding: 6px 8px; background: white; border-radius: 4px; font-size: 11px; color: var(--text-primary);">Technologie & expertise</div>
-                                <div style="padding: 6px 8px; background: white; border-radius: 4px; font-size: 11px; color: var(--text-primary);">Standards NI 43-101</div>
-                                <div style="padding: 6px 8px; background: white; border-radius: 4px; font-size: 11px; color: var(--text-primary);">Accès marchés capitaux</div>
-                            </div>
-                        </div>
-
+                <div class="card-grid cols-3" style="margin-top: 12px;">
+                    <div class="stat-card">
+                        <div style="font-size: 11px; font-weight: 700; color: var(--accent-primary);">ORPAILLEURS</div>
+                        <div class="stat-number" style="font-size: 24px;">300K</div>
+                        <div class="stat-label">actifs au Tchad</div>
+                    </div>
+                    <div class="stat-card accent-secondary">
+                        <div style="font-size: 11px; font-weight: 700; color: var(--accent-secondary);">ENTREPRENEURS</div>
+                        <div class="stat-number secondary" style="font-size: 24px;">$1K-5M</div>
+                        <div class="stat-label">équipement</div>
+                    </div>
+                    <div class="stat-card" style="border-color: var(--text-secondary);">
+                        <div style="font-size: 11px; font-weight: 700; color: var(--text-secondary);">PARTENAIRES</div>
+                        <div class="stat-number muted" style="font-size: 24px;">$5M-2B+</div>
+                        <div class="stat-label">capital</div>
                     </div>
                 </div>
 
@@ -1374,61 +1197,49 @@
             </div>
 
             <div class="slide-footer">
-                <span class="source-text">Source: MinEx Consulting, GoldBod Ghana, World Nuclear Association</span>
+                <span class="source-text">Source: MinEx Consulting, GoldBod Ghana</span>
                 <span class="slide-number">07</span>
             </div>
         </div>
 
         <!-- ==========================================
-             SLIDE 8: BENCHMARK GHANA (layout 2/3 + 1/3)
+             SLIDE 8: BENCHMARK GHANA
              ========================================== -->
         <div class="slide" data-slide="8">
             <span class="section-label">BENCHMARK</span>
             <h1 class="headline">Ghana GoldBod: transformation en 12 mois</h1>
             <p class="subtitle">Preuve qu'une formalisation rapide est possible</p>
 
-            <div class="content-area" style="padding-top: 8px;">
-                <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 24px; flex: 1;">
-
-                    <!-- LEFT 2/3: Stats -->
-                    <div style="display: flex; flex-direction: column; gap: 16px;">
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
-                            <div class="stat-card">
-                                <div class="stat-number">103t</div>
-                                <div class="stat-label">Production ASM formalisée</div>
-                            </div>
-                            <div class="stat-card">
-                                <div class="stat-number">$10.8B</div>
-                                <div class="stat-label">Revenus export ASM</div>
-                            </div>
-                        </div>
-
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
-                            <div class="stat-card accent-secondary">
-                                <div class="stat-number secondary">18:1</div>
-                                <div class="stat-label">Ratio bénéfice/coût</div>
-                            </div>
-                            <div class="stat-card accent-secondary">
-                                <div class="stat-number secondary">80-90%</div>
-                                <div class="stat-label">Prix payé aux orpailleurs et entreprises locales</div>
-                            </div>
-                        </div>
-
-                        <div class="mechanism-box" style="flex: 1; display: flex; flex-direction: column; justify-content: center;">
-                            <div class="mechanism-label">Mécanisme clé</div>
-                            <div class="mechanism-formula"><span class="highlight">Comptoir unique</span> + <span class="highlight">Prix compétitif</span> + <span class="highlight">Traçabilité</span> = Incitation à formaliser</div>
-                        </div>
+            <div class="content-area">
+                <div class="card-grid cols-2">
+                    <div class="stat-card">
+                        <div class="stat-number">103t</div>
+                        <div class="stat-label">Production ASM formalisée</div>
                     </div>
-
-                    <!-- RIGHT 1/3: Contrebande récupérée -->
-                    <div style="background: var(--accent-primary); border-radius: var(--card-radius); padding: 24px; color: white; display: flex; flex-direction: column; justify-content: center; text-align: center;">
-                        <div style="font-size: 12px; text-transform: uppercase; letter-spacing: 1px; opacity: 0.8; margin-bottom: 16px;">Récupéré des contrebandiers</div>
-                        <div style="font-size: 64px; font-weight: 800; line-height: 1;">39t</div>
-                        <div style="font-size: 28px; font-weight: 700; margin-top: 8px;">~$3.8B</div>
-                        <div style="font-size: 14px; opacity: 0.9; margin-top: 16px; line-height: 1.4;">
-                            Valeur captée en 12 mois grâce à la formalisation
-                        </div>
+                    <div class="stat-card">
+                        <div class="stat-number">$10.8B</div>
+                        <div class="stat-label">Revenus export ASM</div>
                     </div>
+                    <div class="stat-card accent-secondary">
+                        <div class="stat-number secondary">18:1</div>
+                        <div class="stat-label">Ratio bénéfice/coût</div>
+                    </div>
+                    <div class="stat-card accent-secondary">
+                        <div class="stat-number secondary">80-90%</div>
+                        <div class="stat-label">Prix aux orpailleurs</div>
+                    </div>
+                </div>
+
+                <div style="background: var(--accent-primary); border-radius: var(--card-radius); padding: 16px; color: white; text-align: center;">
+                    <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; opacity: 0.8;">Récupéré des contrebandiers</div>
+                    <div style="font-size: 48px; font-weight: 800; line-height: 1;">39t</div>
+                    <div style="font-size: 20px; font-weight: 700;">~$3.8B</div>
+                    <div style="font-size: 12px; opacity: 0.9; margin-top: 8px;">en 12 mois grâce à la formalisation</div>
+                </div>
+
+                <div class="mechanism-box">
+                    <div class="mechanism-label">Mécanisme clé</div>
+                    <div class="mechanism-formula"><span class="highlight">Comptoir unique</span> + <span class="highlight">Prix compétitif</span> + <span class="highlight">Traçabilité</span></div>
                 </div>
 
                 <div class="takeaway">
@@ -1448,53 +1259,49 @@
         <div class="slide" data-slide="9">
             <span class="section-label">ENJEU</span>
             <h1 class="headline">La formalisation est la meilleure alternative à la contrebande</h1>
-            <p class="subtitle"></p>
 
-            <div class="content-area" style="padding-top: 8px;">
+            <div class="content-area">
                 <div class="card-grid cols-3">
                     <div class="stat-card">
-                        <div style="font-size: 12px; font-weight: 600; color: var(--accent-primary); margin-bottom: 6px;">GHANA (avant GoldBod)</div>
-                        <div class="stat-number">$2.2B</div>
-                        <div class="stat-label">perte annuelle estimée</div>
-                        <div style="font-size: 11px; color: var(--text-muted); margin-top: 6px;">1.1M oz non-captés</div>
+                        <div style="font-size: 11px; font-weight: 600; color: var(--accent-primary); margin-bottom: 4px;">GHANA (avant)</div>
+                        <div class="stat-number" style="font-size: 24px;">$2.2B</div>
+                        <div class="stat-label">perte annuelle</div>
                     </div>
                     <div class="stat-card accent-secondary">
-                        <div style="font-size: 12px; font-weight: 600; color: var(--accent-secondary); margin-bottom: 6px;">ZIMBABWE</div>
-                        <div class="stat-number secondary">$1.5B</div>
-                        <div class="stat-label">perte annuelle estimée</div>
-                        <div style="font-size: 11px; color: var(--text-muted); margin-top: 6px;">40% de la production</div>
+                        <div style="font-size: 11px; font-weight: 600; color: var(--accent-secondary); margin-bottom: 4px;">ZIMBABWE</div>
+                        <div class="stat-number secondary" style="font-size: 24px;">$1.5B</div>
+                        <div class="stat-label">perte annuelle</div>
                     </div>
                     <div class="stat-card">
-                        <div style="font-size: 12px; font-weight: 600; color: var(--accent-primary); margin-bottom: 6px;">TANZANIE</div>
-                        <div class="stat-number">~$1B</div>
-                        <div class="stat-label">perte annuelle estimée</div>
-                        <div style="font-size: 11px; color: var(--text-muted); margin-top: 6px;">90% ASM non-formalisé</div>
+                        <div style="font-size: 11px; font-weight: 600; color: var(--accent-primary); margin-bottom: 4px;">TANZANIE</div>
+                        <div class="stat-number" style="font-size: 24px;">~$1B</div>
+                        <div class="stat-label">perte annuelle</div>
                     </div>
                 </div>
 
-                <div class="card" style="margin-top: 20px; border-top: 4px solid var(--accent-primary); flex: 1;">
-                    <div style="font-size: 11px; font-weight: 600; color: var(--accent-primary); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px;">LA SOLUTION: FORMALISATION</div>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px;">
+                <div class="card" style="border-top: 4px solid var(--accent-primary);">
+                    <div style="font-size: 11px; font-weight: 600; color: var(--accent-primary); text-transform: uppercase; margin-bottom: 12px;">LA SOLUTION: FORMALISATION</div>
+                    <div class="card-grid cols-3">
                         <div style="text-align: center;">
-                            <div style="font-size: 40px; margin-bottom: 12px;">🏛️</div>
-                            <div style="font-size: 16px; font-weight: 600; color: var(--text-primary);">Canal officiel</div>
-                            <div style="font-size: 13px; color: var(--text-muted); margin-top: 6px;">Comptoirs d'achat accessibles</div>
+                            <div style="font-size: 28px; margin-bottom: 6px;">🏛️</div>
+                            <div style="font-size: 13px; font-weight: 600;">Canal officiel</div>
+                            <div style="font-size: 11px; color: var(--text-muted);">Comptoirs accessibles</div>
                         </div>
                         <div style="text-align: center;">
-                            <div style="font-size: 40px; margin-bottom: 12px;">💰</div>
-                            <div style="font-size: 16px; font-weight: 600; color: var(--text-primary);">Prix compétitif</div>
-                            <div style="font-size: 13px; color: var(--text-muted); margin-top: 6px;">70-80% du prix mondial</div>
+                            <div style="font-size: 28px; margin-bottom: 6px;">💰</div>
+                            <div style="font-size: 13px; font-weight: 600;">Prix compétitif</div>
+                            <div style="font-size: 11px; color: var(--text-muted);">70-80% du mondial</div>
                         </div>
                         <div style="text-align: center;">
-                            <div style="font-size: 40px; margin-bottom: 12px;">📊</div>
-                            <div style="font-size: 16px; font-weight: 600; color: var(--text-primary);">Traçabilité</div>
-                            <div style="font-size: 13px; color: var(--text-muted); margin-top: 6px;">Confiance marchés internationaux</div>
+                            <div style="font-size: 28px; margin-bottom: 6px;">📊</div>
+                            <div style="font-size: 13px; font-weight: 600;">Traçabilité</div>
+                            <div style="font-size: 11px; color: var(--text-muted);">Confiance marchés</div>
                         </div>
                     </div>
                 </div>
 
                 <div class="takeaway">
-                    <span class="arrow">→</span> La formalisation n'est pas une contrainte — c'est le meilleur outil pour capturer la valeur qui s'échappe aujourd'hui.
+                    <span class="arrow">→</span> La formalisation n'est pas une contrainte — c'est le meilleur outil pour capturer la valeur.
                 </div>
             </div>
 
@@ -1512,62 +1319,40 @@
             <h1 class="headline">L'or alluvial: porte d'entrée vers un portefeuille diversifié</h1>
             <p class="subtitle">Séquencer selon la maturité</p>
 
-            <div class="content-area" style="padding-top: 8px;">
-                <!-- Main grid: 3 columns for phases -->
-                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 12px;">
-
-                    <!-- Card 1: ARTISANAL (0-2 ANS) -->
-                    <div style="background: var(--bg-secondary); border-radius: 8px; padding: 16px; border-top: 4px solid var(--accent-primary); display: flex; flex-direction: column;">
-                        <div style="font-size: 10px; font-weight: 700; color: var(--accent-primary); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px;">ARTISANAL</div>
-                        <div style="font-size: 20px; font-weight: 800; color: var(--text-primary); margin-bottom: 2px;">0-2 ANS</div>
-                        <div style="font-size: 12px; font-weight: 600; color: var(--text-primary); margin-bottom: 4px;">Or alluvial • Antimoine (brut)</div>
-                        <div style="font-size: 11px; color: var(--text-muted); padding-bottom: 10px; margin-bottom: 10px; border-bottom: 1px solid #e5e5e5;">$50 - $1,500 / unité</div>
-                        <div style="display: flex; flex-direction: column; gap: 6px; flex: 1;">
-                            <div style="padding: 6px 10px; background: white; border-radius: 4px; font-size: 11px; color: var(--text-primary);">Formalisation ASM</div>
-                            <div style="padding: 6px 10px; background: white; border-radius: 4px; font-size: 11px; color: var(--text-primary);">Comptoirs d'achat</div>
-                            <div style="padding: 6px 10px; background: white; border-radius: 4px; font-size: 11px; color: var(--text-primary);">Traçabilité</div>
-                        </div>
-                        <div style="margin-top: 10px; padding: 8px; background: rgba(196, 30, 58, 0.1); border-radius: 4px; text-align: center; font-size: 11px; font-weight: 600; color: var(--accent-primary);">Impact immédiat</div>
+            <div class="content-area">
+                <div class="card-grid cols-3">
+                    <div class="card" style="border-top: 4px solid var(--accent-primary);">
+                        <div style="font-size: 10px; font-weight: 700; color: var(--accent-primary); text-transform: uppercase;">ARTISANAL</div>
+                        <div style="font-size: 18px; font-weight: 800;">0-2 ANS</div>
+                        <div style="font-size: 11px; color: var(--text-secondary);">Or alluvial • Antimoine</div>
+                        <div style="font-size: 10px; color: var(--text-muted); margin-top: 8px;">Formalisation ASM • Comptoirs • Traçabilité</div>
+                        <div style="margin-top: 8px; padding: 6px; background: rgba(196, 30, 58, 0.1); border-radius: 4px; text-align: center; font-size: 10px; font-weight: 600; color: var(--accent-primary);">Impact immédiat</div>
                     </div>
 
-                    <!-- Card 2: ÉMERGENT (2-5 ANS) -->
-                    <div style="background: var(--bg-secondary); border-radius: 8px; padding: 16px; border-top: 4px solid var(--accent-primary); display: flex; flex-direction: column;">
-                        <div style="font-size: 10px; font-weight: 700; color: var(--accent-primary); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px;">ÉMERGENT</div>
-                        <div style="font-size: 20px; font-weight: 800; color: var(--text-primary); margin-bottom: 2px;">2-5 ANS</div>
-                        <div style="font-size: 12px; font-weight: 600; color: var(--text-primary); margin-bottom: 4px;">Or primaire • Antimoine (exploration)</div>
-                        <div style="font-size: 11px; color: var(--text-muted); padding-bottom: 10px; margin-bottom: 10px; border-bottom: 1px solid #e5e5e5;">$5-20M / cible</div>
-                        <div style="display: flex; flex-direction: column; gap: 6px; flex: 1;">
-                            <div style="padding: 6px 10px; background: white; border-radius: 4px; font-size: 11px; color: var(--text-primary);">Exploration ciblée</div>
-                            <div style="padding: 6px 10px; background: white; border-radius: 4px; font-size: 11px; color: var(--text-primary);">Études de faisabilité</div>
-                            <div style="padding: 6px 10px; background: white; border-radius: 4px; font-size: 11px; color: var(--text-primary);">Partenariats JV</div>
-                        </div>
-                        <div style="margin-top: 10px; padding: 8px; background: rgba(196, 30, 58, 0.1); border-radius: 4px; text-align: center; font-size: 11px; font-weight: 600; color: var(--accent-primary);">Minéral critique (Sb)</div>
+                    <div class="card" style="border-top: 4px solid var(--accent-primary);">
+                        <div style="font-size: 10px; font-weight: 700; color: var(--accent-primary); text-transform: uppercase;">ÉMERGENT</div>
+                        <div style="font-size: 18px; font-weight: 800;">2-5 ANS</div>
+                        <div style="font-size: 11px; color: var(--text-secondary);">Or primaire • Antimoine</div>
+                        <div style="font-size: 10px; color: var(--text-muted); margin-top: 8px;">Exploration • Faisabilité • JV</div>
+                        <div style="margin-top: 8px; padding: 6px; background: rgba(196, 30, 58, 0.1); border-radius: 4px; text-align: center; font-size: 10px; font-weight: 600; color: var(--accent-primary);">Minéral critique</div>
                     </div>
 
-                    <!-- Card 3: INDUSTRIEL (5+ ANS) -->
-                    <div style="background: var(--bg-secondary); border-radius: 8px; padding: 16px; border-top: 4px solid var(--text-secondary); display: flex; flex-direction: column;">
-                        <div style="font-size: 10px; font-weight: 700; color: var(--text-secondary); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px;">INDUSTRIEL</div>
-                        <div style="font-size: 20px; font-weight: 800; color: var(--text-primary); margin-bottom: 2px;">5+ ANS</div>
-                        <div style="font-size: 12px; font-weight: 600; color: var(--text-primary); margin-bottom: 4px;">Uranium • Bauxite • Cuivre</div>
-                        <div style="font-size: 11px; color: var(--text-muted); padding-bottom: 10px; margin-bottom: 10px; border-bottom: 1px solid #e5e5e5;">$500M - $2B+</div>
-                        <div style="display: flex; flex-direction: column; gap: 6px; flex: 1;">
-                            <div style="padding: 6px 10px; background: white; border-radius: 4px; font-size: 11px; color: var(--text-primary);">Exploration systématique</div>
-                            <div style="padding: 6px 10px; background: white; border-radius: 4px; font-size: 11px; color: var(--text-primary);">Infrastructure lourde</div>
-                            <div style="padding: 6px 10px; background: white; border-radius: 4px; font-size: 11px; color: var(--text-primary);">Mines industrielles</div>
-                        </div>
-                        <div style="margin-top: 10px; padding: 8px; background: rgba(100, 100, 100, 0.1); border-radius: 4px; text-align: center; font-size: 11px; font-weight: 600; color: var(--text-secondary);">Diversification complète</div>
+                    <div class="card" style="border-top: 4px solid var(--text-secondary);">
+                        <div style="font-size: 10px; font-weight: 700; color: var(--text-secondary); text-transform: uppercase;">INDUSTRIEL</div>
+                        <div style="font-size: 18px; font-weight: 800;">5+ ANS</div>
+                        <div style="font-size: 11px; color: var(--text-secondary);">Uranium • Bauxite • Cuivre</div>
+                        <div style="font-size: 10px; color: var(--text-muted); margin-top: 8px;">Exploration • Infrastructure • Mines</div>
+                        <div style="margin-top: 8px; padding: 6px; background: rgba(100, 100, 100, 0.1); border-radius: 4px; text-align: center; font-size: 10px; font-weight: 600; color: var(--text-secondary);">Diversification</div>
                     </div>
                 </div>
 
-                <!-- INFRASTRUCTURE bar spanning columns 2 and 3 -->
-                <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 16px; margin-bottom: 12px;">
-                    <div></div><!-- Spacer for column 1 -->
-                    <div style="background: var(--bg-secondary); border-radius: 8px; padding: 14px 20px; border-left: 4px solid var(--accent-secondary); display: flex; align-items: center; justify-content: space-between;">
+                <div class="card" style="border-left: 4px solid var(--accent-secondary); border-top: none;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
                         <div>
-                            <div style="font-size: 10px; font-weight: 700; color: var(--accent-secondary); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px;">INFRASTRUCTURE</div>
-                            <div style="font-size: 12px; font-weight: 600; color: var(--text-primary);">Comptoirs • Raffinerie • Routes • Exploration</div>
+                            <div style="font-size: 10px; font-weight: 700; color: var(--accent-secondary); text-transform: uppercase;">INFRASTRUCTURE</div>
+                            <div style="font-size: 12px; color: var(--text-primary);">Comptoirs • Raffinerie • Routes • Exploration</div>
                         </div>
-                        <div style="font-size: 13px; font-weight: 700; color: var(--accent-secondary);">$100K - $50M</div>
+                        <div style="font-size: 12px; font-weight: 700; color: var(--accent-secondary);">$100K - $50M</div>
                     </div>
                 </div>
 
@@ -1590,57 +1375,50 @@
             <h1 class="headline">Chacun trouve sa place dans la chaîne de valeur minérale du Tchad</h1>
             <p class="subtitle">De 1% à 3% du PIB = $540M de revenus fiscaux</p>
 
-            <div class="content-area" style="padding-top: 8px;">
-                <div class="conclusion-grid" style="flex: 1; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto auto; gap: 16px;">
-                    <!-- Card 1: CE QUE VOUS AVEZ VU -->
-                    <div class="conclusion-card" style="background: var(--bg-primary); border-radius: 10px; padding: 20px; border-left: 4px solid var(--accent-primary);">
-                        <div style="font-size: 11px; font-weight: 700; color: var(--accent-primary); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 1px;">CE QUE VOUS AVEZ VU</div>
-                        <ul class="conclusion-list" style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px;">
-                            <li style="font-size: 13px; color: var(--text-secondary); padding-left: 16px; position: relative;"><span style="position: absolute; left: 0; color: var(--accent-primary);">→</span><strong style="color: var(--text-primary);">300K prospecteurs</strong> = découverte décentralisée</li>
-                            <li style="font-size: 13px; color: var(--text-secondary); padding-left: 16px; position: relative;"><span style="position: absolute; left: 0; color: var(--accent-primary);">→</span><strong style="color: var(--text-primary);">SONEMIC</strong> : fondations en place, partenaires bienvenus</li>
-                            <li style="font-size: 13px; color: var(--text-secondary); padding-left: 16px; position: relative;"><span style="position: absolute; left: 0; color: var(--accent-primary);">→</span><strong style="color: var(--text-primary);">Ghana</strong> : transformation rapide possible</li>
-                        </ul>
-                    </div>
-
-                    <!-- Card 2: CE QUE VOUS POUVEZ FAIRE -->
-                    <div class="conclusion-card secondary" style="background: var(--bg-primary); border-radius: 10px; padding: 20px; border-left: 4px solid var(--accent-secondary);">
-                        <div style="font-size: 11px; font-weight: 700; color: var(--accent-secondary); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 1px;">CE QUE VOUS POUVEZ FAIRE</div>
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
-                            <div style="font-size: 12px; color: var(--text-secondary); padding: 6px 10px; background: #f8f8f8; border-radius: 4px;"><span style="color: var(--text-muted); font-size: 10px; margin-right: 6px;">①</span>Prospection terrain</div>
-                            <div style="font-size: 12px; color: var(--text-secondary); padding: 6px 10px; background: #f8f8f8; border-radius: 4px;"><span style="color: var(--text-muted); font-size: 10px; margin-right: 6px;">②</span>Extraction & mécanisation</div>
-                            <div style="font-size: 12px; color: var(--text-secondary); padding: 6px 10px; background: #f8f8f8; border-radius: 4px;"><span style="color: var(--text-muted); font-size: 10px; margin-right: 6px;">③</span>Services & logistique</div>
-                            <div style="font-size: 12px; color: var(--text-secondary); padding: 6px 10px; background: #f8f8f8; border-radius: 4px;"><span style="color: var(--text-muted); font-size: 10px; margin-right: 6px;">④</span>Infrastructure</div>
-                            <div style="font-size: 12px; color: var(--text-secondary); padding: 6px 10px; background: #f8f8f8; border-radius: 4px;"><span style="color: var(--text-muted); font-size: 10px; margin-right: 6px;">⑤</span>Exploration & études</div>
-                            <div style="font-size: 12px; color: var(--text-secondary); padding: 6px 10px; background: #f8f8f8; border-radius: 4px;"><span style="color: var(--text-muted); font-size: 10px; margin-right: 6px;">⑥</span>Technologie & capitaux</div>
+            <div class="content-area">
+                <div class="conclusion-grid">
+                    <div class="card" style="border-left: 4px solid var(--accent-primary); border-top: none;">
+                        <div style="font-size: 11px; font-weight: 700; color: var(--accent-primary); margin-bottom: 8px; text-transform: uppercase;">CE QUE VOUS AVEZ VU</div>
+                        <div style="font-size: 12px; color: var(--text-secondary); line-height: 1.6;">
+                            → <strong>300K prospecteurs</strong> = découverte décentralisée<br>
+                            → <strong>SONEMIC</strong> : fondations en place<br>
+                            → <strong>Ghana</strong> : transformation rapide possible
                         </div>
                     </div>
 
-                    <!-- CTA Box with QR Code -->
-                    <div class="cta-box" style="grid-column: span 2; background: var(--accent-primary); border-radius: 10px; padding: 20px; color: white; display: flex; align-items: center; gap: 24px;">
-                        <!-- Left: Content -->
-                        <div style="flex: 1; text-align: center;">
-                            <div style="font-size: 14px; font-weight: 500; margin-bottom: 16px; line-height: 1.5;">
-                                Quatre segments. Trois types d'acteurs. Une chaîne de valeur complète.
-                            </div>
-                            <!-- 4 Mini-cards -->
-                            <div style="display: flex; justify-content: center; gap: 12px; margin-bottom: 16px;">
-                                <div style="background: white; color: var(--accent-primary); padding: 8px 14px; border-radius: 6px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">ARTISANAL</div>
-                                <div style="background: white; color: var(--accent-secondary); padding: 8px 14px; border-radius: 6px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">ÉMERGENT</div>
-                                <div style="background: white; color: #1e3a5f; padding: 8px 14px; border-radius: 6px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">INDUSTRIEL</div>
-                                <div style="background: white; color: #666; padding: 8px 14px; border-radius: 6px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">INFRASTRUCTURE</div>
-                            </div>
-                            <div style="font-size: 16px; font-style: italic; margin-bottom: 10px;">
-                                Trouvez votre place. Les conversations commencent ici, à SEMICA.
-                            </div>
-                            <div style="font-size: 12px; font-weight: 600;">— Ali Adoudou</div>
+                    <div class="card" style="border-left: 4px solid var(--accent-secondary); border-top: none;">
+                        <div style="font-size: 11px; font-weight: 700; color: var(--accent-secondary); margin-bottom: 8px; text-transform: uppercase;">CE QUE VOUS POUVEZ FAIRE</div>
+                        <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+                            <span style="font-size: 11px; padding: 4px 8px; background: #f8f8f8; border-radius: 4px;">①Prospection</span>
+                            <span style="font-size: 11px; padding: 4px 8px; background: #f8f8f8; border-radius: 4px;">②Extraction</span>
+                            <span style="font-size: 11px; padding: 4px 8px; background: #f8f8f8; border-radius: 4px;">③Services</span>
+                            <span style="font-size: 11px; padding: 4px 8px; background: #f8f8f8; border-radius: 4px;">④Infrastructure</span>
+                            <span style="font-size: 11px; padding: 4px 8px; background: #f8f8f8; border-radius: 4px;">⑤Exploration</span>
+                            <span style="font-size: 11px; padding: 4px 8px; background: #f8f8f8; border-radius: 4px;">⑥Capital</span>
                         </div>
-                        <!-- Right: QR Code -->
-                        <div style="flex-shrink: 0; text-align: center;">
-                            <div style="background: white; padding: 8px; border-radius: 8px; display: inline-block;">
-                                <img src="qrcode.png" alt="QR Code" style="width: 90px; height: 90px; display: block;">
-                            </div>
-                            <div style="font-size: 10px; margin-top: 6px; opacity: 0.9;">Télécharger la présentation</div>
+                    </div>
+                </div>
+
+                <div class="cta-box">
+                    <div style="font-size: 13px; font-weight: 500; margin-bottom: 12px;">
+                        Quatre segments. Trois types d'acteurs. Une chaîne de valeur complète.
+                    </div>
+                    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-bottom: 12px;">
+                        <span style="background: white; color: var(--accent-primary); padding: 6px 10px; border-radius: 4px; font-size: 9px; font-weight: 700; text-transform: uppercase;">ARTISANAL</span>
+                        <span style="background: white; color: var(--accent-secondary); padding: 6px 10px; border-radius: 4px; font-size: 9px; font-weight: 700; text-transform: uppercase;">ÉMERGENT</span>
+                        <span style="background: white; color: #1e3a5f; padding: 6px 10px; border-radius: 4px; font-size: 9px; font-weight: 700; text-transform: uppercase;">INDUSTRIEL</span>
+                        <span style="background: white; color: #666; padding: 6px 10px; border-radius: 4px; font-size: 9px; font-weight: 700; text-transform: uppercase;">INFRASTRUCTURE</span>
+                    </div>
+                    <div style="font-size: 14px; font-style: italic; margin-bottom: 8px;">
+                        Trouvez votre place. Les conversations commencent ici, à SEMICA.
+                    </div>
+                    <div style="font-size: 11px; font-weight: 600;">— Ali Adoudou</div>
+
+                    <div style="margin-top: 16px; display: flex; justify-content: center; align-items: center; gap: 12px;">
+                        <div style="background: white; padding: 6px; border-radius: 6px;">
+                            <img src="qrcode.png" alt="QR Code" style="width: 70px; height: 70px; display: block;">
                         </div>
+                        <div style="font-size: 10px; text-align: left; opacity: 0.9;">Télécharger<br>la présentation</div>
                     </div>
                 </div>
             </div>
@@ -1663,7 +1441,7 @@
         const totalSlides = 11;
         let isPlaying = false;
         let playInterval = null;
-        const SLIDE_DURATION = 20000; // 20 seconds
+        const SLIDE_DURATION = 20000;
 
         // ==========================================
         // ELEMENTS
@@ -1676,7 +1454,6 @@
         const currentNum = document.getElementById('currentNum');
         const totalNum = document.getElementById('totalNum');
 
-        // Init total
         totalNum.textContent = totalSlides;
 
         // ==========================================
@@ -1701,21 +1478,20 @@
             if (num < 1 || num > totalSlides) return;
 
             slides.forEach(s => s.classList.remove('active'));
-            const slide = getSlide(num);
-            if (slide) {
-                slide.classList.add('active');
+            const targetSlide = getSlide(num);
+            if (targetSlide) {
+                targetSlide.classList.add('active');
                 currentSlide = num;
                 updateProgress();
                 updateIndicator();
+                // Scroll to top on mobile
+                window.scrollTo(0, 0);
             }
         }
 
         function nextSlide() {
             if (currentSlide < totalSlides) {
                 goToSlide(currentSlide + 1);
-            } else if (isPlaying) {
-                // Loop back to start when playing
-                goToSlide(1);
             }
         }
 
@@ -1725,60 +1501,34 @@
             }
         }
 
-        // ==========================================
-        // AUTOPLAY
-        // ==========================================
-        function startAutoplay() {
-            isPlaying = true;
-            playBtn.classList.add('active');
-            playBtn.textContent = '⏸';
-            playBtn.title = 'Pause';
-
-            playInterval = setInterval(() => {
-                nextSlide();
-            }, SLIDE_DURATION);
-        }
-
-        function stopAutoplay() {
-            isPlaying = false;
-            playBtn.classList.remove('active');
-            playBtn.textContent = '▶';
-            playBtn.title = 'Lecture auto (45s)';
-
-            if (playInterval) {
-                clearInterval(playInterval);
-                playInterval = null;
-            }
-        }
-
         function toggleAutoplay() {
+            isPlaying = !isPlaying;
+            playBtn.textContent = isPlaying ? '⏸' : '▶';
+            playBtn.classList.toggle('active', isPlaying);
+
             if (isPlaying) {
-                stopAutoplay();
+                playInterval = setInterval(() => {
+                    if (currentSlide < totalSlides) {
+                        nextSlide();
+                    } else {
+                        toggleAutoplay();
+                    }
+                }, SLIDE_DURATION);
             } else {
-                startAutoplay();
+                clearInterval(playInterval);
             }
         }
 
         // ==========================================
         // EVENT LISTENERS
         // ==========================================
-        prevBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            prevSlide();
-        });
+        prevBtn.addEventListener('click', prevSlide);
+        nextBtn.addEventListener('click', nextSlide);
+        playBtn.addEventListener('click', toggleAutoplay);
 
-        nextBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            nextSlide();
-        });
-
-        playBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            toggleAutoplay();
-        });
-
+        // Keyboard navigation
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
                 e.preventDefault();
                 nextSlide();
             } else if (e.key === 'ArrowLeft' || e.key === 'Backspace') {
@@ -1794,7 +1544,6 @@
                 e.preventDefault();
                 toggleAutoplay();
             }
-            // Number keys for direct slide access
             const num = parseInt(e.key);
             if (num >= 1 && num <= 9 && num <= totalSlides) {
                 goToSlide(num);
@@ -1804,25 +1553,30 @@
             }
         });
 
-        // Touch support
+        // Touch support - swipe navigation
         let touchStartX = 0;
+        let touchStartY = 0;
 
         document.addEventListener('touchstart', (e) => {
             touchStartX = e.touches[0].clientX;
-        });
+            touchStartY = e.touches[0].clientY;
+        }, { passive: true });
 
         document.addEventListener('touchend', (e) => {
             const touchEndX = e.changedTouches[0].clientX;
+            const touchEndY = e.changedTouches[0].clientY;
             const diffX = touchEndX - touchStartX;
+            const diffY = touchEndY - touchStartY;
 
-            if (Math.abs(diffX) > 50) {
+            // Only trigger if horizontal swipe is greater than vertical
+            if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 50) {
                 if (diffX > 0) {
                     prevSlide();
                 } else {
                     nextSlide();
                 }
             }
-        });
+        }, { passive: true });
 
         // ==========================================
         // INIT
